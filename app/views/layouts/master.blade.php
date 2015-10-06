@@ -12,7 +12,7 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
 
-		<title>Blue Water a Hotel Category Flat Bootstrap Responsive Web Template| Home :: w3layouts</title>
+		<title>Kalugdan Garden Resort</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="keywords" content="Blue Water Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
@@ -56,7 +56,7 @@
 				<li class="{{ ($mt == 'ABOUT') ? 'active' : ''}}"><a href="{{ URL::Route('getAbout') }}">ABOUT</a></li>
 				<li class="{{ ($mt == 'SERVICES') ? 'active' : ''}}"><a href="{{ URL::Route('getServices') }}">SERVICES</a></li>
                 <li class="{{ ($mt == 'GALLERY') ? 'active' : ''}}"><a href="{{ URL::Route('getGallery') }}">GALLERY</a></li>
-                <li class="{{ ($mt == 'NEWS') ? 'active' : ''}}"><a href="{{ URL::Route('getNews') }}">NEWS</a></li>
+                <!--<li class="{{ ($mt == 'NEWS') ? 'active' : ''}}"><a href="{{ URL::Route('getNews') }}">NEWS</a></li>-->
                 <li class="{{ ($mt == 'TESTIMONIALS') ? 'active' : ''}}"><a href="{{ URL::Route('getTestimonials') }}">TESTIMONIALS</a></li>
                 <li class="{{ ($mt == 'CONTACT') ? 'active' : ''}}"><a href="{{ URL::Route('getContact') }}">CONTACT US</a></li>
                	<li class="{{ ($mt == 'RESERV') ? 'active' : ''}}"><a href="{{ URL::Route('getReservation') }}">RESERVATIONS</a></li>
