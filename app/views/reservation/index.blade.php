@@ -35,7 +35,10 @@
     </script>
 @stop
 @section('content')
-
+<?php 
+  $id = Auth::User()['id'];
+  $userInfo = UserInfo::find($id);
+?>
 <div class="container">
   <div class="row">
     
@@ -85,7 +88,7 @@
               </div>
               <ul class="list-unstyled nmb" id="list">
               </ul>
-              
+              <input type="text" class="form-control" id="checkCottage" name="checkCottage" placeholder="">
             </div>
             <div class="col-md-4">
               <div class="form-group">
@@ -98,7 +101,7 @@
               </div>
               <div class="form-group">
                 <label class="control-label">Email</label>
-                <input type="email" class="form-control input-sm" id="email" name="email"placeholder="" required>
+                <input type="email" class="form-control input-sm" id="email" name="email"placeholder="" value="{{$userInfo['email']}}"required>
               </div>
               <div class="row" style="margin:0px -5px !important;">
                 <div class="col-md-6" style="padding:0px 5px !important;">
@@ -142,7 +145,6 @@
       </form>
     </div>
   </div>
-  <input type="text" class="form-control" id="checkCottage" name="checkCottage" placeholder="">
 </div>
 <script type="text/javascript">
   $('input[name="day"]').click(function(){
