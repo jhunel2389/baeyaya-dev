@@ -77,7 +77,8 @@ Route::group(array('prefix' => 'register'), function()
 	Route::get('/',array('uses' =>'UserController@getCreate', 'as' => 'getCreate'));
 	Route::group(array('before' => 'csrf'), function()
 	{
-		Route::post('/', array('uses' => 'UserController@postCreate', 'as' => 'postCreate'));
+		Route::post('/postCreate', array('uses' => 'UserController@postCreate', 'as' => 'postCreate'));
+		Route::post('/forgotPassword', array('uses' => 'UserController@forgotPassword', 'as' => 'forgotPassword'));
 	});
 });
 
@@ -90,7 +91,7 @@ Route::group(array('before' => 'auth'), function()
 {
 	Route::get('/user/logout', array('uses' => 'UserController@getLogout', 'as' => 'getLogout'));
 });
-//added by jerbey--- for filemaintenance
+//added by daniel--- for filemaintenance
 Route::group(array('prefix' => 'admin'), function() 
 {
 	Route::get('/',array('uses' =>'FileMaintenanceController@getFM', 'as' => 'getFM'));
@@ -113,12 +114,4 @@ Route::group(array('prefix' => 'admin'), function()
 	});
 });
 
-Route::group(array('prefix' => '/ajax'),function()
-{
-	
-	Route::group(array('before' => 'csrf'), function()
-	{
-		Route::get('/loginAjax', array('uses' => 'UserController@loginAjax','as' => 'loginAjax'));
-	});
-});
 //end

@@ -119,9 +119,16 @@
 			return Redirect::route('home');
 		}
 
-		public function loginAjax()
+		public function forgotPassword()
 		{
-			Auth::logout();
-			return Redirect::route('home');
+			$emailChecker = User::where('email','=',Input::get('email'))->first();
+			if(empty($emailChecker))
+			{
+				return 1;
+			}
+			else
+			{
+				return 2;
+			}
 		}
 	}

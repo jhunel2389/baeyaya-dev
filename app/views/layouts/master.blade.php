@@ -116,6 +116,7 @@
 				<input type="submit" value="Login" name="sub" class="btn btn-default"/>
 				{{Form::token()}}
 			</form>
+			
 		</div>
 	</div>
 	<div id="small-dialog1" class="mfp-hide">
@@ -134,6 +135,15 @@
 		</div>
 	</div>	
 	
+	<div id="small-dialog2" class="mfp-hide">
+		<div class="signup">
+			<h3>Sign Up</h3>
+			<h4>Enter Your Details Here</h4>
+				<input type="text" placeholder="Enter Email" class="text" name="for_email" id="for_email"/>
+				<input type="submit" name="subfor" value="Submit" onclick="forgotPassword();" />
+		</div>
+	</div>	
+
 	<script>
 	$(document).ready(function() {
 		$('.popup-with-zoom-anim').magnificPopup({
@@ -149,6 +159,35 @@
 		});								
 	});
 
+	function forgotPassword()
+	{
+		$_token = "{{ csrf_token() }}";
+		$email = $('#for_email').val();
+		$checkValdation = false;
+		if($email.length == 0)
+		{
+			$checkValdation = true;
+		}
+
+		if($checkValdation)
+		{
+			alert("Please input all information.");
+		}
+		else
+		{
+			$.post('{{URL::Route('forgotPassword')}}',{ _token: $_token , email : $email } , function(data)
+			{
+				if(data == 1)
+				{
+					alert("Email not found. You may sign up now.");
+				}
+				if(data == 2)
+				{
+					alert("Please check your email and click the link to continue the change password process.");
+				}
+			});
+		}
+	}
 	function createUser()
 	{
 		$_token = "{{ csrf_token() }}";
