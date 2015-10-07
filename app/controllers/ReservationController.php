@@ -73,20 +73,23 @@ class ReservationController extends BaseController {
 		$chosenDay		= Input::get('chosenDay');
 		$userInfo		= UserInfo::where('user_id','=',Auth::User()['id'])->first();
 		$getReservation = new CottageReservation();
-		$getReservation['ReservationDate'] 	= $date;
-		$getReservation['cottagetype'] 		= $cType;
-		$getReservation['businessSource'] 	= "Online";
-		$getReservation['GuestName'] 		= $userInfo['user_id'];
-		$getReservation['reservationtype'] 	= $rType;
-		$getReservation['cottage1'] 		= $checkCottage;
-		$getReservation['day'] 				= $chosenDay;
-		$getReservation['kid'] 				= $kid;
-		$getReservation['adult'] 			= $adult;
+		$getReservation['user_id'] 			= $userInfo['user_id'];
+		$getReservation['reservation_type'] 	= $rType;
+		$getReservation['cottagelist_id'] 	= $cType;
+		$getReservation['day_type'] 		= $chosenDay;
+		$getReservation['reservation_date'] = $date;
+		$getReservation['room_id'] 			= "";
+		$getReservation['package_id'] 		= "";
+		$getReservation['check_in_datetime'] ="";
+		$getReservation['check_out_datetime'] ="";
+		$getReservation['num_adult'] 		= $adult;
+		$getReservation['num_kid'] 			= $kid;
+		$getReservation['status'] 			= "1";
 		if(!$getReservation->save())
 		{
 			return Redirect::route('home');
 		}
-		return Redirect::route('getReservation_step2',$getReservation['id']);
+		return View::make('index')->with('mt', "HOME")->with('alert', 'success')->with('msg', 'You have successfully reserve please check your email.');
 	}
 	public function getReservation_step2($reserve_id)
 	{

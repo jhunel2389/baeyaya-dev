@@ -14,8 +14,8 @@
 App::before(function($request)
 {
 	 App::singleton('customURL', function(){
-        $customURL = 'http://kalugdanresort.com/public/';
-        //$customURL = '/';
+        //$customURL = 'http://kalugdanresort.com/public/';
+        $customURL = '/';
         return $customURL;
     });
 

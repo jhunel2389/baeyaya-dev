@@ -141,6 +141,9 @@
   </div>
 </div>
 <script type="text/javascript">
+  var datenow = ($.datepicker.formatDate('yy/mm/dd', new Date()));
+
+
   $('input[name="day"]').click(function(){
     var id = $(this).attr("id");
     $("#chosenDay").empty();

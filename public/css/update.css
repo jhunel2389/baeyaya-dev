@@ -1,13 +1,15 @@
 div.ui-datepicker{
  font-size:10pt !important;
+ background:green;
 }
 div.ui_tpicker_hour_slider.ui-slider.ui-slider-horizontal{
-background:#fff;
-border:1px solid #ccc;
+background:#66C87D;
+
+border:1px solid fff;
 }
 div.ui_tpicker_minute_slider.ui-slider.ui-slider-horizontal{
-background:#fff;
-border:1px solid #ccc;
+background:#66C87D;
+border:1px solid fff;
 }
 
 .clear_link{

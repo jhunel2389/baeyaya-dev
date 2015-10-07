@@ -2,5 +2,5 @@
 
 class CottageReservation extends Eloquent
 {
-	protected $table = 'tbl_cottagereservation';
+	protected $table = 'tbl_transaction';
 }
