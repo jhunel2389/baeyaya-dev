@@ -133,7 +133,11 @@
                            CAPACITY Good for 15 person<br>
                            PRICE: 1000.00PHP</p>
 						<div class="s-btn">
-							<a href="index.html">LOG-IN NOW</a>
+							@if(Auth::Check())
+								<a href="{{ URL::Route('getReservation') }}">BOOK NOW</a>
+							@else
+								<a class="play-icon popup-with-zoom-anim" href="#small-dialog">LOG-IN NOW</a>
+							@endif
                             </div>
 				</div>
 				<div class="col-md-4 service1-left">
@@ -144,7 +148,11 @@
                            CAPACITY Good for 30/40 person<br>
                            PRICE: 2500.00PHP</p>
 						<div class="s-btn">
-							<a href="index.html">LOG-IN NOW</a>
+							@if(Auth::Check())
+								<a href="{{ URL::Route('getReservation') }}">BOOK NOW</a>
+							@else
+								<a class="play-icon popup-with-zoom-anim" href="#small-dialog">LOG-IN NOW</a>
+							@endif
                             </div>
 				</div>
 				<div class="col-md-4 service1-left">
@@ -155,7 +163,11 @@
                     CAPACITY Good for 6 PERSON<br>
                     Price start 1800-4800 PHP</p>
                     <div class="s-btn">
-							<a href="index.html">LOG-IN NOW</a>
+							@if(Auth::Check())
+								<a href="{{ URL::Route('getReservation') }}">BOOK NOW</a>
+							@else
+								<a class="play-icon popup-with-zoom-anim" href="#small-dialog">LOG-IN NOW</a>
+							@endif
                             </div>
 				</div>
 				<div class="clearfix"></div>
