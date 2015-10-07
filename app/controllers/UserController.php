@@ -118,4 +118,10 @@
 			Auth::logout();
 			return Redirect::route('home');
 		}
+
+		public function loginAjax()
+		{
+			Auth::logout();
+			return Redirect::route('home');
+		}
 	}

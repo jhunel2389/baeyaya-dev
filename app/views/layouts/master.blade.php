@@ -68,6 +68,9 @@
                	
                	@if(Auth::Check())
                		<li><a href="{{ URL::Route('getLogout') }}">LOG-OUT</a></li>
+           			@if(Auth::User()->isAdmin())
+           				<li><a href="{{ URL::Route('getFM') }}">ADMIN</a></li>
+           			@endif
                	@endif
 				</ul>				
 			</div>

@@ -110,12 +110,6 @@
                     <input type="text" class="form-control input-sm" id="date"name="date" style="font-size:9pt;" placeholder=" "required>
                   </div>
                 </div>
-                <div class="col-md-6" style="padding:0px 5px !important;">
-                  <div class="form-group">
-                    <label class="control-label" for="inputDefault">Check in</label>
-                    <input type="text" class="form-control input-sm" id="time" name="time" style="font-size:9pt;" placeholder="" required>
-                  </div>
-                </div>
               </div>
               <div class="row" style="margin:0px -5px !important;">
                <div class="form-group">

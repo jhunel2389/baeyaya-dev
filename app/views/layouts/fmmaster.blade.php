@@ -40,6 +40,7 @@
               <li><a href="#">Something else here</a></li>
             </ul>
           </li>-->
+          <li><a href="{{ URL::Route('home') }}">Home</a></li>
           <li><a href="{{ URL::Route('getFM') }}">Users</a></li>
           <li><a href="{{ URL::Route('getBanners') }}">Banners</a></li>
         </ul>

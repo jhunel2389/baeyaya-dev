@@ -112,4 +112,13 @@ Route::group(array('prefix' => 'admin'), function()
 		Route::post('/getCottageList',array('uses' =>'ReservationController@getCottageList', 'as' => 'getCottageList'));
 	});
 });
+
+Route::group(array('prefix' => '/ajax'),function()
+{
+	
+	Route::group(array('before' => 'csrf'), function()
+	{
+		Route::get('/loginAjax', array('uses' => 'UserController@loginAjax','as' => 'loginAjax'));
+	});
+});
 //end
