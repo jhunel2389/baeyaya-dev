@@ -3,9 +3,16 @@ class FileMaintenanceController extends BaseController {
 
 	public function getFM()
 	{
-		if(Auth::User()->isAdmin())
+		if(Auth::Check())
 		{
-			return View::make('filemaintenance.filemaintenance');
+			if(Auth::User()->isAdmin())
+			{
+				return View::make('filemaintenance.filemaintenance');
+			}
+			else
+			{
+				return Redirect::Route('home');
+			}
 		}
 		else
 		{
