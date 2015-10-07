@@ -26,9 +26,6 @@
     <!-- Fontawesome -->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,600' rel='stylesheet' type='text/css'>
-    <script src="{{app('customURL')}}js/jquery.raty.js"></script>
-    <!-- Add mousewheel plugin (this is optional) -->
-    <script type="text/javascript" src="{{app('customURL')}}js/jquery.mousewheel-3.0.6.pack.js"></script>
     <script type="text/javascript">
     $(function() {
     $( '#event_start' ).datepicker({
@@ -70,10 +67,10 @@
                 <a href="#" class="list-group-item active">
                 Computation
                 </a>
-                <a href="#" class="list-group-item"> <span class="badge">0</span>Adults</a>
-                <a href="#" class="list-group-item"> <span class="badge">0</span>Kids</a>
-                <a href="#" class="list-group-item"> <span class="badge">0</span>Cottage</a>
-                <a href="#" class="list-group-item"> <span class="badge">0</span>Total Price</a>
+                <a href="#" class="list-group-item"> <span class="badge" id="aTotal">0</span>Adults</a>
+                <a href="#" class="list-group-item"> <span class="badge"id="kTotal">0</span>Kids</a>
+                <a href="#" class="list-group-item"> <span class="badge" id="cTotal">0</span>Cottage</a>
+                <a href="#" class="list-group-item"> <span class="badge"id="total">0</span>Total Price</a>
               </div>
               <button type="button" id="compute" class="btn_green">Compute</button>
             </div>
@@ -103,11 +100,11 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label class="control-label">No. of Kids</label>
-                <input type="text" class="form-control input-sm" id="kid" name="kid"placeholder="" required>
+                <input type="text" class="form-control input-sm" id="kid" name="kid"placeholder="" onkeypress="return isNumber(event)"required>
               </div>
               <div class="form-group">
                 <label class="control-label">No. of Adults</label>
-                <input type="text" class="form-control input-sm" id="adult" name="adult"placeholder=" " required>
+                <input type="text" class="form-control input-sm" id="adult" name="adult"placeholder=" " onkeypress="return isNumber(event)"required>
               </div>
               <div class="form-group">
                 <label class="control-label">Email</label>
@@ -153,6 +150,14 @@
 </div>
 </body>
 <script type="text/javascript">
+function isNumber(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    return true;
+}
 $(document).on("click","#rType",function() {
   $rtype_id = $('#rType').val();
   $_token = "{{ csrf_token() }}";
@@ -226,6 +231,14 @@ $(document).on("click","#compute",function(){
   $_token = "{{ csrf_token() }}";
   $.post('{{URL::Route('compute')}}',{_token:$_token, kid:kid,adult:adult,check:check,ctype:ctype},function(data){
     console.log(data);
+    $("#aTotal").empty();
+    $("#kTotal").empty();
+    $("#cTotal").empty();
+    $("#total").empty();
+    $("#aTotal").html(data.adultprice);
+    $("#kTotal").html(data.kidprice);
+    $("#cTotal").html(data.cottageprice);
+    $("#total").html(data.total);
   });
 
   //alert($adult);

@@ -11,15 +11,14 @@ class ReservationController extends BaseController {
 		$adult = Input::get('adult');
 		$check = Input::get('check');
 		$getcountcheck = (count(explode(",", $check))-1);
-		if($ctype == 1)
-		{
+		
 			return $response[] = array(			
 				"cottageprice" => $cottageprice = $getcountcheck * 600,
 				"kidprice" =>$kidprice = $kid * 120,
 				"adultprice" =>$adultprice = $adult * 150,
 				"total"=> $total = $cottageprice + $kidprice +$adultprice,
 				);
-		}
+		
 		return 0;
 
 	}
