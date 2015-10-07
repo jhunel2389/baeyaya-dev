@@ -46,6 +46,7 @@
 		</script>
 		<!----//End-top-nav-script---->
 	@show
+	@yield('addHead')
 </head>
 <body>
 	<div id="div2">

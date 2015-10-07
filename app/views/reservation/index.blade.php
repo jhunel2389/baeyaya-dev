@@ -4,16 +4,11 @@
 @parent
 <title>reservation</title>
 @stop
-
-@section('content')
-  <head>
+@section('addHead')
     <link href="{{app('customURL')}}css/chat_emoti_bar.css" rel="stylesheet">
-    <link href="{{app('customURL')}}css/custom_bootstrap.css" rel="stylesheet">
+    <!--<link href="{{app('customURL')}}css/custom_bootstrap.css" rel="stylesheet">-->
     <link href="{{app('customURL')}}css/custom_styles.css" rel="stylesheet">
     <link href="{{app('customURL')}}css/update.css" rel="stylesheet">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootswatch/3.3.0/flatly/bootstrap.min.css">
-    <!-- Optional: Include the jQuery library -->
     <link rel="stylesheet" href="{{app('customURL')}}jquery_ui/jquery-ui.css">
     <link rel="stylesheet" href="{{app('customURL')}}jquery_ui/jquery-ui-timepicker-addon.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -21,8 +16,8 @@
     <script type="text/javascript" src="{{app('customURL')}}jquery_ui/jquery-ui-timepicker-addon.js"></script>
     <script type="text/javascript" src="{{app('customURL')}}jquery_ui/jquery-ui-timepicker-addon-i18n.min.js"></script>
     <script type="text/javascript" src="{{app('customURL')}}jquery_ui/jquery-ui-sliderAccess.js"></script>
-    <!-- Optional: Incorporate the Bootstrap JavaScript plugins -->
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+     <!-- Optional: Incorporate the Bootstrap JavaScript plugins -->
+    <!--<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>-->
     <!-- Fontawesome -->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,600' rel='stylesheet' type='text/css'>
@@ -38,15 +33,17 @@
 
     });
 
-    $('#time_start').timepicker({
+    /*$('#time_start').timepicker({
     timeFormat: 'hh:mm tt'
     });
     $('#time_end').timepicker({
     timeFormat: 'hh:mm tt'
+    });*/
     });
-    });</script>
-  </head>
-  <body>
+    </script>
+@stop
+@section('content')
+
 <div class="container">
   <div class="row">
     
@@ -148,7 +145,6 @@
   </div>
   <input type="text" class="form-control" id="checkCottage" name="checkCottage" placeholder="">
 </div>
-</body>
 <script type="text/javascript">
 function isNumber(evt) {
     evt = (evt) ? evt : window.event;
