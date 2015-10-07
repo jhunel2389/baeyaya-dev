@@ -70,65 +70,48 @@
                 <a href="#" class="list-group-item active">
                 Computation
                 </a>
-                <a href="#" class="list-group-item"> <span class="badge">14</span>Adults</a>
-                <a href="#" class="list-group-item"> <span class="badge">14</span>Kids</a>
-                <a href="#" class="list-group-item"> <span class="badge">14</span>Cottage</a>
-                <a href="#" class="list-group-item"> <span class="badge">14</span>Total Price</a>
+                <a href="#" class="list-group-item"> <span class="badge">0</span>Adults</a>
+                <a href="#" class="list-group-item"> <span class="badge">0</span>Kids</a>
+                <a href="#" class="list-group-item"> <span class="badge">0</span>Cottage</a>
+                <a href="#" class="list-group-item"> <span class="badge">0</span>Total Price</a>
               </div>
+              <button type="button" id="compute" class="btn_green">Compute</button>
             </div>
             <div class="col-md-4">
+              <?php $reservationTypes = ReservationType::all();?>
               <div id="pT"class="form-group" style="position:relative;">
-                <label class="control-label" for="inputDefault">Category Type</label>
+                <label class="control-label" for="inputDefault">Reservation Type</label>
                 <i class="fa fa-2x fa-caret-down" style="position:absolute;right:10px;bottom:2px;color:#000;pointer-events:none;"></i>
-                <select class="form-control input-sm" id="partyTypes" name="partyTypes" style="padding-top:0px;padding-left:5px;line-height:20pt;" required>
+                <select class="form-control input-sm" id="rType" name="rType" style="padding-top:0px;padding-left:5px;line-height:20pt;" required>
                   <option value="" disabled selected style="display:none;">Choose type</option>
-                    <option value = "1">1</option>
+                  @foreach($reservationTypes as $type)
+                    <option value = "{{$type['id']}}">{{$type['name']}}</option>
+                  @endforeach
                 </select>
               </div>
               <div id="pT"class="form-group" style="position:relative;">
-                <label class="control-label" for="inputDefault">Choose type</label>
+                <label class="control-label" for="inputDefault">Category type</label>
                 <i class="fa fa-2x fa-caret-down" style="position:absolute;right:10px;bottom:2px;color:#000;pointer-events:none;"></i>
-                <select class="form-control input-sm" id="partyTypes" name="partyTypes" style="padding-top:0px;padding-left:5px;line-height:20pt;" required>
+                <select class="form-control input-sm" id="cType" name="cType" style="padding-top:0px;padding-left:5px;line-height:20pt;" required>
                   <option value="" disabled selected style="display:none;">Choose here</option>
-                  
-                    <option value = "1">1</option>
-                  
                 </select>
               </div>
-              <ul class="list-unstyled nmb">
-                <li class=" checkbox">
-                  <label class="custom_checkbox">
-                    <input type="checkbox" id="a" name="interest[]" class="css-checkbox" type="checkbox" value="" checked>
-                    <span>aaa</span>
-                  </label>
-                </li>
-                <li class=" checkbox">
-                  <label class="custom_checkbox">
-                    <input type="checkbox" id="a" name="interest[]" class="css-checkbox" type="checkbox" value="" checked>
-                    <span>aaa</span>
-                  </label>
-                </li>
-                <li class=" checkbox">
-                  <label class="custom_checkbox">
-                    <input type="checkbox" id="a" name="interest[]" class="css-checkbox" type="checkbox" value="" checked>
-                    <span>aaa</span>
-                  </label>
-                </li>
+              <ul class="list-unstyled nmb" id="list">
               </ul>
               
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <label class="control-label">Email</label>
-                <input type="email" class="form-control input-sm" id="eventlocality" name="eventlocality"placeholder="" required>
-              </div>
-              <div class="form-group">
                 <label class="control-label">No. of Kids</label>
-                <input type="text" class="form-control input-sm" id="eventlocality" name="eventlocality"placeholder="" required>
+                <input type="text" class="form-control input-sm" id="kid" name="kid"placeholder="" required>
               </div>
               <div class="form-group">
                 <label class="control-label">No. of Adults</label>
-                <input type="text" class="form-control input-sm" id="eventlocality" name="eventlocality"placeholder=" " required>
+                <input type="text" class="form-control input-sm" id="adult" name="adult"placeholder=" " required>
+              </div>
+              <div class="form-group">
+                <label class="control-label">Email</label>
+                <input type="email" class="form-control input-sm" id="eventlocality" name="eventlocality"placeholder="" required>
               </div>
                 <div class="row" style="margin:0px -5px !important;">
                 <div class="col-md-6" style="padding:0px 5px !important;">
@@ -166,9 +149,90 @@
       </form>
     </div>
   </div>
+  <input type="text" class="form-control" id="checkCottage" name="checkCottage" placeholder="">
 </div>
 </body>
+<script type="text/javascript">
+$(document).on("click","#rType",function() {
+  $rtype_id = $('#rType').val();
+  $_token = "{{ csrf_token() }}";
+  $.post('{{URL::Route('getCottageType')}}',{_token:$_token, rtype_id:$rtype_id},function(data)
+  {
+    console.log(data);
+    if(data.length != 0)
+    {
+      $('#cType').empty();
+      for (var i = 0; i < data.length; i++) {
+        if(i==0)
+        {
+          $('#cType').append('<option value="" disabled selected style="display:none;">Choose type</option>');
+        }
+        $('#cType').append('<option value = "'+data[i].Cottage_ID+'">'+data[i].description+'</option>');
+      }
+    } 
+  });
+});
+$(document).on("click","#cType",function() {
+  $cottageType = $('#cType').val();
+  $_token = "{{ csrf_token() }}";
+  $.post('{{URL::Route('getCottagelist')}}',{_token:$_token, cottageType:$cottageType},function(data)
+  {
+    console.log(data);
+    if(data.length != 0)
+    {
+      $('#list').empty();
+      for (var i = 0; i < data.length; i++) {
+        $('#list').append(' <li class=" checkbox">\
+                  <label class="custom_checkbox">\
+                    <input type="checkbox" id="'+data[i].cottage_list+'" name="interest[]" class="css-checkbox"  value="'+data[i].cottage_list+'">\
+                    <span>'+data[i].name+'</span>\
+                  </label>\
+                </li>');
+      }
+    } 
+  });
+});
+$(document).on("change",".custom_checkbox input",function(){
+    var $cs=$(this).closest('.list-unstyled ').find(':checkbox:checked');
+    if ($cs.length > 3) {
+        this.checked=false;
+    }
+    var id = $(this).attr("id");
+    if($(this).is(":checked"))
+    {
+      if($("#checkCottage").val().length <= 0)
+      {
+        $("#checkCottage").val(","+id);
+      }
+      else
+      {
+        var current_val = $("#checkCottage").val();
+        var new_val = current_val+","+id;
+        $("#checkCottage").val(new_val);
+      }
+    }
+    else
+    {
+      var strValue = $("#checkCottage").val();
+      strValue = strValue.replace(","+id,'');
+      $("#checkCottage").val(strValue);
+    }
+  });
+$(document).on("click","#compute",function(){
+  var ctype =$("#cType").val();
+  var kid = $('#kid').val();
+  var adult = $('#adult').val();
+  var check = $("#checkCottage").val();
+  $_token = "{{ csrf_token() }}";
+  $.post('{{URL::Route('compute')}}',{_token:$_token, kid:kid,adult:adult,check:check,ctype:ctype},function(data){
+    console.log(data);
+  });
+
+  //alert($adult);
+
+});
+</script>
 
     
- 
+@include('includes.footer')
 @stop

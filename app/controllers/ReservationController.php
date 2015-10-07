@@ -4,6 +4,25 @@ class ReservationController extends BaseController {
 	{
 		return View::make('reservation.index')->with('mt', "RESERV");
 	}
+	public function compute()
+	{
+		$ctype = Input::get('ctype');
+		$kid = Input::get('kid');
+		$adult = Input::get('adult');
+		$check = Input::get('check');
+		$getcountcheck = (count(explode(",", $check))-1);
+		if($ctype == 1)
+		{
+			return $response[] = array(			
+				"cottageprice" => $cottageprice = $getcountcheck * 600,
+				"kidprice" =>$kidprice = $kid * 120,
+				"adultprice" =>$adultprice = $adult * 150,
+				"total"=> $total = $cottageprice + $kidprice +$adultprice,
+				)
+		}
+		return 0;
+
+	}
 	public function getCottagelist()
 	{
 		$response = array();
@@ -14,7 +33,7 @@ class ReservationController extends BaseController {
 			foreach ($getCottage_lists as $list) 
 			{
 				$response[] = array(
-					"cottage_list"=>$list['cottage_list'],
+					"cottage_list"=>$list['cottagelist_id'],
 					"name"	=>$list['cottagename'],
 					);
 			}

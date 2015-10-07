@@ -61,7 +61,7 @@
 				<?php $allBanners = Banners::all(); ?>
 				@foreach($allBanners as $allBanner)
 				<div class="col-md-4 staff-left">
-					<a href="swimpool.html"><img src="{{app('customURL')}}images/{{$allBanner['img']}}" height="200" width="250" alt="">
+					<a href="{{ URL::Route('getGallery') }}"><img src="{{app('customURL')}}images/{{$allBanner['img']}}" height="200" width="250" alt="">
 					<h4>{{$allBanner['title']}}</h4>
 					<p>{{$allBanner['content']}}</p>
 				</div>
