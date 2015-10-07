@@ -33,12 +33,12 @@
 
     });
 
-    /*$('#time_start').timepicker({
+    $('#time_start').timepicker({
     timeFormat: 'hh:mm tt'
     });
     $('#time_end').timepicker({
     timeFormat: 'hh:mm tt'
-    });*/
+    });
     });
     </script>
 @stop
@@ -51,8 +51,9 @@
       <h3 class="text-uppercase sectionheading wt">test</h3>
       <div class="step_tabs text-uppercase">
         <div class="step active">Step 1</div>
+        <!--
         <div class="step">Step 2</div>
-        <div class="step">Step 3</div>
+        <div class="step">Step 3</div>-->
         <div style="clear:both;"></div>
       </div>
       <div class="create_event">
