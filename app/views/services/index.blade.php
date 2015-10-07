@@ -22,21 +22,32 @@
 				<h3>COTTAGES</h3>
 				<div class="services-top">
 					<div class="col-md-4 service-left">
-						<a href="booking.html"><img src="images/1-one.jpg" alt="">
-						<h4>MAIN POOL COTTAGES</h4>
-						<p>COTTAGES 1,2,3,4,5,6,7,8,9<br>
-                           CAPACITY Good for 12person<br>
-                           PRICE: 600.00PHP</p>
-						<div class="s-btn">
-							@if(Auth::Check())
-								<a href="{{ URL::Route('getReservation') }}">BOOK NOW</a>
-							@else
-								<a class="play-icon popup-with-zoom-anim" href="#small-dialog">LOG-IN NOW</a>
-							@endif
-						</div>
+					@if(Auth::Check())
+						<a href="{{ URL::Route('getReservation') }}"><img src="images/1-one.jpg" alt="">
+					@else
+						<a class="play-icon popup-with-zoom-anim" href="#small-dialog"><img src="images/1-one.jpg" alt="">
+					@endif
+						<!--<a href="booking.html"><img src="images/1-one.jpg" alt="">-->
+							<h4>MAIN POOL COTTAGES</h4>
+							<p>COTTAGES 1,2,3,4,5,6,7,8,9<br>
+	                           CAPACITY Good for 12person<br>
+	                           PRICE: 600.00PHP</p>
+							<div class="s-btn">
+								@if(Auth::Check())
+									<a href="{{ URL::Route('getReservation') }}">BOOK NOW</a>
+								@else
+									<a class="play-icon popup-with-zoom-anim" href="#small-dialog">LOG-IN NOW</a>
+								@endif
+							</div>
+						</a>
 					</div>
 					<div class="col-md-4 service-left">
-						<a href="booking.html"><img src="images/1-two.jpg" alt="">
+					@if(Auth::Check())
+						<a href="{{ URL::Route('getReservation') }}"><img src="images/1-two.jpg" alt="">
+					@else
+						<a class="play-icon popup-with-zoom-anim" href="#small-dialog"><img src="images/1-two.jpg" alt="">
+					@endif
+						<!--<a href="booking.html"><img src="images/1-two.jpg" alt="">-->
 						<h4>KIDDIE POOL COTTAGE</h4>
 						<p>COTTAGES 10,11,12,13,14<br>
                            CAPACITY Good for 15 person<br>
@@ -48,9 +59,15 @@
 								<a class="play-icon popup-with-zoom-anim" href="#small-dialog">LOG-IN NOW</a>
 							@endif
 						</div>
+						</a>
 					</div>
 					<div class="col-md-4 service-left">
-						<a href="booking.html"><img src="images/1-three.jpg" alt="">
+					@if(Auth::Check())
+						<a href="{{ URL::Route('getReservation') }}"><img src="images/1-three.jpg" alt="">
+					@else
+						<a class="play-icon popup-with-zoom-anim" href="#small-dialog"><img src="images/1-three.jpg" alt="">
+					@endif
+						<!--<a href="booking.html"><img src="images/1-three.jpg" alt="">-->
 						<h4>OLYMPIC POOL COTTAGE</h4>
 						<p>COTTAGES 15,16,17,18,19,20,21,22<br>
                            CAPACITY Good for 15 person<br>
@@ -66,6 +83,7 @@
                             <br>
                     		<br>
 						</div>
+						</a>
 					</div>
                     
                    <!-- <div class="col-md-4 service-left">
@@ -126,7 +144,12 @@
 				</div>-->
                 
 				<div class="col-md-4 service1-left">
-					<a href="booking.html"><img src="images/kubo.jpg" alt="">
+					@if(Auth::Check())
+						<a href="{{ URL::Route('getReservation') }}"><img src="images/kubo.jpg" alt="">
+					@else
+						<a class="play-icon popup-with-zoom-anim" href="#small-dialog"><img src="images/kubo.jpg" alt="">
+					@endif
+					<!--<a href="booking.html"><img src="images/kubo.jpg" alt="">-->
 					<h4>KUBO</h4>
 					<p>
                      Hawaian,Coconut,Royal,Palmera,Phoenix<br>
@@ -138,10 +161,16 @@
 							@else
 								<a class="play-icon popup-with-zoom-anim" href="#small-dialog">LOG-IN NOW</a>
 							@endif
-                            </div>
+                        </div>
+                    </a>
 				</div>
 				<div class="col-md-4 service1-left">
-					<a href="booking.html"><img src="images/pavillion.jpg" alt="">
+					@if(Auth::Check())
+						<a href="{{ URL::Route('getReservation') }}"><img src="images/pavillion.jpg" alt="">
+					@else
+						<a class="play-icon popup-with-zoom-anim" href="#small-dialog"><img src="images/pavillion.jpg" alt="">
+					@endif
+					<!--<a href="booking.html"><img src="images/pavillion.jpg" alt="">-->
 					<h4>PAVILLION</h4>
 					<p>
                     Pavillion 1st and Pavillion 2nd<br>
@@ -154,9 +183,15 @@
 								<a class="play-icon popup-with-zoom-anim" href="#small-dialog">LOG-IN NOW</a>
 							@endif
                             </div>
+                    </a>
 				</div>
 				<div class="col-md-4 service1-left">
-					<a href="booking.html"><img src="images/room.jpg" alt="">
+					@if(Auth::Check())
+						<a href="{{ URL::Route('getReservation') }}"><img src="images/room.jpg" alt="">
+					@else
+						<a class="play-icon popup-with-zoom-anim" href="#small-dialog"><img src="images/room.jpg" alt="">
+					@endif
+					<!--<a href="booking.html"><img src="images/room.jpg" alt="">-->
 					<h4>ROOM</h4>
 					<p>
                     ROOM 1 AND ROOM 2<br>
@@ -169,6 +204,7 @@
 								<a class="play-icon popup-with-zoom-anim" href="#small-dialog">LOG-IN NOW</a>
 							@endif
                             </div>
+                    </a>
 				</div>
 				<div class="clearfix"></div>
                 <br>

@@ -10,7 +10,7 @@
 				</ul>
 				<h4>Address</h4>
 				<h5>047 T. Kalugdan Compound Ligas 3, Bacoor, 4102 Cavite</h5>
-				<p>Mail Us On <a href="mailto:posomhedz@yahoo.com.ph"> posomhedz@yahoo.com.ph</a></p>
+				<p>Mail Us On <a href="mailto:14kalugdangardenresort@gmail.com"> 14kalugdangardenresort@gmail.com</a></p>
 				<p>Call Us On  (046) 417 2960</p>
 			</div>
 			<div class="col-md-7 footer-right">
