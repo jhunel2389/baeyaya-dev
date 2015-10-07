@@ -28,7 +28,7 @@ return array(
 	|
 	*/
 
-	'host' => 'smtp.gmail.com',
+	'host' => 'ecomm.e-deal.me',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'noreply@email.com', 'name' => 'Kalugdan Garden Resort'),
+	'from' => array('address' => 'noreply@kalugdanresort.com', 'name' => 'Kalugdan Garden Resort'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return array(
 	|
 	*/
 
-	'username' => '14kalugdangardenresort@gmail.com',
+	'username' => 'noreply@kalugdanresort.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return array(
 	|
 	*/
 
-	'password' => '143kalugdangardenresort',
+	'password' => 'kalugdanP@ssw0rd',
 
 	/*
 	|--------------------------------------------------------------------------

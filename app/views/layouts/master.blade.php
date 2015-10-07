@@ -60,7 +60,12 @@
                 <!--<li class="{{ ($mt == 'NEWS') ? 'active' : ''}}"><a href="{{ URL::Route('getNews') }}">NEWS</a></li>-->
                 <li class="{{ ($mt == 'TESTIMONIALS') ? 'active' : ''}}"><a href="{{ URL::Route('getTestimonials') }}">TESTIMONIALS</a></li>
                 <li class="{{ ($mt == 'CONTACT') ? 'active' : ''}}"><a href="{{ URL::Route('getContact') }}">CONTACT US</a></li>
-               	<li class="{{ ($mt == 'RESERV') ? 'active' : ''}}"><a href="{{ URL::Route('getReservation') }}">RESERVATIONS</a></li>
+                @if(Auth::Check())
+					<li class="{{ ($mt == 'RESERV') ? 'active' : ''}}"><a href="{{ URL::Route('getReservation') }}">RESERVATIONS</a></li>
+				@else
+					<li class="{{ ($mt == 'RESERV') ? 'active' : ''}}"><a class="play-icon popup-with-zoom-anim" href="#small-dialog">RESERVATIONS</a></li>
+				@endif
+               	
                	@if(Auth::Check())
                		<li><a href="{{ URL::Route('getLogout') }}">LOG-OUT</a></li>
                	@endif
@@ -198,7 +203,7 @@
 			{
 				if(data == 1)
 				{
-					alert("You regestered successfully. Please check your email and verifyyour account. Thank you.");
+					alert("You regestered successfully. Please check your email and verify your account. Thank you.");
 					window.location="{{URL::route('home')}}";
 				}
 				if(data == 2)
