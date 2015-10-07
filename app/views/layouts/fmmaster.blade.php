@@ -42,7 +42,7 @@
           </li>-->
           <li><a href="{{ URL::Route('home') }}">Home</a></li>
           <li><a href="{{ URL::Route('getFM') }}">Users</a></li>
-          <li><a href="{{ URL::Route('getBanners')}}">Banners</a></li>
+          <li><a href="{{ URL::Route('getBanners') }}">Banners</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
