@@ -79,7 +79,8 @@ App::down(function()
 */
 App::error(function(\Illuminate\Session\TokenMismatchException $exception)
 {
-    return Redirect::route('home')->with('message','Your session has expired. Please try logging in again.');
+    return Redirect::route('home')->with('alert', 'success')->with('msg', 'Your session has expired. Please try logging in again.');
+    
 });
 
 
