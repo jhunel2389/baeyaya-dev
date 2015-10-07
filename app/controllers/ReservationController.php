@@ -18,7 +18,7 @@ class ReservationController extends BaseController {
 				"kidprice" =>$kidprice = $kid * 120,
 				"adultprice" =>$adultprice = $adult * 150,
 				"total"=> $total = $cottageprice + $kidprice +$adultprice,
-				)
+				);
 		}
 		return 0;
 
