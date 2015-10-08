@@ -73,7 +73,7 @@
                   <label class="control-label" for="inputDefault">Choose Day</label>
                   <ul class="list-unstyled nmb">
                     <li class=" checkbox">
-                      <label >
+                      <label>
                         <input type="radio" id="1" name="day" class="css-checkbox"  value="1">
                         <span>Morning</span>
                       </label>
