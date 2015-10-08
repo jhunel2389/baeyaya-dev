@@ -45,7 +45,7 @@
     <div class="col-md-12">
       <h3 class="text-uppercase sectionheading wt">test</h3>
       <div class="step_tabs text-uppercase">
-        <div class="step active">Step 1</div>
+        <div class="step active">Reservation Form</div>
         <!--
         <div class="step">Step 2</div>
         <div class="step">Step 3</div>-->
@@ -72,18 +72,18 @@
                 <div class="form-group">
                   <label class="control-label" for="inputDefault">Choose Day</label>
                   <ul class="list-unstyled nmb">
-                    <ul class=" checkbox">
-                      <label class="custom_checkbox">
+                    <li class=" checkbox">
+                      <label >
                         <input type="radio" id="1" name="day" class="css-checkbox"  value="1">
                         <span>Morning</span>
                       </label>
-                    </ul>
-                    <ul class=" checkbox">
-                      <label class="custom_checkbox">
+                    </li>
+                    <li class=" checkbox">
+                      <label >
                         <input type="radio" id="2" name="day" class="css-checkbox"  value="2">
                         <span>Overnight</span>
                       </label>
-                    </ul>
+                    </li>
                   </ul>
                   <input type="hidden" name="chosenDay"id="chosenDay" value="1">
                 </div>
@@ -106,9 +106,10 @@
                       <option value="" disabled selected style="display:none;">Choose here</option>
                     </select>
                   </div>
-                  <ul class="list-unstyled nmb" id="list">
-                  </ul>
-                  <input type="hidden" class="form-control" id="checkCottage" name="checkCottage" placeholder="">
+                  <div class="form-group">
+                    <label class="control-label">Email</label>
+                    <input type="email" class="form-control input-sm" id="email" name="email"placeholder="" value="{{$userInfo['email']}}"required>
+                  </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
@@ -119,10 +120,6 @@
                     <label class="control-label">No. of Adults</label>
                     <input type="text" class="form-control input-sm" id="adult" name="adult"placeholder=" " onkeypress="return isNumber(event)"required>
                   </div>
-                  <div class="form-group">
-                    <label class="control-label">Email</label>
-                    <input type="email" class="form-control input-sm" id="email" name="email"placeholder="" value="{{$userInfo['email']}}"required>
-                  </div>
                   <div class="row" style="margin:0px -5px !important;">
                     <div class="col-md-6" style="padding:0px 5px !important;">
                       <div class="form-group">
@@ -131,8 +128,13 @@
                       </div>
                     </div>
                   </div>
-                  <div class="row" style="margin:0px -5px !important;">
-                  </div>
+                </div>
+                <div class="col-md-4">
+                  choose cottage or room here
+                  <ul class="list-unstyled nmb" id="list">
+                    No display
+                  </ul>
+                  <input type="hidden" class="form-control" id="checkCottage" name="checkCottage" placeholder="">
                 </div>
               </div>
             </div>
@@ -145,7 +147,7 @@
   </div>
 </div>
 <script type="text/javascript">
-  $('#date').datepicker({
+ $('#date').datepicker({
     inline: true,
     dateFormat: "mm/dd/yy",
     changeFirstDay: false,
@@ -203,13 +205,12 @@ $(document).on("click","#cType",function() {
                   </label>\
                 </li>');
       }
-    }
+    } 
     else
     {
       $('#list').empty();
-      $('#list').append('<label>No more available cottage or room</label>');
-
-    } 
+      $('#list').append('<label>No available cottage or room.</label>');
+    }
   });
 });
 $(document).on("change",".custom_checkbox input",function(){

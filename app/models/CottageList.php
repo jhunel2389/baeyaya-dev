@@ -2,5 +2,5 @@
 
 class CottageList extends Eloquent
 {
-	protected $table = 'cottage_list';
+	protected $table = 'tbl_cottage_list';
 }
