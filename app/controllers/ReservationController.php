@@ -26,18 +26,62 @@ class ReservationController extends BaseController {
 	{
 		$response = array();
 		$cottageType = Input::get('cottageType');
-		$getCottage_lists = CottageList::where('cottage_id','=',$cottageType)->get();
-		if(!empty($getCottage_lists))
+		$date = date('Y-m-d',strtotime(Input::get('date')));
+		
+		
+		$reserves = CottageReservation::where('reservation_date','=',$date)->get();
+		$id = array();
+		if(!empty($reserves))
 		{
-			foreach ($getCottage_lists as $list) 
+			foreach ($reserves as $reserve) 
 			{
-				$response[] = array(
+				//$cottage[] = $reserve['cottagelist_id'];
+				if(!in_array($reserve['cottagelist_id'], $id))
+				{
+					$id[count($id)] = $reserve['cottagelist_id'];
+				}
+			}
+			$cottagelists = CottageList::all();
+			foreach ($cottagelists as $list) {
+
+				if(!in_array($list['cottagelist_id'], $id))
+				{
+					$response[] = array(
 					"cottage_list"=>$list['cottagelist_id'],
 					"name"	=>$list['cottagename'],
 					);
+				}
 			}
+			return $response;
+			
 		}
-		return $response;
+		else
+		{
+			$getCottage_lists = CottageList::where('cottage_id','=',$cottageType)->get();
+			foreach ($getCottage_lists as $list) 
+			{
+				$response[] = array(
+				"cottage_list"=>$list['cottagelist_id'],
+				"name"	=>$list['cottagename'],
+				);
+			}
+			return $response;
+		}
+
+		/*$CottageLists = CottageList::all();
+		foreach ($CottageLists as $list) 
+		{
+			if(!in_array($list['cottagelist_id'], $reserves['cottagelist_id']))
+			{
+
+				$response[] = array(
+				"cottage_list"=>$list['cottagelist_id'],
+				"name"	=>$list['cottagename'],
+				);
+			
+			}
+		}*/
+		
 
 	}
 	public function getCottageType()
@@ -64,32 +108,39 @@ class ReservationController extends BaseController {
 		$rType 			= Input::get('rType');
 		$cType 			= Input::get('cType');
 		$checkCottage 	= Input::get('checkCottage');
-		//$chosenCottage 	= explode(",", $checkCottage);
+		$chosenCottages = explode(",", $checkCottage);
 		$kid 			= Input::get('kid');
 		$adult 			= Input::get('adult');
 		$email 			= Input::get('email');
-		$date 			= Input::get('date');
+		$date 			= date('Y-m-d',strtotime(Input::get('date')));
 		$time 			= Input::get('time');
 		$chosenDay		= Input::get('chosenDay');
 		$userInfo		= UserInfo::where('user_id','=',Auth::User()['id'])->first();
-		$getReservation = new CottageReservation();
-		$getReservation['user_id'] 			= $userInfo['user_id'];
-		$getReservation['reservation_type'] 	= $rType;
-		$getReservation['cottagelist_id'] 	= $cType;
-		$getReservation['day_type'] 		= $chosenDay;
-		$getReservation['reservation_date'] = $date;
-		$getReservation['room_id'] 			= "";
-		$getReservation['package_id'] 		= "";
-		$getReservation['check_in_datetime'] ="";
-		$getReservation['check_out_datetime'] ="";
-		$getReservation['num_adult'] 		= $adult;
-		$getReservation['num_kid'] 			= $kid;
-		$getReservation['status'] 			= "1";
-		if(!$getReservation->save())
+		foreach ($chosenCottages as $cottage) 
 		{
-			return Redirect::route('home');
+			if(!$cottage=="")
+			{
+				$getReservation = new CottageReservation();
+				$getReservation['user_id'] 			= $userInfo['user_id'];
+				$getReservation['reservation_type'] 	= $rType;
+				$getReservation['cottage_type'] 	= $cType;
+				$getReservation['cottagelist_id'] 	= $cottage;
+				$getReservation['day_type'] 		= $chosenDay;
+				$getReservation['reservation_date'] = $date;
+				$getReservation['room_id'] 			= "";
+				$getReservation['package_id'] 		= "";
+				$getReservation['check_in_datetime'] ="";
+				$getReservation['check_out_datetime'] ="";
+				$getReservation['num_adult'] 		= $adult;
+				$getReservation['num_kid'] 			= $kid;
+				$getReservation['status'] 			= "1";
+				if(!$getReservation->save())
+				{
+					return Redirect::route('home');
+				}
+			}
 		}
-		return View::make('index')->with('mt', "HOME")->with('alert', 'success')->with('msg', 'You have successfully reserve please check your email.');
+		return View::make('index')->with('mt', "HOME")->with('alert', 'success')->with('msg', 'You have successfully reserve.');
 	}
 	public function getReservation_step2($reserve_id)
 	{

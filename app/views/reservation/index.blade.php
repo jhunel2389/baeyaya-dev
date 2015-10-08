@@ -45,11 +45,7 @@
     <div class="col-md-12">
       <h3 class="text-uppercase sectionheading wt">test</h3>
       <div class="step_tabs text-uppercase">
-        <div class="step active">Reservation Form</div>
-        <!--
-        <div class="step">Step 2</div>
-        <div class="step">Step 3</div>-->
-        <div style="clear:both;"></div>
+       <h3>Reservation</h3>
       </div>
       <div class="create_event">
         <form id="eventPart1" method="post" action="{{URL::Route('postReservation')}}" enctype="multipart/form-data">
@@ -85,7 +81,7 @@
                       </label>
                     </li>
                   </ul>
-                  <input type="hidden" name="chosenDay"id="chosenDay" value="1">
+                  <input type="text" name="chosenDay"id="chosenDay" value="1">
                 </div>
                 <div class="col-md-4">
                   <?php $reservationTypes = ReservationType::all();?>
@@ -134,7 +130,7 @@
                   <ul class="list-unstyled nmb" id="list">
                     No display
                   </ul>
-                  <input type="hidden" class="form-control" id="checkCottage" name="checkCottage" placeholder="">
+                  <input type="text" class="form-control" id="checkCottage" name="checkCottage" placeholder="">
                 </div>
               </div>
             </div>
@@ -188,10 +184,17 @@ $(document).on("click","#rType",function() {
     } 
   });
 });
-$(document).on("click","#cType",function() {
+$(document).on("change","#date",function() {
+  $date = $('#date').val();
   $cottageType = $('#cType').val();
   $_token = "{{ csrf_token() }}";
-  $.post('{{URL::Route('getCottagelist')}}',{_token:$_token, cottageType:$cottageType},function(data)
+  if($date == "")
+  {
+    alert('please fill date.');
+  }
+  else
+  {
+    $.post('{{URL::Route('getCottagelist')}}',{_token:$_token, cottageType:$cottageType,date:$date},function(data)
   {
     console.log(data);
     if(data.length != 0)
@@ -212,6 +215,42 @@ $(document).on("click","#cType",function() {
       $('#list').append('<label>No available cottage or room.</label>');
     }
   });
+  }
+
+});
+$(document).on("click","#cType",function() {
+  $date = $('#date').val();
+  $cottageType = $('#cType').val();
+  $_token = "{{ csrf_token() }}";
+  if($date == "")
+  {
+    alert('please fill date.');
+  }
+  else
+  {
+    $.post('{{URL::Route('getCottagelist')}}',{_token:$_token, cottageType:$cottageType,date:$date},function(data)
+  {
+    console.log(data);
+    if(data.length != 0)
+    {
+      $('#list').empty();
+      for (var i = 0; i < data.length; i++) {
+        $('#list').append(' <li class=" checkbox">\
+                  <label class="custom_checkbox">\
+                    <input type="checkbox" id="'+data[i].cottage_list+'" name="interest[]" class="css-checkbox"  value="'+data[i].cottage_list+'">\
+                    <span>'+data[i].name+'</span>\
+                  </label>\
+                </li>');
+      }
+    } 
+    else
+    {
+      $('#list').empty();
+      $('#list').append('<label>No available cottage or room.</label>');
+    }
+  });
+  }
+  
 });
 $(document).on("change",".custom_checkbox input",function(){
     var $cs=$(this).closest('.list-unstyled ').find(':checkbox:checked');
