@@ -104,7 +104,7 @@
                   </div>
                   <div class="form-group">
                     <label class="control-label">Email</label>
-                    <input type="email" class="form-control input-sm" id="email" name="email"placeholder="" value="{{$userInfo['email']}}"required>
+                    <input type="email" class="form-control input-sm" id="email" name="email"placeholder="" value="{{$userInfo['email']}}"required disabled>
                   </div>
                 </div>
                 <div class="col-md-4">
