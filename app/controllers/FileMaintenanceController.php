@@ -224,7 +224,11 @@ class FileMaintenanceController extends BaseController {
 			$getInformation['content'] = $content;
 			if($getInformation->save())
 			{
-				return 1;
+				return $response = array(
+					"ban_id"=> $getInformation['id'],
+					"ban_title"=> $title,
+					"ban_content"=> $content,
+				);
 			}
 		}
 		else

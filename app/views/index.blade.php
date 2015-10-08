@@ -60,14 +60,15 @@
 			</div>
 			<div class="staff-bottom">
 				<?php $allBanners = Banners::all(); ?>
-				@foreach($allBanners as $allBanner)
-				<div class="col-md-4 staff-left">
-					<a href="{{ URL::Route('getGallery') }}"><img src="{{app('customURL')}}images/{{$allBanner['img']}}" height="200" width="250" alt="">
-					<h4>{{$allBanner['title']}}</h4>
-					<p>{{$allBanner['content']}}</p>
-				</div>
-				@endforeach
-
+				@if(!empty($allBanners))
+					@foreach($allBanners as $allBanner)
+					<div class="col-md-4 staff-left">
+						<a href="{{ URL::Route('getGallery') }}"><img src="{{app('customURL')}}images/{{$allBanner['img']}}" height="200" width="250" alt=""></a>
+						<h4>{{$allBanner['title']}}</h4>
+						<p>{{$allBanner['content']}}</p>
+					</div>
+					@endforeach
+				@endif
 				<div class="clearfix"> </div>
 			</div>
 		</div>
@@ -77,21 +78,35 @@
 		<div class="container">
 			<div>
 				<div>
-					<h3><a href="{{ URL::Route('getNews') }}">News</h3>
-					<ul>
-						<li>
-							<h4><a href="{{ URL::Route('getNews') }}">MUTYA NG CAVITE 2015</h4>
-							<span><a href="{{ URL::Route('getNews') }}">October 4, 2015</span>
-							<p>
-								<a href="{{ URL::Route('getNews') }}">SWIMSUIT COMPETITION WILL BE HELD ON KALUGDAN GARDEN RESORT
-							</p>
-						</li>
-					</ul>
+					
+					<?php 
+						$allNews = News::orderByRaw("RAND()")->get(); 
+						$ctr = 0;
+					?>
+					@if(!empty($allNews))
+					<h3>News</h3>
+						@foreach($allNews as $allNew)
+							@if($ctr < 2)
+							<ul>
+								<li>
+									<h4>{{$allNew['title']}}</h4>
+									<span>{{$allNew['created_at']}}</span>
+									<p>
+										<span>{{$allNew['content']}}</span>
+									</p>
+								</li>
+							</ul>
+							</br>
+							</br>
+							<?php $ctr++; ?>
+							@endif
+						@endforeach
+					@endif
 				</div>
 			</div>
 		</div>
 
-		<div class="staffs">
+		<!--<div class="staffs">
 			<div class="container">
 				<div>
 					<div>
@@ -108,7 +123,7 @@
 					<div class="clearfix"> </div>
 				</div>
 			</div>
-		</div>
+		</div>-->
 	</div>
 	
 	<!--end-staff-->
