@@ -1,17 +1,6 @@
 <?php
 	class UserController extends BaseController
 	{
-		// get the view for the regoster page
-		public function getCreate()
-		{
-			return View::make('user.register');
-		}
-
-		// get the view for the login page
-		public function getLogin()
-		{
-			return View::make('user.login');
-		}
 
 		public function userInfo($id)
 		{
@@ -128,7 +117,34 @@
 			}
 			else
 			{
-				return 2;
+				$rCode = str_random(120);
+				$emailChecker['reset_pass_token'] = $rCode;
+				if($emailChecker->save())
+				{
+					$userInfo = UserInfo::where('user_id','=',$emailChecker['id'])->first();
+					$emailcontent = array (
+						'fname' => $userInfo -> firstname,
+						'lname' => $userInfo -> lastname,
+					    'link' => URL::route('passwordreset', [$rCode , $userInfo ->user_id])
+				    );
+	   				Mail::send('emails.confirmation.pass_reset', $emailcontent, function($message)
+	    			{ 
+					    $message->to(Input::get('email'),'Kalugdan Garden Resort')->subject('Kalugdan Garden Resort Confirmation Email');
+	     			});
+	     			return 2;
+				}
+				else
+				{
+					return 3;
+				}
+				
 			}
+		}
+
+		public function passwordreset($rcode,$id)
+		{
+			
+
+			return View::Make('user.resetpass')->with('mt', "HOME");
 		}
 	}

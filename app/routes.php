@@ -64,6 +64,7 @@ Route::group(array('before' => 'guest'), function()
 {
 	Route::get('/user/create',array('uses' =>'UserController@getCreate', 'as' => 'getCreate'));
 	Route::get('/user/login',array('uses' =>'UserController@getLogin', 'as' => 'getLogin'));
+	Route::get('/user/password-reset/{rcode}/{id}',array('uses' =>'UserController@passwordreset', 'as' => 'passwordreset'));
 
 	Route::group(array('before' => 'csrf'), function()
 	{

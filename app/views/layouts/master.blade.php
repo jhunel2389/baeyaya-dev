@@ -185,6 +185,10 @@
 				{
 					alert("Please check your email and click the link to continue the change password process.");
 				}
+				if(data == 3)
+				{
+					alert("Password reset failed. Please try again.Thank you!");
+				}
 			});
 		}
 	}
