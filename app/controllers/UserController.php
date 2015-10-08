@@ -143,8 +143,33 @@
 
 		public function passwordreset($rcode,$id)
 		{
-			
+			$emailChecker = User::where('id','=',$id)->where('reset_pass_token','=',$rcode)->first();
+			if(!empty($emailChecker))
+			{
+				return View::Make('user.resetpass')->with('mt', "HOME")->with('passid', $id);
+			}
+			else
+			{	
+				return View::make('index')->with('mt', "HOME")->with('alert', 'fail')->with('msg', 'Invalid token to continue password request. Please try again.');
+			}
+		}
 
-			return View::Make('user.resetpass')->with('mt', "HOME");
+		public function postPassReset()
+		{
+			$password = Input::get('pass1');
+			$user_id = Input::get('passid');
+
+			$updatePass =User::find($user_id);
+			$updatePass['password'] = Hash::make($password);
+			$updatePass['reset_pass_token'] = "";
+
+			if($updatePass->save())
+			{
+				return 1;
+			}
+			else
+			{
+				return 2;
+			}
 		}
 	}

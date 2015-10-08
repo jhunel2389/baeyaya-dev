@@ -70,6 +70,7 @@ Route::group(array('before' => 'guest'), function()
 	{
 		Route::post('/user/create', array('uses' => 'UserController@postCreate', 'as' => 'postCreate'));
 		Route::post('/user/login',array('uses' => 'UserController@postLogin', 'as' => 'postLogin'));
+		Route::post('/user/postPassReset', array('uses' => 'UserController@postPassReset', 'as' => 'postPassReset'));
 	});
 });
 
