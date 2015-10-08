@@ -58,4 +58,25 @@ class ReservationController extends BaseController {
 		
 		return $response;
 	}
+
+	public function postReservation()
+	{
+		$rType 			= Input::get('rType');
+		$cType 			= Input::get('cType');
+		$checkCottage 	= Input::get('checkCottage');
+		$chosenCottage 	= explode(",", $checkCottage);
+		$kid 			= Input::get('kid');
+		$adult 			= Input::get('adult');
+		$email 			= Input::get('email');
+		$date 			= Input::get('date');
+		$time 			= Input::get('time');
+		$chosenDay		= Input::get('chosenDay');
+		$userInfo		= UserInfo::where('user_id','=',Auth::User()['id'])->first();
+		$getReservation = new CottageReservation();
+		$getReservation['Reservation'] = $date;
+		$getReservation['businessSource'] = "Online";
+		$getReservation['Guest'] = $date;
+
+
+	}
 }

@@ -54,6 +54,8 @@ Route::group(array('prefix' => 'reservation'), function()
 		Route::post('/getCottageType',array('uses' =>'ReservationController@getCottageType', 'as' => 'getCottageType'));
 		Route::post('/getCottagelist',array('uses' =>'ReservationController@getCottagelist', 'as' => 'getCottagelist'));
 		Route::post('/compute',array('uses' =>'ReservationController@compute', 'as' => 'compute'));
+		Route::post('/postReservation',array('uses' =>'ReservationController@postReservation', 'as' => 'postReservation'));
+		
 	});
 });
 

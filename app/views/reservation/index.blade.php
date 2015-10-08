@@ -23,20 +23,12 @@
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,600' rel='stylesheet' type='text/css'>
     <script type="text/javascript">
     $(function() {
-    $( '#event_start' ).datepicker({
+    $( '#date' ).datepicker({
     'formatDate': 'Y-m-d H:i:s'
 
     });
 
-    $( '#event_end' ).datepicker({
-    'formatDate': 'Y-m-d H:i:s'
-
-    });
-
-    $('#time_start').timepicker({
-    timeFormat: 'hh:mm tt'
-    });
-    $('#time_end').timepicker({
+    $('#time').timepicker({
     timeFormat: 'hh:mm tt'
     });
     });
@@ -57,7 +49,7 @@
         <div style="clear:both;"></div>
       </div>
       <div class="create_event">
-        <form id="eventPart1"class="" method="post" action="" enctype="multipart/form-data">
+        <form id="eventPart1" method="post" action="{{URL::Route('postReservation')}}" enctype="multipart/form-data">
           <h4 class="text-uppercase nmt" style="margin-bottom:6px;font-weight:600;"></h4>
           <div class="row">
             <div class="col-md-4" id="eventPicture-to-upload">
@@ -106,47 +98,59 @@
               </div>
               <div class="form-group">
                 <label class="control-label">Email</label>
-                <input type="email" class="form-control input-sm" id="eventlocality" name="eventlocality"placeholder="" required>
-              </div>
-                <div class="row" style="margin:0px -5px !important;">
-                <div class="col-md-6" style="padding:0px 5px !important;">
-                  <div class="form-group">
-                    <label class="control-label" for="inputDefault">start</label>
-                    <input type="text" class="form-control input-sm" id="event_start"name="event_start" style="font-size:9pt;" placeholder=" "required>
-                    
-                  </div>
-                </div>
-                <div class="col-md-6" style="padding:0px 5px !important;">
-                  <div class="form-group">
-                    <label class="control-label" for="inputDefault">start time</label>
-                    <input type="text" class="form-control input-sm" id="time_start" name="time_start" style="font-size:9pt;" placeholder=" " required>
-                  </div>
-                </div>
+                <input type="email" class="form-control input-sm" id="email" name="email"placeholder="" required>
               </div>
               <div class="row" style="margin:0px -5px !important;">
                 <div class="col-md-6" style="padding:0px 5px !important;">
                   <div class="form-group">
-                    <label class="control-label" for="inputDefault">end</label>
-                    <input type="text" class="form-control input-sm" id="event_end" name="event_end" style="font-size:9pt;" placeholder="" required>
+                    <label class="control-label" for="inputDefault">Date</label>
+                    <input type="text" class="form-control input-sm" id="date"name="date" style="font-size:9pt;" placeholder=" "required>
                   </div>
                 </div>
                 <div class="col-md-6" style="padding:0px 5px !important;">
                   <div class="form-group">
-                    <label class="control-label" for="inputDefault">end time</label>
-                    <input type="text" class="form-control input-sm" id="time_end" name="time_end" style="font-size:9pt;" placeholder="" required>
+                    <label class="control-label" for="inputDefault">Check in</label>
+                    <input type="text" class="form-control input-sm" id="time" name="time" style="font-size:9pt;" placeholder="" required>
                   </div>
+                </div>
+              </div>
+              <div class="row" style="margin:0px -5px !important;">
+               <div class="form-group">
+                <label class="control-label" for="inputDefault">Choose Day</label>
+                <ul class="list-unstyled nmb" id="list">
+                  <li class=" checkbox">
+                    <label class="custom_checkbox">
+                      <input type="radio" id="1" name="day" class="css-checkbox"  value="1">
+                      <span>Morning</span>
+                    </label>
+                  </li>
+                  <li class=" checkbox">
+                    <label class="custom_checkbox">
+                      <input type="radio" id="2" name="day" class="css-checkbox"  value="2">
+                      <span>Overnight</span>
+                    </label>
+                  </li>
+                </ul>
+                  <input type="hidden" name="chosenDay"id="chosenDay" value="1">
                 </div>
               </div>
             </div>
           </div>
         </div>
         <button type="submit" id="next_submit" class="btn_green">Reserve</button>
+        {{Form::token()}}
       </form>
     </div>
   </div>
   <input type="text" class="form-control" id="checkCottage" name="checkCottage" placeholder="">
 </div>
 <script type="text/javascript">
+  $('input[name="day"]').click(function(){
+    var id = $(this).attr("id");
+    $("#chosenDay").empty();
+    $("#chosenDay").val(id);
+  });
+
 function isNumber(evt) {
     evt = (evt) ? evt : window.event;
     var charCode = (evt.which) ? evt.which : evt.keyCode;
