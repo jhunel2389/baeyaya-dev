@@ -67,68 +67,72 @@
               </div>
               <button type="button" id="compute" class="btn_green">Compute</button>
             </div>
-            <div class="col-md-4">
-              <?php $reservationTypes = ReservationType::all();?>
-              <div id="pT"class="form-group" style="position:relative;">
-                <label class="control-label" for="inputDefault">Reservation Type</label>
-                <i class="fa fa-2x fa-caret-down" style="position:absolute;right:10px;bottom:2px;color:#000;pointer-events:none;"></i>
-                <select class="form-control input-sm" id="rType" name="rType" style="padding-top:0px;padding-left:5px;line-height:20pt;" required>
-                  <option value="" disabled selected style="display:none;">Choose type</option>
-                  @foreach($reservationTypes as $type)
-                    <option value = "{{$type['id']}}">{{$type['name']}}</option>
-                  @endforeach
-                </select>
-              </div>
-              <div id="pT"class="form-group" style="position:relative;">
-                <label class="control-label" for="inputDefault">Category type</label>
-                <i class="fa fa-2x fa-caret-down" style="position:absolute;right:10px;bottom:2px;color:#000;pointer-events:none;"></i>
-                <select class="form-control input-sm" id="cType" name="cType" style="padding-top:0px;padding-left:5px;line-height:20pt;" required>
-                  <option value="" disabled selected style="display:none;">Choose here</option>
-                </select>
-              </div>
-              <ul class="list-unstyled nmb" id="list">
-              </ul>
-              <input type="text" class="form-control" id="checkCottage" name="checkCottage" placeholder="">
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label class="control-label">No. of Kids</label>
-                <input type="text" class="form-control input-sm" id="kid" name="kid"placeholder="" onkeypress="return isNumber(event)"required>
-              </div>
-              <div class="form-group">
-                <label class="control-label">No. of Adults</label>
-                <input type="text" class="form-control input-sm" id="adult" name="adult"placeholder=" " onkeypress="return isNumber(event)"required>
-              </div>
-              <div class="form-group">
-                <label class="control-label">Email</label>
-                <input type="email" class="form-control input-sm" id="email" name="email"placeholder="" value="{{$userInfo['email']}}"required>
-              </div>
-              <div class="row" style="margin:0px -5px !important;">
-                <div class="col-md-6" style="padding:0px 5px !important;">
-                  <div class="form-group">
-                    <label class="control-label" for="inputDefault">Date</label>
-                    <input type="text" class="form-control input-sm" id="date"name="date" style="font-size:9pt;" placeholder=" "required>
-                  </div>
-                </div>
-              </div>
-              <div class="row" style="margin:0px -5px !important;">
-               <div class="form-group">
-                <label class="control-label" for="inputDefault">Choose Day</label>
-                <ul class="list-unstyled nmb" id="list">
-                  <li class=" checkbox">
-                    <label class="custom_checkbox">
-                      <input type="radio" id="1" name="day" class="css-checkbox"  value="1">
-                      <span>Morning</span>
-                    </label>
-                  </li>
-                  <li class=" checkbox">
-                    <label class="custom_checkbox">
-                      <input type="radio" id="2" name="day" class="css-checkbox"  value="2">
-                      <span>Overnight</span>
-                    </label>
-                  </li>
-                </ul>
+            <div class="col-md-8">
+              <div class="row">
+                <div class="form-group">
+                  <label class="control-label" for="inputDefault">Choose Day</label>
+                  <ul class="list-unstyled nmb">
+                    <ul class=" checkbox">
+                      <label class="custom_checkbox">
+                        <input type="radio" id="1" name="day" class="css-checkbox"  value="1">
+                        <span>Morning</span>
+                      </label>
+                    </ul>
+                    <ul class=" checkbox">
+                      <label class="custom_checkbox">
+                        <input type="radio" id="2" name="day" class="css-checkbox"  value="2">
+                        <span>Overnight</span>
+                      </label>
+                    </ul>
+                  </ul>
                   <input type="hidden" name="chosenDay"id="chosenDay" value="1">
+                </div>
+                <div class="col-md-4">
+                  <?php $reservationTypes = ReservationType::all();?>
+                  <div id="pT"class="form-group" style="position:relative;">
+                    <label class="control-label" for="inputDefault">Reservation Type</label>
+                    <i class="fa fa-2x fa-caret-down" style="position:absolute;right:10px;bottom:2px;color:#000;pointer-events:none;"></i>
+                    <select class="form-control input-sm" id="rType" name="rType" style="padding-top:0px;padding-left:5px;line-height:20pt;" required>
+                      <option value="" disabled selected style="display:none;">Choose type</option>
+                      @foreach($reservationTypes as $type)
+                        <option value = "{{$type['id']}}">{{$type['name']}}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                  <div id="pT"class="form-group" style="position:relative;">
+                    <label class="control-label" for="inputDefault">Category type</label>
+                    <i class="fa fa-2x fa-caret-down" style="position:absolute;right:10px;bottom:2px;color:#000;pointer-events:none;"></i>
+                    <select class="form-control input-sm" id="cType" name="cType" style="padding-top:0px;padding-left:5px;line-height:20pt;" required>
+                      <option value="" disabled selected style="display:none;">Choose here</option>
+                    </select>
+                  </div>
+                  <ul class="list-unstyled nmb" id="list">
+                  </ul>
+                  <input type="hidden" class="form-control" id="checkCottage" name="checkCottage" placeholder="">
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="control-label">No. of Kids</label>
+                    <input type="text" class="form-control input-sm" id="kid" name="kid"placeholder="" onkeypress="return isNumber(event)"required>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label">No. of Adults</label>
+                    <input type="text" class="form-control input-sm" id="adult" name="adult"placeholder=" " onkeypress="return isNumber(event)"required>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label">Email</label>
+                    <input type="email" class="form-control input-sm" id="email" name="email"placeholder="" value="{{$userInfo['email']}}"required>
+                  </div>
+                  <div class="row" style="margin:0px -5px !important;">
+                    <div class="col-md-6" style="padding:0px 5px !important;">
+                      <div class="form-group">
+                        <label class="control-label" for="inputDefault">Date</label>
+                        <input type="text" class="form-control input-sm" id="date"name="date" style="font-size:9pt;" placeholder=" "required>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" style="margin:0px -5px !important;">
+                  </div>
                 </div>
               </div>
             </div>
@@ -141,7 +145,12 @@
   </div>
 </div>
 <script type="text/javascript">
-  var datenow = ($.datepicker.formatDate('yy/mm/dd', new Date()));
+  $('#date').datepicker({
+    inline: true,
+    dateFormat: "mm/dd/yy",
+    changeFirstDay: false,
+    minDate: +7
+  });
 
 
   $('input[name="day"]').click(function(){
@@ -194,6 +203,12 @@ $(document).on("click","#cType",function() {
                   </label>\
                 </li>');
       }
+    }
+    else
+    {
+      $('#list').empty();
+      $('#list').append('<label>No more available cottage or room</label>');
+
     } 
   });
 });
