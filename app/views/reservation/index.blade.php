@@ -81,7 +81,7 @@
                       </label>
                     </li>
                   </ul>
-                  <input type="text" name="chosenDay"id="chosenDay" value="1">
+                  <input type="hidden" name="chosenDay"id="chosenDay" value="1">
                 </div>
                 <div class="col-md-4">
                   <?php $reservationTypes = ReservationType::all();?>
@@ -130,7 +130,7 @@
                   <ul class="list-unstyled nmb" id="list">
                     No display
                   </ul>
-                  <input type="text" class="form-control" id="checkCottage" name="checkCottage" placeholder="">
+                  <input type="hidden" class="form-control" id="checkCottage" name="checkCottage" placeholder="">
                 </div>
               </div>
             </div>
