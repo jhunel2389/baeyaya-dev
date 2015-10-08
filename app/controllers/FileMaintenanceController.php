@@ -35,6 +35,7 @@ class FileMaintenanceController extends BaseController {
 		$address = Input::get('address');
 		$contact = Input::get('contact');
 		$email = Input::get('email');
+		$isAdmin = Input::get('isAdmin');
 		$getInformation = UserInfo::where('user_id','=',$id)->first();
 		$getInformation['firstname'] = $fname;
 		$getInformation['lastname'] = $lname;
@@ -44,7 +45,11 @@ class FileMaintenanceController extends BaseController {
 		$getInformation['email'] = $email;
 		if($getInformation->save())
 		{
-			return $response = array(
+			$updateUser = User::find($getInformation['user_id']);
+			$updateUser['isAdmin'] = $isAdmin;
+			if($updateUser->save())
+			{
+				return $response = array(
 					"reserve_id"=> $id,
 					"fname"		=> $fname,
 					"lname"		=> $lname,
@@ -53,6 +58,7 @@ class FileMaintenanceController extends BaseController {
 					"contact"	=> $contact,
 					"email"		=> $email,
 				);
+			}
 		}
 	}
 
@@ -83,6 +89,7 @@ class FileMaintenanceController extends BaseController {
 	{
 		$id = Input::get('id');
 		$allReserve = UserInfo::where('user_id','=',$id)->first();
+		$userInfo = User::find($id);
 		return $response[] = array(
 				"reserve_id"=> $allReserve['id'],
 				"fname"		=> $allReserve['firstname'],
@@ -91,6 +98,7 @@ class FileMaintenanceController extends BaseController {
 				"address"	=> $allReserve['address'],
 				"contact"	=> $allReserve['contactNo'],
 				"email"		=> $allReserve['email'],
+				"isAdmin"	=> $userInfo['isAdmin'],
 				);
 	}
 	public function saveInfo()
@@ -141,6 +149,88 @@ class FileMaintenanceController extends BaseController {
 			return Redirect::Route('home');
 		}
 		
+	}
+
+	public function getFMNews()
+	{
+		if(Auth::User()->isAdmin())
+		{
+			return View::make('news.fm_news');
+		}
+		else
+		{
+			return Redirect::Route('home');
+		}
+		
+	}
+
+	public function updateNewsInfo()
+	{
+		$id = Input::get('id');
+		$title = Input::get('title');
+		$content = Input::get('content');
+		$getInformation = News::find($id);
+		$getInformation['title'] = $title;
+		$getInformation['content'] = $content;
+		if($getInformation->save())
+		{
+			return $response = array(
+					"ban_id"=> $id,
+					"ban_title"=> $title,
+					"ban_content"=> $content,
+				);
+		}
+	}
+
+	public function deleteNewsInfo()
+	{
+		$id = Input::get('id');
+		$deleteReserveInfo = News::find($id);
+		if($deleteReserveInfo->delete())
+		{
+			$allNews = News::all();
+			foreach ($allNews as $allNew) 
+			{
+				$response[] = array(
+					"ban_id"=> $allNew['id'],
+					"ban_title"=> $allNew['title'],
+					"ban_content"=> $allNew['content'],
+				);
+			}
+		}
+		return $response;
+	}
+
+	public function getEditNewsInfo()
+	{
+		$id = Input::get('id');
+		$allNews = News::find($id);
+		return $response[] = array(
+				"ban_id"=> $allNews['id'],
+				"ban_title"=> $allNews['title'],
+				"ban_content"=> $allNews['content'],
+		);
+	}
+
+	public function saveNewsInfo()
+	{
+		$title = Input::get('title');
+		$content = Input::get('content');
+
+		if(!empty($title))
+		{
+			$getInformation = new News();
+			$getInformation['title'] = $title;
+			$getInformation['content'] = $content;
+			if($getInformation->save())
+			{
+				return 1;
+			}
+		}
+		else
+		{
+			return 2;
+		}
 	}
 
 	public function updateBannerInfo()

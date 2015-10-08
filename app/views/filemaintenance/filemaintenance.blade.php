@@ -36,7 +36,13 @@
             <span class="input-group-addon" id="basic-addon1">E-mail</span>
             <input type="text" class="form-control" id="email" placeholder="Enter Email here" aria-describedby="basic-addon1">
           </div>
-          <button type="button" id="saveInfo"class="btn btn-info">Save Information</button>
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Admin</span>
+            <fieldset id="checkAdmin">
+              <input type="checkbox" name="admin" id="admin" value="1">
+            </fieldset>
+          </div>
+          <button type="button" id="saveInfo" class="btn btn-info">Save Information</button>
           <button type="button" id="updateInfo"class="btn btn-warning">Update Information</button>
           
         </form>
@@ -66,14 +72,17 @@
   $(document).ready(function() {
     $('#updateInfo').hide();
   });
+
   $('#updateInfo').on('click',function()
   {
+    var atLeastOneIsChecked = $('#checkAdmin :checkbox:checked').length;
     $fname = $('#fname').val();
     $lname = $('#lname').val();
     $mname = $('#mname').val();
     $address = $('#address').val();
     $contact = $('#contact').val();
     $email = $('#email').val();
+    $isAdmin = atLeastOneIsChecked;
     $id = $('#id').val();
     $_token = "{{ csrf_token() }}";
       var status = confirm("Do you want to update this information ?");
@@ -81,7 +90,7 @@
     {
       $.post('{{URL::Route('updateInfo')}}',{ _token: $_token, fname :$fname, lname:$lname,
                                           mname:$mname, address:$address, contact:$contact,
-                                          email:$email, id:$id } , function(data)
+                                          email:$email, id:$id , isAdmin:$isAdmin } , function(data)
       {
         console.log(data);
         $('#reserve'+data.reserve_id).empty();
@@ -245,6 +254,15 @@
             $('#saveInfo').hide();
             $('#updateInfo').show();
             $('#id').val(data.reserve_id);
+            if(data.isAdmin == 1)
+            {
+              $('#admin').prop('checked', true);
+            }
+            else
+            {
+              $('#admin').prop('checked', false);
+            }
+            
           }
         });
       }

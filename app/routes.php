@@ -97,6 +97,7 @@ Route::group(array('before' => 'auth'), function()
 Route::group(array('prefix' => 'admin'), function() 
 {
 	Route::get('/',array('uses' =>'FileMaintenanceController@getFM', 'as' => 'getFM'));
+	Route::get('/news',array('uses' =>'FileMaintenanceController@getFMNews', 'as' => 'getFMNews'));
 	Route::get('/banners',array('uses' =>'FileMaintenanceController@getBanners', 'as' => 'getBanners'));
 	Route::get('/reservation-info/{id}',array('uses' =>'FileMaintenanceController@getReserve', 'as' => 'getReserve'));
 	Route::group(array('before' => 'csrf'), function()
@@ -110,7 +111,10 @@ Route::group(array('prefix' => 'admin'), function()
 		Route::post('/getEditBannerInfo',array('uses' =>'FileMaintenanceController@getEditBannerInfo', 'as' => 'getEditBannerInfo'));
 		Route::post('/deleteBannerInfo',array('uses' =>'FileMaintenanceController@deleteBannerInfo', 'as' => 'deleteBannerInfo'));
 		Route::post('/updateBannerInfo',array('uses' =>'FileMaintenanceController@updateBannerInfo', 'as' => 'updateBannerInfo'));
-
+		Route::post('/updateNewsInfo',array('uses' =>'FileMaintenanceController@updateNewsInfo', 'as' => 'updateNewsInfo'));
+		Route::post('/deleteNewsInfo',array('uses' =>'FileMaintenanceController@deleteNewsInfo', 'as' => 'deleteNewsInfo'));
+		Route::post('/getEditNewsInfo',array('uses' =>'FileMaintenanceController@getEditNewsInfo', 'as' => 'getEditNewsInfo'));
+		Route::post('/saveNewsInfo',array('uses' =>'FileMaintenanceController@saveNewsInfo', 'as' => 'saveNewsInfo'));
 
 		Route::post('/getCottageList',array('uses' =>'ReservationController@getCottageList', 'as' => 'getCottageList'));
 	});
