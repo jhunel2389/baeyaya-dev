@@ -6,20 +6,33 @@ class ReservationController extends BaseController {
 	}
 	public function compute()
 	{
+		$day = Input::get('day');
 		$ctype = Input::get('ctype');
 		$kid = Input::get('kid');
 		$adult = Input::get('adult');
 		$check = Input::get('check');
 		$getcountcheck = (count(explode(",", $check))-1);
-		
-			return $response[] = array(			
-				"cottageprice" => $cottageprice = $getcountcheck * 600,
+		$cottageType = CottageType::where('Cottage_ID','=',$ctype)->first();
+			$price = (int)$cottageType['price'];
+		if($day == "1")
+		{
+			return $response = array(			
+				"cottageprice" => $cottageprice = $getcountcheck * $price,
 				"kidprice" =>$kidprice = $kid * 120,
 				"adultprice" =>$adultprice = $adult * 150,
 				"total"=> $total = $cottageprice + $kidprice +$adultprice,
 				);
-		
-		return 0;
+		}
+		else
+		{
+			return $response = array(			
+				"cottageprice" => $cottageprice = $getcountcheck * $price,
+				"kidprice" =>$kidprice = $kid * 140,
+				"adultprice" =>$adultprice = $adult * 170,
+				"total"=> $total = $cottageprice + $kidprice +$adultprice,
+				);
+
+		}
 
 	}
 	public function getCottagelist()

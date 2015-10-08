@@ -279,12 +279,13 @@ $(document).on("change",".custom_checkbox input",function(){
     }
   });
 $(document).on("click","#compute",function(){
+  var day = $('#chosenDay').val();
   var ctype =$("#cType").val();
   var kid = $('#kid').val();
   var adult = $('#adult').val();
   var check = $("#checkCottage").val();
   $_token = "{{ csrf_token() }}";
-  $.post('{{URL::Route('compute')}}',{_token:$_token, kid:kid,adult:adult,check:check,ctype:ctype},function(data){
+  $.post('{{URL::Route('compute')}}',{_token:$_token, kid:kid,adult:adult,check:check,ctype:ctype,day:day},function(data){
     console.log(data);
     $("#aTotal").empty();
     $("#kTotal").empty();
