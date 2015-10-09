@@ -62,21 +62,25 @@
             </div>
             <div class="friendrequest_list">
                 <?php $testimonials = Testimonials::all();?>
-                @foreach($testimonials as $testimonial)
-                <?php $userInfo = UserInfo::where('user_id','=',$testimonial['user_id'])->first();?>
-                <div class="friendrequest_row">
-                    <div class="notification_content">
-                        <span>{{$userInfo['firstname']}},{{$userInfo['lastname']}}</span>
-                        <p>{{$testimonial['testimonials']}}</p>
-                        <span>created at: {{$testimonial['created_at']}}</span>
+                @if(count($testimonials) != 0)
+                    @foreach($testimonials as $testimonial)
+                    <?php $userInfo = UserInfo::where('user_id','=',$testimonial['user_id'])->first();?>
+                    <div class="friendrequest_row">
+                        <div class="notification_content">
+                            <span>{{$userInfo['firstname']}},{{$userInfo['lastname']}}</span>
+                            <p>{{$testimonial['testimonials']}}</p>
+                            <span>created at: {{$testimonial['created_at']}}</span>
+                        </div>
+                        @if(Auth::User()['isAdmin'] == 1 || $userInfo['user_id'] == Auth::User()['id'])
+                        <a class="notification_action" href="javascript:void(0);" data-id="">
+                            <i class="demo-icon icon-remove-user">&#xe806;</i>
+                        </a>   
+                        @endif
                     </div>
-                    @if(Auth::User()['isAdmin'] == 1 || $userInfo['user_id'] == Auth::User()['id'])
-                    <a class="notification_action" href="javascript:void(0);" data-id="">
-                        <i class="demo-icon icon-remove-user">&#xe806;</i>
-                    </a>   
-                    @endif
-                </div>
-                @endforeach
+                    @endforeach
+                @else
+                <label>No Testimonials</label>
+                @endif
             </div>
         </div>  
     </div>
