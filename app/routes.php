@@ -35,6 +35,10 @@ Route::group(array('prefix' => 'news'), function()
 Route::group(array('prefix' => 'testimonials'), function() 
 {
 	Route::get('/',array('uses' =>'TestimonialsController@index', 'as' => 'getTestimonials'));
+	Route::group(array('before' => 'csrf'), function()
+	{
+		Route::post('/postTestimonials', array('uses' => 'TestimonialsController@postTestimonials', 'as' => 'postTestimonials'));
+	});
 });
 
 Route::group(array('prefix' => 'contact-us'), function() 
