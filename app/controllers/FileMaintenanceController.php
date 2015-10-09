@@ -354,4 +354,18 @@ class FileMaintenanceController extends BaseController {
 			}
 		}
 	}
+
+
+	public function getFMGallery()
+	{
+		if(Auth::User()->isAdmin())
+		{
+			return View::make('gallery.fm_gallery');
+		}
+		else
+		{
+			return Redirect::Route('home');
+		}
+		
+	}
 }

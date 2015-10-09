@@ -8,7 +8,7 @@
 
   <div class="container">
     <div class="row">
-      <h3>User Information Information</h3>
+      <h3>User Information</h3>
       <div class="col-md-4">
         <form>
           <input type="hidden" class="form-control" id= "id" placeholder="" aria-describedby="basic-addon1">
@@ -58,7 +58,7 @@
             <div class="input-group" id="reserve{{$allReserve['id']}}">
             <a href="{{ URL::Route('getReserve',$allReserve['id']) }}" class="list-group-item">{{$allReserve['lastname']}},{{$allReserve['firstname']}}</a>
             <span class="input-group-addon" data-type="edit" data-id="{{$allReserve['id']}}" style="cursor:pointer">Edit</span>
-            <span class="input-group-addon" data-type="delete" data-id="{{$allReserve['id']}}" style="cursor:pointer">Delete</span>
+            <!--<span class="input-group-addon" data-type="delete" data-id="{{$allReserve['id']}}" style="cursor:pointer">Delete</span>-->
             </div>
             @endforeach
           <div>
