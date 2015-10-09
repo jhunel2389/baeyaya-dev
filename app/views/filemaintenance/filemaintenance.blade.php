@@ -8,7 +8,7 @@
 
   <div class="container">
     <div class="row">
-      <h3>Add Information</h3>
+      <h3>User Information Information</h3>
       <div class="col-md-4">
         <form>
           <input type="hidden" class="form-control" id= "id" placeholder="" aria-describedby="basic-addon1">
@@ -42,7 +42,7 @@
               <input type="checkbox" name="admin" id="admin" value="1">
             </fieldset>
           </div>
-          <button type="button" id="saveInfo" class="btn btn-info">Save Information</button>
+          <!--<button type="button" id="saveInfo" class="btn btn-info">Save Information</button>-->
           <button type="button" id="updateInfo"class="btn btn-warning">Update Information</button>
           
         </form>
