@@ -174,15 +174,22 @@
 
                  </div>
               </div>
-              <div class="col-md-4" id="forCompute">
+              <div class="col-md-4" >
                  <div class="list-group">
                   <a href="#" class="list-group-item active">
                   Computation
                   </a>
+                  <div id="forCompute">
                   <a href="#" class="list-group-item"> <span class="badge" id="aTotal">0</span>Adults</a>
                   <a href="#" class="list-group-item"> <span class="badge"id="kTotal">0</span>Kids</a>
                   <a href="#" class="list-group-item"> <span class="badge" id="cTotal">0</span>Cottage</a>
                   <a href="#" class="list-group-item"> <span class="badge"id="total">0</span>Total Price</a>
+                  </div>
+                  <div id="forComputeRoom">
+                  <a href="#" class="list-group-item"> <span class="badge" id="rTotal">0</span>Room</a>
+                  <a href="#" class="list-group-item"> <span class="badge"id="atotal">0</span>Additional Charges</a>
+                  <a href="#" class="list-group-item"> <span class="badge"id="rtotal">0</span>Total Price</a>
+                  </div>
                 </div>
                 <button type="button" id="compute" class="btn_green">Compute</button>
               </div>
@@ -204,6 +211,7 @@
     $('#forRoom').hide();
     $('#additional').hide();
     $('#forAddtional').hide();
+    $('#forComputeRoom').hide();
   });
   $(document).on("change","#add",function() {
     if($(this).is(":checked"))
@@ -271,6 +279,7 @@ $(document).on("click","#rType",function() {
     $('#forDay').hide();
     $('#forCompute').hide();
     $("#add").prop("disabled", false);
+    $('#forComputeRoom').show();
      $.post('{{URL::Route('getRoom')}}',{_token:$_token, rtype_id:$rtype_id,date:$date},function(data)
     {
       console.log(data);
@@ -296,6 +305,7 @@ $(document).on("click","#rType",function() {
   }
   else
   {
+    $('#forComputeRoom').hide();
     $("#add").prop('checked', false);
     $('#addPerson').val('');
     $('#addBed').val('');
