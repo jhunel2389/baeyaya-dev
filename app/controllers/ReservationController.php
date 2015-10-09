@@ -173,7 +173,25 @@ class ReservationController extends BaseController {
 		$addTowel 			= Input::get('addTowel');
 		$addPillow 			= Input::get('addPillow');
 
-
+		$getcountcheck = (count(explode(",", $checkCottage))-1);
+		$cottageType = CottageType::where('Cottage_ID','=',$cType)->first();
+			$price = (int)$cottageType['price'];
+		if($chosenDay == "1")
+		{	
+			$cottageprice = $getcountcheck * $price;
+			$kidprice = $kid * 120;
+			$adultprice = $adult * 150;
+			$total = $cottageprice + $kidprice +$adultprice;
+			
+		}
+		else
+		{		
+			$cottageprice = $getcountcheck * $price;
+			$kidprice = $kid * 140;
+			$adultprice = $adult * 170;
+			$total = $cottageprice + $kidprice +$adultprice;
+			
+		}
 
 		
 		$getReservation = new CottageReservation();
@@ -190,6 +208,7 @@ class ReservationController extends BaseController {
 		$getReservation['num_adult'] 		= $adult;
 		$getReservation['num_kid'] 			= $kid;
 		$getReservation['status'] 			= "1";
+		$getReservation['total_amount']		=$total;
 		if(!$getReservation->save())
 		{
 			return Redirect::route('home');
