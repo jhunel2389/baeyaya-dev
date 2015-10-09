@@ -115,7 +115,7 @@
 				<input type="submit" value="Login" name="sub" class="btn btn-default"/>
 				{{Form::token()}}
 			</form>
-			
+				<li><a class="play-icon popup-with-zoom-anim" href="#small-dialog2"><span> </span>Forgot Password</a></li>
 		</div>
 	</div>
 	<div id="small-dialog1" class="mfp-hide">
@@ -135,13 +135,13 @@
 	</div>	
 	
 	<div id="small-dialog2" class="mfp-hide">
-		<div class="signup">
-			<h3>Sign Up</h3>
+		<div class="forgotpassword">
+			<h3>Reset Password</h3>
 			<h4>Enter Your Details Here</h4>
-				<input type="text" placeholder="Enter Email" class="text" name="for_email" id="for_email"/>
-				<input type="submit" name="subfor" value="Submit" onclick="forgotPassword();" />
+			<input type="text" class="email" placeholder="Email" name="for_email" id="for_email" />
+			<input type="submit"  value="Forgot Password" onclick="forgotPassword();"/>
 		</div>
-	</div>	
+	</div>
 
 	<script>
 	$(document).ready(function() {

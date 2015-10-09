@@ -60,7 +60,7 @@
 								<span class="mail"> </span>
 							</div>
 							<div class="c-right">
-								<p><a href="mailto:posomhedz@yahoo.com.ph">posomhedz@yahoo.com.ph</a></p>
+								<p><a href="mailto:14kalugdangardenresort@gmail.com">14kalugdangardenresort@gmail.com</a></p>
 							</div>
 							<div class="clearfix"></div>
 						</div>
