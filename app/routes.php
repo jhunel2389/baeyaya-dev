@@ -98,6 +98,7 @@ Route::group(array('prefix' => 'admin'), function()
 {
 	Route::get('/',array('uses' =>'FileMaintenanceController@getFM', 'as' => 'getFM'));
 	Route::get('/gallery',array('uses' =>'FileMaintenanceController@getFMGallery', 'as' => 'getFMGallery'));
+	Route::get('/galleryImgs',array('uses' =>'FileMaintenanceController@galleryImgs', 'as' => 'galleryImgs'));
 	Route::get('/news',array('uses' =>'FileMaintenanceController@getFMNews', 'as' => 'getFMNews'));
 	Route::get('/banners',array('uses' =>'FileMaintenanceController@getBanners', 'as' => 'getBanners'));
 	Route::get('/reservation-info/{id}',array('uses' =>'FileMaintenanceController@getReserve', 'as' => 'getReserve'));

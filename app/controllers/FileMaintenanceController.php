@@ -368,4 +368,9 @@ class FileMaintenanceController extends BaseController {
 		}
 		
 	}
+
+	public function galleryImgs()
+	{
+		return Gallery::all();
+	}
 }
