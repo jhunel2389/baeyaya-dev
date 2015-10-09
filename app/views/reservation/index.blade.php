@@ -97,7 +97,7 @@
                   <ul class="list-unstyled nmb">
                     <li class=" checkbox">
                       <label>
-                        <input type="radio" id="1" name="day" class="css-checkbox"  value="1">
+                        <input type="radio" id="1" name="day" class="css-checkbox"  value="1" checked>
                         <span>Morning</span>
                       </label>
                     </li>
