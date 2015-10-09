@@ -139,7 +139,7 @@
                       </label>
                     </li>
                   </ul>
-                  <input type="hidden" name="chosenDay"id="chosenDay" value="1">
+                  <input type="hidden" name="chosenDay" id="chosenDay" value="1">
                 </div>
 
                  choose cottage or room here
@@ -184,14 +184,16 @@
                   <a href="#" class="list-group-item"> <span class="badge"id="kTotal">0</span>Kids</a>
                   <a href="#" class="list-group-item"> <span class="badge" id="cTotal">0</span>Cottage</a>
                   <a href="#" class="list-group-item"> <span class="badge"id="total">0</span>Total Price</a>
+                  <button type="button" id="compute" class="btn_green">Compute</button>
                   </div>
                   <div id="forComputeRoom">
                   <a href="#" class="list-group-item"> <span class="badge" id="rTotal">0</span>Room</a>
                   <a href="#" class="list-group-item"> <span class="badge"id="atotal">0</span>Additional Charges</a>
-                  <a href="#" class="list-group-item"> <span class="badge"id="rtotal">0</span>Total Price</a>
+                  <a href="#" class="list-group-item"> <span class="badge"id="gtotal">0</span>Total Price</a>
+                  <button type="button" id="computeRoom" class="btn_green">Compute</button>
                   </div>
                 </div>
-                <button type="button" id="compute" class="btn_green">Compute</button>
+                
               </div>
             </div>
           </div>
@@ -221,7 +223,7 @@
        $('#addBed').val('');
        $('#addLinen').val('');
        $('#addTowel').val('');
-       $('#addPilow').val('');
+       $('#addPillow').val('');
     }
     else
     {
@@ -230,7 +232,7 @@
        $('#addBed').val('');
        $('#addLinen').val('');
        $('#addTowel').val('');
-       $('#addPilow').val('');
+       $('#addPillow').val('');
     }
   });
   $(document).on("change","#term",function() {
@@ -445,6 +447,28 @@ $(document).on("click","#compute",function(){
     $("#kTotal").html(data.kidprice);
     $("#cTotal").html(data.cottageprice);
     $("#total").html(data.total);
+  });
+
+  //alert($adult);
+
+});
+
+$(document).on("click","#computeRoom",function(){
+  var roomPackage = $('#roomPackage').val();
+  var addPerson =$("#addPerson").val();
+  var addBed = $('#addBed').val();
+  var addLinen = $('#addLinen').val();
+  var addTowel = $("#addTowel").val();
+   var addPillow = $("#addPillow").val();
+  $_token = "{{ csrf_token() }}";
+  $.post('{{URL::Route('computeRoom')}}',{_token:$_token, roomPackage:roomPackage,addPerson:addPerson,addBed:addBed,addLinen:addLinen,addTowel:addTowel,addPillow:addPillow},function(data){
+    console.log(data);
+    $("#rTotal").empty();
+    $("#atotal").empty();
+    $("#gtotal").empty();
+    $("#rTotal").html(data.roomPrice);
+    $("#atotal").html(data.addCharges);
+    $("#gtotal").html(data.total);
   });
 
   //alert($adult);

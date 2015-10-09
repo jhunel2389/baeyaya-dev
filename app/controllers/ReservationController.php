@@ -50,6 +50,43 @@ class ReservationController extends BaseController {
 		}
 		
 	}
+
+	public function computeRoom()
+	{
+		$roomPackage = Input::get('roomPackage');
+		$addPerson = Input::get('addPerson');
+		$addBed = Input::get('addBed');
+		$addLinen = Input::get('addLinen');
+		$addTowel = Input::get('addTowel');
+		$addPillow = Input::get('addPillow');
+		$totalAdd = 0;
+		if(!empty($addPerson))
+		{
+			$totalAdd = $totalAdd + ($addPerson * (int)AdditionalPrice::where('additional','=','AdditionalPerson')->first()['price']);
+		}
+		if(!empty($addBed))
+		{
+			$totalAdd = $totalAdd + ($addBed * (int)AdditionalPrice::where('additional','=','ExtraBed')->first()['price']);
+		}
+		if(!empty($addLinen))
+		{
+			$totalAdd = $totalAdd + ($addLinen * (int)AdditionalPrice::where('additional','=','ExtraLinen')->first()['price']);
+		}
+		if(!empty($addTowel))
+		{
+			$totalAdd = $totalAdd + ($addTowel * (int)AdditionalPrice::where('additional','=','ExtraTowel')->first()['price']);
+		}
+		if(!empty($addPillow))
+		{
+			$totalAdd = $totalAdd + ($addPillow * (int)AdditionalPrice::where('additional','=','ExtraPillow')->first()['price']);
+		}
+		return $response = array(			
+				"roomPrice" => RoomPackage::where('packid','=',$roomPackage)->first()['Price'],
+				"addCharges" => $totalAdd,
+				"total"=> $total = RoomPackage::where('packid','=',$roomPackage)->first()['Price'] + $totalAdd,
+				);
+	}
+
 	public function compute()
 	{
 		$day = Input::get('day');
@@ -190,17 +227,37 @@ class ReservationController extends BaseController {
 		$userInfo		= UserInfo::where('user_id','=',Auth::User()['id'])->first();
 		$season= 1;// 1: regular 2:week and holidays 3: summer (mar,apr,may)
 
-		//for addtional
-		$addPerson 			= Input::get('addPerson');
-		$addBed 			= Input::get('addBed');
-		$addLinen 			= Input::get('addLinen');
-		$addTowel 			= Input::get('addTowel');
-		$addPillow 			= Input::get('addPillow');
+		$addPerson = Input::get('addPerson');
+		$addBed = Input::get('addBed');
+		$addLinen = Input::get('addLinen');
+		$addTowel = Input::get('addTowel');
+		$addPillow = Input::get('addPillow');
+		$totalAdd = 0;
+		if(!empty($addPerson))
+		{
+			$totalAdd = $totalAdd + ($addPerson * (int)AdditionalPrice::where('additional','=','AdditionalPerson')->first()['price']);
+		}
+		if(!empty($addBed))
+		{
+			$totalAdd = $totalAdd + ($addBed * (int)AdditionalPrice::where('additional','=','ExtraBed')->first()['price']);
+		}
+		if(!empty($addLinen))
+		{
+			$totalAdd = $totalAdd + ($addLinen * (int)AdditionalPrice::where('additional','=','ExtraLinen')->first()['price']);
+		}
+		if(!empty($addTowel))
+		{
+			$totalAdd = $totalAdd + ($addTowel * (int)AdditionalPrice::where('additional','=','ExtraTowel')->first()['price']);
+		}
+		if(!empty($addPillow))
+		{
+			$totalAdd = $totalAdd + ($addPillow * (int)AdditionalPrice::where('additional','=','ExtraPillow')->first()['price']);
+		}
 		
-
+		
 		$getcountcheck = (count(explode(",", $checkCottage))-1);
 		$cottageType = CottageType::where('Cottage_ID','=',$cType)->first();
-			$price = (int)$cottageType['price'];
+		$price = (int)$cottageType['price'];
 		if($chosenDay == "1")
 		{
 			if($season == "1")
@@ -242,6 +299,11 @@ class ReservationController extends BaseController {
 			$kidprice = $kid * (int)$priceAdult['price'];
 			$adultprice = $adult * (int)$priceKid['price'];
 			$total = $cottageprice + $kidprice +$adultprice;
+		}
+
+		if(!empty($package))
+		{
+			$total = (int)RoomPackage::where('packid','=',$package)->first()['Price'] + $totalAdd;
 		}
 		$getReservation = new CottageReservation();
 		$getReservation['user_id'] 			= $userInfo['user_id'];
