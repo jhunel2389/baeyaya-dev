@@ -166,6 +166,13 @@ class ReservationController extends BaseController {
 		$package		= Input::get('roomPackage');
 		$room 			= Input::get('room');
 		$userInfo		= UserInfo::where('user_id','=',Auth::User()['id'])->first();
+		//for addtional
+		$addPerson 			= Input::get('addPerson');
+		$addBed 			= Input::get('addBed');
+		$addLinen 			= Input::get('addLinen');
+		$addTowel 			= Input::get('addTowel');
+		$addPillow 			= Input::get('addPillow');
+
 
 		
 		$getReservation = new CottageReservation();
@@ -186,7 +193,6 @@ class ReservationController extends BaseController {
 		{
 			return Redirect::route('home');
 		}
-			
 		return Redirect::route('getReservation_step2',$getReservation['id'])->with('id',$getReservation['id'])->with('mt', "HOME")->with('id',$getReservation['id'])->with('alert', 'success')->with('msg', 'You have successfully reserve.');
 		//return View::make('reservation.reservation_step2')->with('mt', "HOME")->with('id',$getReservation['id'])->with('alert', 'success')->with('msg', 'You have successfully reserve.');
 	}

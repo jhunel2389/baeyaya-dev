@@ -115,9 +115,14 @@
                         @endforeach
                       </select>
                     </div>
+                    <div class="form-group"  >
+                      <input type="checkbox" id="add" name="" >
+                      <span >Add addtional</span>
+                    </div>
                   </div>
             </div>
-            <div class="col-md-4" id="forDay">
+            <div class="col-md-4" >
+              <div id="forDay">
                 <div class="form-group">
                   <label class="control-label" for="inputDefault">Choose Day</label>
                   <ul class="list-unstyled nmb">
@@ -142,9 +147,32 @@
                   No display
                 </ul>
                 <input type="hidden" class="form-control" id="checkCottage" name="checkCottage" placeholder="">
+              </div>
+
                 
-               
-                
+                 <div id="additional">
+                    <div class="form-group">
+                      <label class="control-label">Additional Person</label>
+                      <input type="text" class="form-control input-sm" id="addPerson" name="addPerson"placeholder="" onkeypress="return isNumber(event)">
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label">Extra Bed</label>
+                      <input type="text" class="form-control input-sm" id="addBed" name="addBed"placeholder="" onkeypress="return isNumber(event)">
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label">Extra Linen</label>
+                      <input type="text" class="form-control input-sm" id="addLinen" name="addLinen"placeholder="" onkeypress="return isNumber(event)">
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label">Extra Towel</label>
+                      <input type="text" class="form-control input-sm" id="addTowel" name="addTowel"placeholder="" onkeypress="return isNumber(event)">
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label">Extra Pillow</label>
+                      <input type="text" class="form-control input-sm" id="addPillow" name="addPillow"placeholder="" onkeypress="return isNumber(event)">
+                    </div>
+
+                 </div>
               </div>
               <div class="col-md-4" id="forCompute">
                  <div class="list-group">
@@ -174,9 +202,31 @@
 <script type="text/javascript">
   $(document).ready(function() {
     $('#forRoom').hide();
+    $('#additional').hide();
+    $('#forAddtional').hide();
   });
-  $('#term').on('change',function()
-  {
+  $(document).on("change","#add",function() {
+    if($(this).is(":checked"))
+    {
+       $('#additional').show();
+       $('#addPerson').val('');
+       $('#addBed').val('');
+       $('#addLinen').val('');
+       $('#addTowel').val('');
+       $('#addPilow').val('');
+    }
+    else
+    {
+        $('#additional').hide();
+       $('#addPerson').val('');
+       $('#addBed').val('');
+       $('#addLinen').val('');
+       $('#addTowel').val('');
+       $('#addPilow').val('');
+    }
+  });
+  $(document).on("change","#term",function() {
+
     if($(this).is(":checked"))
     {
       $('#next_submit').prop('disabled', false);
@@ -214,10 +264,13 @@ $(document).on("click","#rType",function() {
   $_token = "{{ csrf_token() }}";
   if($rtype_id == "2")
   {
+    $("#add").prop('checked', false);
+    $('#forAddtional').show();
     $('#forCottage').hide();
     $('#forRoom').show();
     $('#forDay').hide();
     $('#forCompute').hide();
+    $("#add").prop("disabled", false);
      $.post('{{URL::Route('getRoom')}}',{_token:$_token, rtype_id:$rtype_id,date:$date},function(data)
     {
       console.log(data);
@@ -243,6 +296,13 @@ $(document).on("click","#rType",function() {
   }
   else
   {
+    $("#add").prop('checked', false);
+    $('#addPerson').val('');
+    $('#addBed').val('');
+    $('#addLinen').val('');
+    $('#addTowel').val('');
+    $('#addPilow').val('');
+    $('#additional').hide();
     $('#forRoom').hide();
     $('#forCompute').show();
     $('#forDay').show();
