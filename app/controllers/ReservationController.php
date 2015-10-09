@@ -105,7 +105,7 @@ class ReservationController extends BaseController {
 					}
 				}
 			}
-			$cottagelists = CottageList::all();
+			$cottagelists = CottageList::where('cottage_id','=',$cottageType)->get();
 			foreach ($cottagelists as $list) {
 
 				if(!in_array($list['cottagelist_id'], $id))
@@ -172,6 +172,7 @@ class ReservationController extends BaseController {
 		$addLinen 			= Input::get('addLinen');
 		$addTowel 			= Input::get('addTowel');
 		$addPillow 			= Input::get('addPillow');
+
 
 
 		
