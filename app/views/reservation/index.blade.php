@@ -52,39 +52,15 @@
           <h4 class="text-uppercase nmt" style="margin-bottom:6px;font-weight:600;"></h4>
           <div class="row">
             <div class="col-md-4" id="eventPicture-to-upload">
-              <div class="list-group">
-                <a href="#" class="list-group-item active">
-                Computation
-                </a>
-                <a href="#" class="list-group-item"> <span class="badge" id="aTotal">0</span>Adults</a>
-                <a href="#" class="list-group-item"> <span class="badge"id="kTotal">0</span>Kids</a>
-                <a href="#" class="list-group-item"> <span class="badge" id="cTotal">0</span>Cottage</a>
-                <a href="#" class="list-group-item"> <span class="badge"id="total">0</span>Total Price</a>
-              </div>
-              <button type="button" id="compute" class="btn_green">Compute</button>
-            </div>
-            <div class="col-md-8">
-              <div class="row">
-                <div class="form-group">
-                  <label class="control-label" for="inputDefault">Choose Day</label>
-                  <ul class="list-unstyled nmb">
-                    <li class=" checkbox">
-                      <label>
-                        <input type="radio" id="1" name="day" class="css-checkbox"  value="1">
-                        <span>Morning</span>
-                      </label>
-                    </li>
-                    <li class=" checkbox">
-                      <label >
-                        <input type="radio" id="2" name="day" class="css-checkbox"  value="2">
-                        <span>Overnight</span>
-                      </label>
-                    </li>
-                  </ul>
-                  <input type="hidden" name="chosenDay"id="chosenDay" value="1">
+               <div class="row" style="margin:0px -5px !important;">
+                  <div class="col-md-6" style="padding:0px 5px !important;">
+                    <div class="form-group">
+                      <label class="control-label" for="inputDefault">Date</label>
+                      <input type="text" class="form-control input-sm" id="date"name="date" style="font-size:9pt;" placeholder=" "required>
+                    </div>
+                  </div>
                 </div>
-                <div class="col-md-4">
-                  <?php $reservationTypes = ReservationType::all();?>
+                <?php $reservationTypes = ReservationType::all();?>
                   <div id="pT"class="form-group" style="position:relative;">
                     <label class="control-label" for="inputDefault">Reservation Type</label>
                     <i class="fa fa-2x fa-caret-down" style="position:absolute;right:10px;bottom:2px;color:#000;pointer-events:none;"></i>
@@ -106,9 +82,7 @@
                     <label class="control-label">Email</label>
                     <input type="email" class="form-control input-sm" id="email" name="email"placeholder="" value="{{$userInfo['email']}}"required disabled>
                   </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
+                   <div class="form-group">
                     <label class="control-label">No. of Kids</label>
                     <input type="text" class="form-control input-sm" id="kid" name="kid"placeholder="" onkeypress="return isNumber(event)"required>
                   </div>
@@ -116,22 +90,48 @@
                     <label class="control-label">No. of Adults</label>
                     <input type="text" class="form-control input-sm" id="adult" name="adult"placeholder=" " onkeypress="return isNumber(event)"required>
                   </div>
-                  <div class="row" style="margin:0px -5px !important;">
-                    <div class="col-md-6" style="padding:0px 5px !important;">
-                      <div class="form-group">
-                        <label class="control-label" for="inputDefault">Date</label>
-                        <input type="text" class="form-control input-sm" id="date"name="date" style="font-size:9pt;" placeholder=" "required>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  choose cottage or room here
-                  <ul class="list-unstyled nmb" id="list">
-                    No display
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                  <label class="control-label" for="inputDefault">Choose Day</label>
+                  <ul class="list-unstyled nmb">
+                    <li class=" checkbox">
+                      <label>
+                        <input type="radio" id="1" name="day" class="css-checkbox"  value="1">
+                        <span>Morning</span>
+                      </label>
+                    </li>
+                    <li class=" checkbox">
+                      <label >
+                        <input type="radio" id="2" name="day" class="css-checkbox"  value="2">
+                        <span>Overnight</span>
+                      </label>
+                    </li>
                   </ul>
-                  <input type="hidden" class="form-control" id="checkCottage" name="checkCottage" placeholder="">
+                  <input type="hidden" name="chosenDay"id="chosenDay" value="1">
                 </div>
+
+                 choose cottage or room here
+                <ul class="list-unstyled nmb" id="list">
+                  No display
+                </ul>
+                <input type="hidden" class="form-control" id="checkCottage" name="checkCottage" placeholder="">
+                
+               
+                
+              </div>
+              <div class="col-md-4">
+                 <div class="list-group">
+                  <a href="#" class="list-group-item active">
+                  Computation
+                  </a>
+                  <a href="#" class="list-group-item"> <span class="badge" id="aTotal">0</span>Adults</a>
+                  <a href="#" class="list-group-item"> <span class="badge"id="kTotal">0</span>Kids</a>
+                  <a href="#" class="list-group-item"> <span class="badge" id="cTotal">0</span>Cottage</a>
+                  <a href="#" class="list-group-item"> <span class="badge"id="total">0</span>Total Price</a>
+                </div>
+                <button type="button" id="compute" class="btn_green">Compute</button>
+               
               </div>
             </div>
           </div>
