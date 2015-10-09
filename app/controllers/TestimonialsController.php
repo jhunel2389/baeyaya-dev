@@ -13,10 +13,20 @@ class TestimonialsController extends BaseController {
 		$getTestimonials['testimonials'] = $txt;
 		if(!$getTestimonials->save())
 		{
-			return View::make('index')->with('mt', "HOME")->with('alert', 'fail')->with('msg', 'You have failed to created testimonials');
+			return View::make('testimonials.index')->with('mt', "TESTIMONIALS")->with('alert', 'fail')->with('msg', 'You have failed to created testimonials');
 		}
-		return View::make('index')->with('mt', "HOME")->with('alert', 'success')->with('msg', 'Successfully created testimonials');
+		return View::make('testimonials.index')->with('mt', "TESTIMONIALS")->with('alert', 'success')->with('msg', 'Successfully created testimonials');
 		
+	}
+	public function deleteTestimonials()
+	{
+		$id = Input::get('id');
+		$getTestimonials = Testimonials::find($id);
+		if(!$getTestimonials->delete())
+		{
+			return 1;
+		}
+		return 0;
 	}
 
 }

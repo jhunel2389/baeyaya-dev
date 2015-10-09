@@ -72,7 +72,7 @@
                             <span>created at: {{$testimonial['created_at']}}</span>
                         </div>
                         @if(Auth::User()['isAdmin'] == 1 || $userInfo['user_id'] == Auth::User()['id'])
-                        <a class="notification_action" href="javascript:void(0);" data-id="">
+                        <a class="notification_action" href="javascript:void(0);" data-id="{{$testimonial['id']}}">
                             <i class="demo-icon icon-remove-user">&#xe806;</i>
                         </a>   
                         @endif
@@ -86,5 +86,27 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+$(".notification_action").on('click',function()
+    {
+        var status = confirm("Do you want to remove this testimonials");
+        if(status == true)
+        {
+            $id = $(this).data("id");
+            deleteTestimonials($id);
+            $(this).parent(".friendrequest_row").fadeToggle();
+            
+        }           
+    });
+
+    function deleteTestimonials(id)
+    {
+        $_token     = "{{ csrf_token() }}";
+        $.post('{{URL::Route('deleteTestimonials')}}',{ id: id , _token : $_token} , function(data){
+
+            console.log(data);
+        });
+    }   
+</script>
 	@include('includes.footer')
 @stop

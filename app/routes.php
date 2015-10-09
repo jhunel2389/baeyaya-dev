@@ -38,6 +38,7 @@ Route::group(array('prefix' => 'testimonials'), function()
 	Route::group(array('before' => 'csrf'), function()
 	{
 		Route::post('/postTestimonials', array('uses' => 'TestimonialsController@postTestimonials', 'as' => 'postTestimonials'));
+		Route::post('/deleteTestimonials', array('uses' => 'TestimonialsController@deleteTestimonials', 'as' => 'deleteTestimonials'));
 	});
 });
 
