@@ -59,28 +59,50 @@ class ReservationController extends BaseController {
 		$check = Input::get('check');
 		$getcountcheck = (count(explode(",", $check))-1);
 		$cottageType = CottageType::where('Cottage_ID','=',$ctype)->first();
-			$price = (int)$cottageType['price'];
+		$price = (int)$cottageType['price'];
+		$season= 1;// 1: regular 2:week and holidays 3: summer (mar,apr,may)
 		if($day == "1")
 		{
-			return $response = array(			
-				"cottageprice" => $cottageprice = $getcountcheck * $price,
-				"kidprice" =>$kidprice = $kid * 120,
-				"adultprice" =>$adultprice = $adult * 150,
-				"total"=> $total = $cottageprice + $kidprice +$adultprice,
-				);
+			if($season == "1")
+			{
+				$priceAdult = PricingSwimming::where('day','=','Morning')->where('desc_a','=','Adult')->first();
+				$priceKid = PricingSwimming::where('day','=','Morning')->where('desc_a','=','Kids')->first();
+			}
+			elseif($season == "2")
+			{
+				$priceAdult = PricingSwimming::where('day','=','Weekend And Holiday Morning')->where('desc_a','=','Adult')->first();
+				$priceKid = PricingSwimming::where('day','=','Weekend And Holiday Morning')->where('desc_a','=','Kids')->first();
+			}else
+			{
+				$priceAdult = PricingSwimming::where('day','=','Summer Morning')->where('desc_a','=','Adult')->first();
+				$priceKid = PricingSwimming::where('day','=','Summer Morning')->where('desc_a','=','Kids')->first();
+			}
 		}
 		else
 		{
-			return $response = array(			
+			if($season == "1")
+			{
+				$priceAdult = PricingSwimming::where('day','=','Overnight')->where('desc_a','=','Adult')->first();
+				$priceKid = PricingSwimming::where('day','=','Overnight')->where('desc_a','=','Kids')->first();
+			}
+			elseif($season == "2")
+			{
+				$priceAdult = PricingSwimming::where('day','=','Weekend And Holiday Overnight')->where('desc_a','=','Adult')->first();
+				$priceKid = PricingSwimming::where('day','=','Weekend And Holiday Overnight')->where('desc_a','=','Kids')->first();
+			}else
+			{
+				$priceAdult = PricingSwimming::where('day','=','Summer Overnight')->where('desc_a','=','Adult')->first();
+				$priceKid = PricingSwimming::where('day','=','Summer Overnight')->where('desc_a','=','Kids')->first();
+			}
+		}
+		return $response = array(			
 				"cottageprice" => $cottageprice = $getcountcheck * $price,
-				"kidprice" =>$kidprice = $kid * 140,
-				"adultprice" =>$adultprice = $adult * 170,
+				"kidprice" =>$kidprice = $kid * (int)$priceAdult['price'],
+				"adultprice" =>$adultprice = $adult * (int)$priceKid['price'],
 				"total"=> $total = $cottageprice + $kidprice +$adultprice,
 				);
-
-		}
-
 	}
+
 	public function getCottagelist()
 	{
 		$response = array();
@@ -166,34 +188,61 @@ class ReservationController extends BaseController {
 		$package		= Input::get('roomPackage');
 		$room 			= Input::get('room');
 		$userInfo		= UserInfo::where('user_id','=',Auth::User()['id'])->first();
+		$season= 1;// 1: regular 2:week and holidays 3: summer (mar,apr,may)
+
 		//for addtional
 		$addPerson 			= Input::get('addPerson');
 		$addBed 			= Input::get('addBed');
 		$addLinen 			= Input::get('addLinen');
 		$addTowel 			= Input::get('addTowel');
 		$addPillow 			= Input::get('addPillow');
+		
 
 		$getcountcheck = (count(explode(",", $checkCottage))-1);
 		$cottageType = CottageType::where('Cottage_ID','=',$cType)->first();
 			$price = (int)$cottageType['price'];
 		if($chosenDay == "1")
-		{	
-			$cottageprice = $getcountcheck * $price;
-			$kidprice = $kid * 120;
-			$adultprice = $adult * 150;
-			$total = $cottageprice + $kidprice +$adultprice;
-			
+		{
+			if($season == "1")
+			{
+				$priceAdult = PricingSwimming::where('day','=','Morning')->where('desc_a','=','Adult')->first();
+				$priceKid = PricingSwimming::where('day','=','Morning')->where('desc_a','=','Kids')->first();
+			}
+			elseif($season == "2")
+			{
+				$priceAdult = PricingSwimming::where('day','=','Weekend And Holiday Morning')->where('desc_a','=','Adult')->first();
+				$priceKid = PricingSwimming::where('day','=','Weekend And Holiday Morning')->where('desc_a','=','Kids')->first();
+			}else
+			{
+				$priceAdult = PricingSwimming::where('day','=','Summer Morning')->where('desc_a','=','Adult')->first();
+				$priceKid = PricingSwimming::where('day','=','Summer Morning')->where('desc_a','=','Kids')->first();
+			}
 		}
 		else
-		{		
-			$cottageprice = $getcountcheck * $price;
-			$kidprice = $kid * 140;
-			$adultprice = $adult * 170;
-			$total = $cottageprice + $kidprice +$adultprice;
-			
+		{
+			if($season == "1")
+			{
+				$priceAdult = PricingSwimming::where('day','=','Overnight')->where('desc_a','=','Adult')->first();
+				$priceKid = PricingSwimming::where('day','=','Overnight')->where('desc_a','=','Kids')->first();
+			}
+			elseif($season == "2")
+			{
+				$priceAdult = PricingSwimming::where('day','=','Weekend And Holiday Overnight')->where('desc_a','=','Adult')->first();
+				$priceKid = PricingSwimming::where('day','=','Weekend And Holiday Overnight')->where('desc_a','=','Kids')->first();
+			}else
+			{
+				$priceAdult = PricingSwimming::where('day','=','Summer Overnight')->where('desc_a','=','Adult')->first();
+				$priceKid = PricingSwimming::where('day','=','Summer Overnight')->where('desc_a','=','Kids')->first();
+			}
 		}
-
 		
+		if(!empty($priceAdult) && !empty($priceKid))
+		{
+			$cottageprice = $getcountcheck * $price;
+			$kidprice = $kid * (int)$priceAdult['price'];
+			$adultprice = $adult * (int)$priceKid['price'];
+			$total = $cottageprice + $kidprice +$adultprice;
+		}
 		$getReservation = new CottageReservation();
 		$getReservation['user_id'] 			= $userInfo['user_id'];
 		$getReservation['reservation_type'] 	= $rType;
