@@ -71,24 +71,28 @@
                       @endforeach
                     </select>
                   </div>
-                  <div id="pT"class="form-group" style="position:relative;">
-                    <label class="control-label" for="inputDefault">Category type</label>
-                    <i class="fa fa-2x fa-caret-down" style="position:absolute;right:10px;bottom:2px;color:#000;pointer-events:none;"></i>
-                    <select class="form-control input-sm" id="cType" name="cType" style="padding-top:0px;padding-left:5px;line-height:20pt;" required>
-                      <option value="" disabled selected style="display:none;">Choose here</option>
-                    </select>
+                  <div id="forCottage">
+                    <div id="pT"class="form-group" style="position:relative;">
+                      <label class="control-label" for="inputDefault">Category type</label>
+                      <i class="fa fa-2x fa-caret-down" style="position:absolute;right:10px;bottom:2px;color:#000;pointer-events:none;"></i>
+                      <select class="form-control input-sm" id="cType" name="cType" style="padding-top:0px;padding-left:5px;line-height:20pt;" required>
+                        <option value="" disabled selected style="display:none;">Choose here</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label">Email</label>
+                      <input type="email" class="form-control input-sm" id="email" name="email"placeholder="" value="{{$userInfo['email']}}"required disabled>
+                    </div>
+                     <div class="form-group">
+                      <label class="control-label">No. of Kids</label>
+                      <input type="text" class="form-control input-sm" id="kid" name="kid"placeholder="" onkeypress="return isNumber(event)"required>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label">No. of Adults</label>
+                      <input type="text" class="form-control input-sm" id="adult" name="adult"placeholder=" " onkeypress="return isNumber(event)"required>
+                    </div>
                   </div>
-                  <div class="form-group">
-                    <label class="control-label">Email</label>
-                    <input type="email" class="form-control input-sm" id="email" name="email"placeholder="" value="{{$userInfo['email']}}"required disabled>
-                  </div>
-                   <div class="form-group">
-                    <label class="control-label">No. of Kids</label>
-                    <input type="text" class="form-control input-sm" id="kid" name="kid"placeholder="" onkeypress="return isNumber(event)"required>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label">No. of Adults</label>
-                    <input type="text" class="form-control input-sm" id="adult" name="adult"placeholder=" " onkeypress="return isNumber(event)"required>
+                  <div id="forRoom">
                   </div>
             </div>
             <div class="col-md-4">
@@ -131,18 +135,32 @@
                   <a href="#" class="list-group-item"> <span class="badge"id="total">0</span>Total Price</a>
                 </div>
                 <button type="button" id="compute" class="btn_green">Compute</button>
-               
               </div>
             </div>
           </div>
+          <div class="form-group">
+              <label class="control-label" for="inputDefault">Choose Day</label>
+              <ul class="list-unstyled nmb">
+                <li class=" checkbox">
+                  <label>
+                    <input type="radio" id="term" name="term" class="css-checkbox"  value="" checked>
+                    <span></span>
+                  </label>
+                </li>
+              </ul>
+            </div>
         </div>
-        <button type="submit" id="next_submit" class="btn_green">Reserve</button>
+        <button type="submit" id="next_submit" class="btn_green" disabled>Reserve</button>
         {{Form::token()}}
       </form>
     </div>
   </div>
 </div>
 <script type="text/javascript">
+  $('#term').on('change',function()
+  {
+
+  });
  $('#date').datepicker({
     inline: true,
     dateFormat: "mm/dd/yy",
