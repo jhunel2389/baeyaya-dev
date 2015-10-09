@@ -200,4 +200,28 @@ class ReservationController extends BaseController {
 	{
 		return View::make('reservation.reservation_step2')->with('mt', "RESERV")->with('reserve_id', $reserve_id);
 	}
+
+	public function postCharges()
+	{
+		$trans_id = Input::get('transId');
+		$reservation_type = Input::get('resId');
+		$prod_type = Input::get('prodType');
+		$prodId = Input::get('prodId');
+		$qty = Input::get('qty');
+
+		$addCharges = new Charges();
+		$addCharges['transaction_id'] = $trans_id;
+		$addCharges['reservation_type	'] = $reservation_type;
+		$addCharges['product_type'] = $prod_type;
+		$addCharges['product_id'] = $prodId;
+		$addCharges['qty'] = $qty;
+		if($addCharges->save())
+		{
+			return 1;
+		}
+		else
+		{
+			return 2;
+		}
+	}
 }
