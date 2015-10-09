@@ -48,10 +48,15 @@ class ReservationController extends BaseController {
 		{
 			foreach ($reserves as $reserve) 
 			{
-				//$cottage[] = $reserve['cottagelist_id'];
-				if(!in_array($reserve['cottagelist_id'], $id))
-				{
-					$id[count($id)] = $reserve['cottagelist_id'];
+				$chosenCottages = explode(",", $reserve['cottagelist_id']);
+				foreach ($chosenCottages as $cottage) {
+					if(!$cottage == "")
+					{
+						if(!in_array($cottage, $id))
+						{
+							$id[count($id)] = $cottage;
+						}
+					}
 				}
 			}
 			$cottagelists = CottageList::all();
@@ -66,7 +71,6 @@ class ReservationController extends BaseController {
 				}
 			}
 			return $response;
-			
 		}
 		else
 		{
@@ -129,6 +133,7 @@ class ReservationController extends BaseController {
 		$time 			= Input::get('time');
 		$chosenDay		= Input::get('chosenDay');
 		$userInfo		= UserInfo::where('user_id','=',Auth::User()['id'])->first();
+
 		foreach ($chosenCottages as $cottage) 
 		{
 			if(!$cottage=="")
