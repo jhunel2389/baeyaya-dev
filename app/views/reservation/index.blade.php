@@ -56,7 +56,7 @@
                   <div class="col-md-6" style="padding:0px 5px !important;">
                     <div class="form-group">
                       <label class="control-label" for="inputDefault">Date</label>
-                      <input type="text" class="form-control input-sm" id="date"name="date" style="font-size:9pt;" placeholder=" "required>
+                      <input type="text" class="form-control input-sm" id="date"name="date" style="font-size:9pt;" placeholder=" ">
                     </div>
                   </div>
                 </div>
@@ -64,7 +64,7 @@
                   <div id="pT"class="form-group" style="position:relative;">
                     <label class="control-label" for="inputDefault">Reservation Type</label>
                     <i class="fa fa-2x fa-caret-down" style="position:absolute;right:10px;bottom:2px;color:#000;pointer-events:none;"></i>
-                    <select class="form-control input-sm" id="rType" name="rType" style="padding-top:0px;padding-left:5px;line-height:20pt;" required>
+                    <select class="form-control input-sm" id="rType" name="rType" style="padding-top:0px;padding-left:5px;line-height:20pt;" >
                       <option value="" disabled selected style="display:none;">Choose type</option>
                       @foreach($reservationTypes as $type)
                         <option value = "{{$type['id']}}">{{$type['name']}}</option>
@@ -75,27 +75,49 @@
                     <div id="pT"class="form-group" style="position:relative;">
                       <label class="control-label" for="inputDefault">Category type</label>
                       <i class="fa fa-2x fa-caret-down" style="position:absolute;right:10px;bottom:2px;color:#000;pointer-events:none;"></i>
-                      <select class="form-control input-sm" id="cType" name="cType" style="padding-top:0px;padding-left:5px;line-height:20pt;" required>
+                      <select class="form-control input-sm" id="cType" name="cType" style="padding-top:0px;padding-left:5px;line-height:20pt;" >
                         <option value="" disabled selected style="display:none;">Choose here</option>
                       </select>
                     </div>
                     <div class="form-group">
                       <label class="control-label">Email</label>
-                      <input type="email" class="form-control input-sm" id="email" name="email"placeholder="" value="{{$userInfo['email']}}"required disabled>
+                      <input type="email" class="form-control input-sm" id="email" name="email"placeholder="" value="{{$userInfo['email']}}" disabled>
                     </div>
                      <div class="form-group">
                       <label class="control-label">No. of Kids</label>
-                      <input type="text" class="form-control input-sm" id="kid" name="kid"placeholder="" onkeypress="return isNumber(event)"required>
+                      <input type="text" class="form-control input-sm" id="kid" name="kid"placeholder="" onkeypress="return isNumber(event)">
                     </div>
                     <div class="form-group">
                       <label class="control-label">No. of Adults</label>
-                      <input type="text" class="form-control input-sm" id="adult" name="adult"placeholder=" " onkeypress="return isNumber(event)"required>
+                      <input type="text" class="form-control input-sm" id="adult" name="adult"placeholder=" " onkeypress="return isNumber(event)">
                     </div>
                   </div>
                   <div id="forRoom">
+                     <div id="pT"class="form-group" style="position:relative;">
+                      <label class="control-label" for="inputDefault">Room</label>
+                      <i class="fa fa-2x fa-caret-down" style="position:absolute;right:10px;bottom:2px;color:#000;pointer-events:none;"></i>
+                      <select class="form-control input-sm" id="room" name="room" style="padding-top:0px;padding-left:5px;line-height:20pt;" >
+                        <option value="" disabled selected style="display:none;">Choose room</option>
+                        <?php $rooms = Room::all();?>
+                        @foreach($rooms as $room)
+                          <option value = "{{$room['rnid']}}">{{$room['roomname']}}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                    <div id="pT"class="form-group" style="position:relative;">
+                      <label class="control-label" for="inputDefault">Room Package</label>
+                      <i class="fa fa-2x fa-caret-down" style="position:absolute;right:10px;bottom:2px;color:#000;pointer-events:none;"></i>
+                      <select class="form-control input-sm" id="roomPackage" name="roomPackage" style="padding-top:0px;padding-left:5px;line-height:20pt;" >
+                        <option value="" disabled selected style="display:none;">Choose package</option>
+                        <?php $roomPackages = RoomPackage::all();?>
+                        @foreach($roomPackages as $package)
+                          <option value = "{{$package['packid']}}">{{$package['description']}} -   Rate:{{$package['Hours']}} HRS </option>
+                        @endforeach
+                      </select>
+                    </div>
                   </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4" id="forDay">
                 <div class="form-group">
                   <label class="control-label" for="inputDefault">Choose Day</label>
                   <ul class="list-unstyled nmb">
@@ -124,7 +146,7 @@
                
                 
               </div>
-              <div class="col-md-4">
+              <div class="col-md-4" id="forCompute">
                  <div class="list-group">
                   <a href="#" class="list-group-item active">
                   Computation
@@ -139,16 +161,9 @@
             </div>
           </div>
           <div class="form-group">
-              <label class="control-label" for="inputDefault">Choose Day</label>
-              <ul class="list-unstyled nmb">
-                <li class=" checkbox">
-                  <label>
-                    <input type="radio" id="term" name="term" class="css-checkbox"  value="" checked>
-                    <span></span>
-                  </label>
-                </li>
-              </ul>
-            </div>
+            <input type="checkbox" id="term" name="" class=""  value="">
+            <span>Term and Condition</span>
+          </div>
         </div>
         <button type="submit" id="next_submit" class="btn_green" disabled>Reserve</button>
         {{Form::token()}}
@@ -157,9 +172,19 @@
   </div>
 </div>
 <script type="text/javascript">
+  $(document).ready(function() {
+    $('#forRoom').hide();
+  });
   $('#term').on('change',function()
   {
-
+    if($(this).is(":checked"))
+    {
+      $('#next_submit').prop('disabled', false);
+    }
+    else
+    {
+       $('#next_submit').prop('disabled', true);
+    }
   });
  $('#date').datepicker({
     inline: true,
@@ -184,23 +209,60 @@ function isNumber(evt) {
     return true;
 }
 $(document).on("click","#rType",function() {
+  $date = $('#date').val();
   $rtype_id = $('#rType').val();
   $_token = "{{ csrf_token() }}";
-  $.post('{{URL::Route('getCottageType')}}',{_token:$_token, rtype_id:$rtype_id},function(data)
+  if($rtype_id == "2")
   {
-    console.log(data);
-    if(data.length != 0)
+    $('#forCottage').hide();
+    $('#forRoom').show();
+    $('#forDay').hide();
+    $('#forCompute').hide();
+     $.post('{{URL::Route('getRoom')}}',{_token:$_token, rtype_id:$rtype_id,date:$date},function(data)
     {
-      $('#cType').empty();
-      for (var i = 0; i < data.length; i++) {
-        if(i==0)
-        {
-          $('#cType').append('<option value="" disabled selected style="display:none;">Choose type</option>');
+      console.log(data);
+      if(data.length != 0)
+      {
+         $('#room').empty();
+        for (var i = 0; i < data.length; i++) {
+          if(i==0)
+          {
+            $('#room').append('<option value="" disabled selected style="display:none;">Choose room</option>');
+          }
+          $('#room').append('<option value = "'+data[i].id+'">'+data[i].name+'</option>');
         }
-        $('#cType').append('<option value = "'+data[i].Cottage_ID+'">'+data[i].description+'</option>');
       }
-    } 
-  });
+      else
+      {
+        $('#room').empty();
+        $('#room').append('<option value = "">No more available room for this day.</option>');
+      }
+     
+    });
+    
+  }
+  else
+  {
+    $('#forRoom').hide();
+    $('#forCompute').show();
+    $('#forDay').show();
+    $('#forCottage').show();
+    $.post('{{URL::Route('getCottageType')}}',{_token:$_token, rtype_id:$rtype_id},function(data)
+    {
+      console.log(data);
+      if(data.length != 0)
+      {
+        $('#cType').empty();
+        for (var i = 0; i < data.length; i++) {
+          if(i==0)
+          {
+            $('#cType').append('<option value="" disabled selected style="display:none;">Choose type</option>');
+          }
+          $('#cType').append('<option value = "'+data[i].Cottage_ID+'">'+data[i].description+'</option>');
+        }
+      } 
+    });
+  }
 });
 $(document).on("change","#date",function() {
   $date = $('#date').val();
