@@ -108,6 +108,8 @@ Route::group(array('prefix' => 'admin'), function()
 		Route::post('/getEditInfo',array('uses' =>'FileMaintenanceController@getEditInfo', 'as' => 'getEditInfo'));
 		Route::post('/deleteInfo',array('uses' =>'FileMaintenanceController@deleteInfo', 'as' => 'deleteInfo'));
 		Route::post('/updateInfo',array('uses' =>'FileMaintenanceController@updateInfo', 'as' => 'updateInfo'));
+		Route::post('/deletePhotoGallery',array('uses' =>'FileMaintenanceController@deletePhotoGallery', 'as' => 'deletePhotoGallery'));
+		Route::post('/addPhotoGallery',array('uses' =>'FileMaintenanceController@addPhotoGallery', 'as' => 'addPhotoGallery'));
 
 		Route::post('/saveBannerInfo',array('uses' =>'FileMaintenanceController@saveBannerInfo', 'as' => 'saveBannerInfo'));
 		Route::post('/getEditBannerInfo',array('uses' =>'FileMaintenanceController@getEditBannerInfo', 'as' => 'getEditBannerInfo'));

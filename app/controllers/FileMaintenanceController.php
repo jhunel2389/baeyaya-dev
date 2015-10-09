@@ -373,4 +373,49 @@ class FileMaintenanceController extends BaseController {
 	{
 		return Gallery::all();
 	}
+
+	public function addPhotoGallery()
+	{
+		$images = Input::file('images');
+		
+		if (empty($images))
+		{
+			return Redirect::Route('getFMGallery')->with('fail','Please choose a picture to upload.');
+		}
+		else
+		{
+			$iname = str_random(112).'.'.$images->getClientOriginalExtension();
+			$move = Image::make($images->getRealPath())->resize('750','750')->save('images/'.$iname);
+			if($move)
+			{	
+				
+				$getInformation = new Gallery();
+				$getInformation['img_file'] = $iname;
+				if($getInformation->save())
+				{
+					return Redirect::Route('getFMGallery')->with('success','Image successfully added.');
+				}
+			}
+			else
+			{
+				return Redirect::Route('getFMGallery')->with('fail','Error Uploading! Please try again.');
+			}
+		}
+	}
+
+	public function deletePhotoGallery()
+	{
+		$id =Input::get('imgId');
+		$galleryPhoto = Gallery::find($id);
+
+		if($galleryPhoto->delete())
+		{
+			return 1;
+		}
+		else
+		{
+			return 0;
+		}
+		
+	}
 }
