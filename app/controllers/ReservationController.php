@@ -97,7 +97,7 @@ class ReservationController extends BaseController {
 		$getcountcheck = (count(explode(",", $check))-1);
 		$cottageType = CottageType::where('Cottage_ID','=',$ctype)->first();
 		$price = (int)$cottageType['price'];
-		$season= 1;// 1: regular 2:week and holidays 3: summer (mar,apr,may)
+		$season= Input::get('seasoncode');// 1: regular 2:week and holidays 3: summer (mar,apr,may)
 		if($day == "1")
 		{
 			if($season == "1")
@@ -145,6 +145,7 @@ class ReservationController extends BaseController {
 		$response = array();
 		$cottageType = Input::get('cottageType');
 		$date = date('Y-m-d',strtotime(Input::get('date')));
+		$month = date('m',strtotime(Input::get('date')));
 		
 		
 		$reserves = CottageReservation::where('reservation_date','=',$date)->get();
@@ -164,6 +165,34 @@ class ReservationController extends BaseController {
 					}
 				}
 			}
+			$weekDay = date('w', strtotime($date));
+			$holidayCheck = Holidays::where('holidays','=',$date)->first();
+			if($month == 3 || $month == 4 || $month == 5)
+			{
+				$details = "Summer Season";
+				$season = 3;
+			}
+			elseif(!empty($holidayCheck))
+			{
+				$details = $holidayCheck['holidays'];
+				$season = 2;
+			}
+			elseif($weekDay == 0 || $weekDay == 6)
+			{
+				$details = "Weekend";
+				$season = 2;
+			}
+			else
+			{
+				$details = "Regular Season";
+				$season = 1;
+			}
+			$response[] = array(
+			"cottage_list"=>'',
+			"name"	=>'',
+			"details"=>$details,
+			"season"	=>$season,
+			);
 			$cottagelists = CottageList::where('cottage_id','=',$cottageType)->get();
 			foreach ($cottagelists as $list) {
 
@@ -172,9 +201,12 @@ class ReservationController extends BaseController {
 					$response[] = array(
 					"cottage_list"=>$list['cottagelist_id'],
 					"name"	=>$list['cottagename'],
+					"details"=>$details,
+					"season"	=>$season,
 					);
 				}
 			}
+			
 			return $response;
 		}
 		else
@@ -234,7 +266,7 @@ class ReservationController extends BaseController {
 		{
 			$userInfo	= UserInfo::where('user_id','=',Auth::User()['id'])->first();
 		}
-		$season= 1;// 1: regular 2:week and holidays 3: summer (mar,apr,may)
+		$season= Input::get('seasoncode');// 1: regular 2:week and holidays 3: summer (mar,apr,may)
 
 		$addPerson = Input::get('addPerson');
 		$addBed = Input::get('addBed');

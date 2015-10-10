@@ -95,8 +95,7 @@
         console.log(data);
         $('#reserve'+data.reserve_id).empty();
         $('#reserve'+data.reserve_id).append('<a href="#" class="list-group-item">'+data.lname+','+data.fname+'</a>\
-                                                <span class="input-group-addon" data-type="edit" data-id="'+data.reserve_id+'" style="cursor:pointer">Edit</span>\
-                                                <span class="input-group-addon" data-type="delete" data-id="'+data.reserve_id+'" style="cursor:pointer">Delete</span>')
+                                                <span class="input-group-addon" data-type="edit" data-id="'+data.reserve_id+'" style="cursor:pointer">Edit</span>')
 
          $('.input-group-addon').on('click',function()
                {

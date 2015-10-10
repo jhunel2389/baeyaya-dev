@@ -57,6 +57,7 @@
                     <div class="form-group">
                       <label class="control-label" for="inputDefault">Date</label>
                       <input type="text" class="form-control input-sm" id="date"name="date" style="font-size:9pt;" placeholder=" ">
+                      <input type="hidden" id="seasoncode" name="seasoncode">
                     </div>
                   </div>
                   <div class="col-md-6" style="padding:0px 5px !important;">
@@ -151,11 +152,15 @@
                   </ul>
                   <input type="hidden" name="chosenDay" id="chosenDay" value="1">
                 </div>
-
+                <span class="list-unstyled nmb" id="season">
+                  Regular Day
+                </span>
+                <br>
                  choose cottage or room here
                 <ul class="list-unstyled nmb" id="list">
                   No display
                 </ul>
+                
                 <input type="hidden" class="form-control" id="checkCottage" name="checkCottage" placeholder="">
               </div>
 
@@ -368,16 +373,40 @@ $(document).on("change","#date",function() {
     $.post('{{URL::Route('getCottagelist')}}',{_token:$_token, cottageType:$cottageType,date:$date},function(data)
   {
     console.log(data);
-    if(data.length != 0)
+    if(data.length != 1)
     {
-      $('#list').empty();
+     
       for (var i = 0; i < data.length; i++) {
-        $('#list').append(' <li class=" checkbox">\
-                  <label class="custom_checkbox">\
-                    <input type="checkbox" id="'+data[i].cottage_list+'" name="interest[]" class="css-checkbox"  value="'+data[i].cottage_list+'">\
-                    <span>'+data[i].name+'</span>\
-                  </label>\
-                </li>');
+        if(data[i].name != "")
+        {
+
+          $('#list').append(' <li class=" checkbox">\
+            <label class="custom_checkbox">\
+              <input type="checkbox" id="'+data[i].cottage_list+'" name="interest[]" class="css-checkbox"  value="'+data[i].cottage_list+'">\
+              <span>'+data[i].name+'</span>\
+            </label>\
+          </li>');
+        }
+
+        if(i==0)
+        {
+          $('#season').empty();
+          if(data[i].season == 1)
+          {
+            $('#season').append('<label>'+data[i].details+'</label>');
+          }
+          else if(data[i].season == 2)
+          {
+            $('#season').append('<label>'+data[i].details+'</label>');
+          }
+          else if(data[i].season == 3)
+          {
+            $('#season').append('<label>'+data[i].details+'</label>');
+          }
+
+          $('#seasoncode').val(data[i].season);
+        }
+
       }
     } 
     else
@@ -450,13 +479,14 @@ $(document).on("change",".custom_checkbox input",function(){
     }
   });
 $(document).on("click","#compute",function(){
+  var seasoncode = $('#seasoncode').val();
   var day = $('#chosenDay').val();
   var ctype =$("#cType").val();
   var kid = $('#kid').val();
   var adult = $('#adult').val();
   var check = $("#checkCottage").val();
   $_token = "{{ csrf_token() }}";
-  $.post('{{URL::Route('compute')}}',{_token:$_token, kid:kid,adult:adult,check:check,ctype:ctype,day:day},function(data){
+  $.post('{{URL::Route('compute')}}',{_token:$_token, kid:kid,adult:adult,check:check,ctype:ctype,day:day,seasoncode:seasoncode},function(data){
     console.log(data);
     $("#aTotal").empty();
     $("#kTotal").empty();
@@ -473,6 +503,7 @@ $(document).on("click","#compute",function(){
 });
 
 $(document).on("click","#computeRoom",function(){
+
   var roomPackage = $('#roomPackage').val();
   var addPerson =$("#addPerson").val();
   var addBed = $('#addBed').val();
