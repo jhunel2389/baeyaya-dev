@@ -107,6 +107,7 @@ Route::group(array('prefix' => 'admin'), function()
 	Route::get('/news',array('uses' =>'FileMaintenanceController@getFMNews', 'as' => 'getFMNews'));
 	Route::get('/banners',array('uses' =>'FileMaintenanceController@getBanners', 'as' => 'getBanners'));
 	Route::get('/reservation-info/{id}',array('uses' =>'FileMaintenanceController@getReserve', 'as' => 'getReserve'));
+	Route::get('/reservation-list',array('uses' =>'FileMaintenanceController@getFMReservation', 'as' => 'getFMReservation'));
 	Route::group(array('before' => 'csrf'), function()
 	{
 		Route::post('/saveInfo',array('uses' =>'FileMaintenanceController@saveInfo', 'as' => 'saveInfo'));
@@ -126,6 +127,7 @@ Route::group(array('prefix' => 'admin'), function()
 		Route::post('/saveNewsInfo',array('uses' =>'FileMaintenanceController@saveNewsInfo', 'as' => 'saveNewsInfo'));
 
 		Route::post('/getCottageList',array('uses' =>'ReservationController@getCottageList', 'as' => 'getCottageList'));
+		Route::post('/updateTransactionStatus',array('uses' =>'FileMaintenanceController@updateTransactionStatus', 'as' => 'updateTransactionStatus'));
 	});
 });
 

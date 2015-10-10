@@ -137,6 +137,29 @@ class FileMaintenanceController extends BaseController {
 		return $response;
 
 	}
+	public function getFMReservation()
+	{
+		if(Auth::User()->isAdmin())
+		{
+			return View::make('filemaintenance.reservation_list');
+		}
+		else
+		{
+			return Redirect::Route('home');
+		}
+	}
+	public function updateTransactionStatus()
+	{
+		$id = Input::get('id');
+		$status = Input::get('status');
+		$getTransaction = CottageReservation::find($id);
+		$getTransaction['status'] = $status;
+		if(!$getTransaction->save())
+		{
+			return 1;
+		}
+		return 0;
+	}
 
 	public function getBanners()
 	{
