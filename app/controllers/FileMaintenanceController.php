@@ -156,28 +156,30 @@ class FileMaintenanceController extends BaseController {
 		$getTransaction['status'] = $status;
 		if(!$getTransaction->save())
 		{
-			if($status == "Reserved")
-			{
-				$userInfo = UserInfo::where('user_id','=',$getTransaction['user_id'])
-				$emailcontent = array (
-				'fname' => $userInfo['firstname'],
-				'lname' => $userInfo['lastname'],
-			    'link' => URL::route('getReservation_step2', $getReservation['id'])
-			    );
-				Mail::send('emails.confirmation.reservation', $emailcontent, function($message)
-				{ 
-					$email = Input::get('email');
-					if(empty($email))
-					{
-						$email = Input::get('emailRes');
-					}
-				    $message->to($email,'Kalugdan Garden Resort')->subject('Kalugdan Garden Resort Confirmation Email');
-				    
-	 			});
-			}
+			
 			return 1;
 		}
-		return 0;
+		else
+		{
+			if($status == "Reserved")
+			{
+				$userInfo = UserInfo::where('user_id','=',$getTransaction['user_id'])->first();
+				$emailcontent = array (
+					'fname' => $userInfo['firstname'],
+					'lname' => $userInfo['lastname'],
+				    'link' => URL::route('getReservation_step2', Input::get('id'))
+			    );
+				Mail::send('emails.confirmation.reserve', $emailcontent, function($message)
+				{ 
+					$id = Input::get('id');
+					$getTransaction = CottageReservation::find($id);
+					$userInfo = UserInfo::where('user_id','=',$getTransaction['user_id'])->first();
+				    $message->to($userInfo['email'],'Kalugdan Garden Resort')->subject('Kalugdan Garden Resort Confirmation Email');
+	 			});
+			}
+			return 0;
+		}
+		
 	}
 
 	public function filterTransaction()
@@ -202,12 +204,12 @@ class FileMaintenanceController extends BaseController {
 			$userInfo = UserInfo::where('user_id','=',$transaction['user_id'])->first();
             $reservation_type= ReservationType::find($transaction['reservation_type'])->first();
             $response[] = array(
-            	"id"		=> $transaction['id'],
-            	"fname"		=> $userInfo['firstname'],
-            	"lname"		=> $userInfo['lastname'],
-            	"rtpe" 		=> $reservation_type['name'],
-            	"rdate"		=> $transaction['reservation_date'],
-            	"status" 	=> $transaction['status'],
+	            	"id"		=> $transaction['id'],
+	            	"fname"		=> $userInfo['firstname'],
+	            	"lname"		=> $userInfo['lastname'],
+	            	"rtpe" 		=> $reservation_type['name'],
+	            	"rdate"		=> $transaction['reservation_date'],
+	            	"status" 	=> $transaction['status'],
             	);
 		}
 		return $response;

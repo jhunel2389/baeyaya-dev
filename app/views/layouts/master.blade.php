@@ -295,8 +295,7 @@
 			}
 			else
 			{
-				alert("You regestered successfully. Please check your email and verify your account. Thank you.");
-				/*$.post('{{URL::Route('postCreate')}}',{ _token: $_token , fname: $fname , mname : $mname , lname: $lname , address : $address , contact: $contact , email : $email , uname: $uname , pass : $pass} , function(data)
+				$.post('{{URL::Route('postCreate')}}',{ _token: $_token , fname: $fname , mname : $mname , lname: $lname , address : $address , contact: $contact , email : $email , uname: $uname , pass : $pass} , function(data)
 				{
 					if(data == 1)
 					{
@@ -315,7 +314,7 @@
 					{
 						alert("Username has already taken. Please try other username. Thank you.");
 					}
-				});*/
+				});
 			}
 		}
 	}
