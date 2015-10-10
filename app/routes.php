@@ -59,7 +59,7 @@ Route::group(array('prefix' => 'contact-us'), function()
 Route::group(array('prefix' => 'reservation'), function() 
 {
 	Route::get('/',array('uses' =>'ReservationController@index', 'as' => 'getReservation'));
-	Route::get('/step2/{id}',array('uses' =>'ReservationController@getReservation_step2', 'as' => 'getReservation_step2'));
+	Route::get('/bill-total/{id}',array('uses' =>'ReservationController@getReservation_step2', 'as' => 'getReservation_step2'));
 	Route::group(array('before' => 'csrf'), function()
 	{
 		Route::post('/getCottageType',array('uses' =>'ReservationController@getCottageType', 'as' => 'getCottageType'));

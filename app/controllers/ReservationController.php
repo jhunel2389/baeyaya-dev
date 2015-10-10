@@ -356,7 +356,7 @@ class ReservationController extends BaseController {
 		$getReservation['reservation_date'] = $date;
 		$getReservation['room_id'] 			= $room;
 		$getReservation['package_id'] 		= $package;
-		$getReservation['check_in_datetime'] ="";
+		$getReservation['check_in_datetime'] =$time;
 		$getReservation['check_out_datetime'] ="";
 		$getReservation['num_adult'] 		= $adult;
 		$getReservation['num_kid'] 			= $kid;

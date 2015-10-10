@@ -226,8 +226,7 @@
 </div>
 <script type="text/javascript">
   $(document).on("change","#roomPackage",function() {
-    $rmPackage = $('#roomPackage').val();
-    alert($rmPackage);
+    
   });
   $(document).ready(function() {
     $('#forRoom').hide();
