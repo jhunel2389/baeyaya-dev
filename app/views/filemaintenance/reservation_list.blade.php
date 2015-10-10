@@ -3,6 +3,15 @@
   @parent
   <title>Home Page</title>
 @stop
+@section('addHead')
+<link rel="stylesheet" href="{{app('customURL')}}jquery_ui/jquery-ui.css">
+    <link rel="stylesheet" href="{{app('customURL')}}jquery_ui/jquery-ui-timepicker-addon.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script type="text/javascript" src="{{app('customURL')}}jquery_ui/jquery-ui-timepicker-addon.js"></script>
+    <script type="text/javascript" src="{{app('customURL')}}jquery_ui/jquery-ui-timepicker-addon-i18n.min.js"></script>
+
+@stop
 
 @section('content')
 
@@ -51,15 +60,26 @@
           <tbody id="list">
             <?php $transactions = CottageReservation::all();?>
             @foreach($transactions as $transaction)
+            <script type="text/javascript">
+              $(function() {
+              $( '#date'+{{$transaction['id']}}).datepicker({
+              'formatDate': 'Y-m-d H:i:s'
+
+                });
+              });
+              </script>
             <?php $userInfo = UserInfo::where('user_id','=',$transaction['user_id'])->first();
-            $reservation_type= ReservationType::find($transaction['reservation_type'])->first();
+            $reservation_type= ReservationType::find($transaction['reservation_type']);
             ?>
               <tr>
                 <td>{{$transaction['id']}}</td>
                 <td>{{$userInfo['firstname']}}</td>
                 <td>{{$userInfo['lastname']}}</td>
                 <td>{{$reservation_type['name']}}</td>
-                <td>{{$transaction['reservation_date']}}</td>
+                <td><div class="form-group">
+                      <label class="control-label" for="inputDefault">Date</label>
+                      <input type="text" class="form-control input-sm" data-id="{{$transaction['id']}}"value="{{$transaction['reservation_date']}}"id="date{{$transaction['id']}}"name="date" style="font-size:9pt;" placeholder="{{$transaction['reservation_date']}}">
+                    </div></td>
                 <td> 
                   <i class="fa fa-2x fa-caret-down" style="position:absolute;right:10px;bottom:2px;color:#000;pointer-events:none;"></i>
                   <select class="form-control input-sm" id="status" name="status" data-id="{{$transaction['id']}}"style="padding-top:0px;padding-left:5px;line-height:20pt;" >
