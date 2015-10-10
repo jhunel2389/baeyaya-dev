@@ -110,7 +110,8 @@
       <div class="create_event">
         <form id="eventPart1" method="post" action="{{URL::Route('postReservation')}}" enctype="multipart/form-data">
           <h1 class="text-uppercase nmt" style="margin-bottom:6px;font-weight:600;">Hi {{$userInfo['firstname']}} </h1>
-          <span>This is your total computation for your reservation.</span>
+          <span>This is your total computation for your reservation.</span><br>
+          <span>Status:{{$reservation['status']}}<span>
           <div class="row">
             <div class="col-md-12">
                <table class="table table-bordered">
