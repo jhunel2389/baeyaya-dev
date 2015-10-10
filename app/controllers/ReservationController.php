@@ -134,8 +134,8 @@ class ReservationController extends BaseController {
 		}
 		return $response = array(			
 				"cottageprice" => $cottageprice = $getcountcheck * $price,
-				"kidprice" =>$kidprice = $kid * (int)$priceAdult['price'],
-				"adultprice" =>$adultprice = $adult * (int)$priceKid['price'],
+				"kidprice" =>$kidprice = $kid * (int)$priceKid['price'],
+				"adultprice" =>$adultprice = $adult * (int)$priceAdult['price'],
 				"total"=> $total = $cottageprice + $kidprice +$adultprice,
 				);
 	}
@@ -337,8 +337,8 @@ class ReservationController extends BaseController {
 		if(!empty($priceAdult) && !empty($priceKid))
 		{
 			$cottageprice = $getcountcheck * $price;
-			$kidprice = $kid * (int)$priceAdult['price'];
-			$adultprice = $adult * (int)$priceKid['price'];
+			$kidprice = $kid * (int)$priceKid['price'];
+			$adultprice = $adult * (int)$priceAdult['price'];
 			$total = $cottageprice + $kidprice +$adultprice;
 		}
 
@@ -361,6 +361,7 @@ class ReservationController extends BaseController {
 		$getReservation['num_kid'] 			= $kid;
 		$getReservation['status'] 			= "Pending";
 		$getReservation['total_amount']		=$total;
+		$getReservation['season']		=$season;
 		if(!$getReservation->save())
 		{
 			return Redirect::route('home');

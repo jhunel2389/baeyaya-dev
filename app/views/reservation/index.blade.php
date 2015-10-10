@@ -152,7 +152,8 @@
                   </ul>
                   <input type="hidden" name="chosenDay" id="chosenDay" value="1">
                 </div>
-                <span class="list-unstyled nmb" id="season">
+                <!--new -->
+                <span id="season">
                   Regular Day
                 </span>
                 <br>
@@ -160,7 +161,7 @@
                 <ul class="list-unstyled nmb" id="list">
                   No display
                 </ul>
-                
+                <!--new -->
                 <input type="hidden" class="form-control" id="checkCottage" name="checkCottage" placeholder="">
               </div>
 
@@ -373,13 +374,12 @@ $(document).on("change","#date",function() {
     $.post('{{URL::Route('getCottagelist')}}',{_token:$_token, cottageType:$cottageType,date:$date},function(data)
   {
     console.log(data);
-    if(data.length != 1)
+    if(data.length != 0)
     {
-     
+     $('#list').empty();
       for (var i = 0; i < data.length; i++) {
         if(data[i].name != "")
         {
-
           $('#list').append(' <li class=" checkbox">\
             <label class="custom_checkbox">\
               <input type="checkbox" id="'+data[i].cottage_list+'" name="interest[]" class="css-checkbox"  value="'+data[i].cottage_list+'">\
@@ -387,7 +387,13 @@ $(document).on("change","#date",function() {
             </label>\
           </li>');
         }
+        else
+        {
+          $('#list').empty();
+          $('#list').append('<label>No available cottage or room.</label>');
+        }
 
+        //new
         if(i==0)
         {
           $('#season').empty();
@@ -406,7 +412,7 @@ $(document).on("change","#date",function() {
 
           $('#seasoncode').val(data[i].season);
         }
-
+        //new
       }
     } 
     else
