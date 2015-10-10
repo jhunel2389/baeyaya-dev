@@ -87,7 +87,7 @@
                     </div>
                     <div class="form-group">
                       <label class="control-label">Email</label>
-                      <input type="email" class="form-control input-sm" id="email" name="email"placeholder="" value="{{$userInfo['email']}}" disabled>
+                      <input type="email" class="form-control input-sm" id="email" name="email"placeholder="" value="{{$userInfo['email']}}" >
                     </div>
                      <div class="form-group">
                       <label class="control-label">No. of Kids</label>

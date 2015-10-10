@@ -226,6 +226,7 @@ class ReservationController extends BaseController {
 		$room 			= Input::get('room');
 		if(empty($email))
 		{
+
 			$email = Input::get('emailRes');
 			$userInfo	= UserInfo::where('email','=',str_replace(' ','',$email))->first();
 		}
