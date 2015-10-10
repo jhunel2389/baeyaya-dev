@@ -281,6 +281,7 @@
           $('#userRegistration').fadeOut();
           $('#emailRes').val($('#email').val());
           $('#reservationPage').fadeIn();
+          $('#email').val('');
         }
         if(data == 2)
         {

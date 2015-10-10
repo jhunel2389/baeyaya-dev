@@ -44,7 +44,6 @@
 				$userInfo -> address = Input::get('address');
 				$userInfo -> contactNo = Input::get('contact');
 				$userInfo -> email = Input::get('email');
-				$userInfo -> availability = Input::get('uname');
 				if ($userInfo -> save())
 				{
 					if(!empty(Input::get('pass')))
