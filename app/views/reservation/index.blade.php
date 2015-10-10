@@ -227,8 +227,19 @@
 </div>
 <script type="text/javascript">
 
-  $(document).on("change","#roomPackage",function() {
-    
+  $(document).on("click","#next_submit",function(event) {
+    if ($.trim($('#date').val()) == "")
+    {
+      event.preventDefault(); 
+      alert('please fill date.')
+       
+    }
+    if ($.trim($('#rType').val()) == "")
+    {
+       event.preventDefault(); 
+      alert('please choose reserve type.')
+      
+    }
   });
   $(document).ready(function() {
     $('#forRoom').hide();
