@@ -97,7 +97,7 @@
                     </div>
                     <div class="form-group">
                       <label class="control-label">Email</label>
-                      <input type="email" class="form-control input-sm" id="emailRes" name="emailRes" placeholder="" value="" disabled>
+                      <input type="email" class="form-control input-sm" id="emailRes" name="emailRes" placeholder="" value="">
                     </div>
                      <div class="form-group">
                       <label class="control-label">No. of Kids</label>
