@@ -16,7 +16,7 @@
             </div>
             <div class="input-group">
               <span class="input-group-addon" id="basic-addon1">Contact</span>
-              <input type="text" class="form-control" id= "contact" name= "contact" placeholder="Contact" aria-describedby="basic-addon1">
+              <input type="text" class="form-control" id= "contact" name= "contact" placeholder="Contact" aria-describedby="basic-addon1" maxlength="11">
             </div>
            
         </div>
@@ -233,6 +233,34 @@
   </div>
 </div>
 <script type="text/javascript">
+  $(document).ready(function() {    
+
+    $("#contact").keydown(function (e) {
+        // Allow: backspace, delete, tab, escape, enter and .
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+             // Allow: Ctrl+A
+            (e.keyCode == 65 && e.ctrlKey === true) ||
+             // Allow: Ctrl+C
+            (e.keyCode == 67 && e.ctrlKey === true) ||
+             // Allow: Ctrl+X
+            (e.keyCode == 88 && e.ctrlKey === true) ||
+             // Allow: home, end, left, right
+            (e.keyCode >= 35 && e.keyCode <= 39)) {
+                 // let it happen, don't do anything
+                 return;
+        }
+        // Ensure that it is a number and stop the keypress
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
+    });     
+  });
+
+  function validateEmail(email) {
+      var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+      return re.test(email);
+  }
+
   function createUser()
   {
     $_token = "{{ csrf_token() }}";
@@ -244,7 +272,7 @@
     $email = $('#email').val();
     $uname = $('#uname').val();
     $checkValdation = false;
-
+    $check = 0;
     //data-container="body" data-toggle="popover" data-placement="right" data-trigger="focus" data-content="Username already taken." data-original-title="" title=""
 
     if($fname.length == 0)
@@ -275,36 +303,45 @@
     {
       $checkValdation = true;
     }
-    if($checkValdation)
+    if($email.length != 0 && $check == 0 && !validateEmail($email))
     {
-      alert("Please input all information.");
+      $checkValdation = true;
+      alert("Email address is invalid.Please try again.");
+      $check = 1;
     }
-    else
+    if($check == 0)
     {
-      
-      $.post('{{URL::Route('postCreate')}}',{ _token: $_token , fname: $fname , mname : $mname , lname: $lname , address : $address , contact: $contact , email : $email , uname: $uname} , function(data)
+      if($checkValdation)
       {
-        if(data == 1)
+        alert("Please input all information.");
+      }
+      else
+      {
+        
+        $.post('{{URL::Route('postCreate')}}',{ _token: $_token , fname: $fname , mname : $mname , lname: $lname , address : $address , contact: $contact , email : $email , uname: $uname} , function(data)
         {
-          alert("New guest record successfully save, you may continue no to there registration.");
-          $('#userRegistration').fadeOut();
-          $('#emailRes').val($('#email').val());
-          $('#reservationPage').fadeIn();
-          $('#email').val('');
-        }
-        if(data == 2)
-        {
-          alert("Regestration failed. Please try again later. Thank you.");
-        }
-        if(data == 3)
-        {
-          alert("Email Address has already taken. Please try other email. Thank you.");
-        }
-        if(data == 4)
-        {
-          alert("Username has already taken. Please try other username. Thank you.");
-        }
-      });
+          if(data == 1)
+          {
+            alert("New guest record successfully save, you may continue no to there registration.");
+            $('#userRegistration').fadeOut();
+            $('#emailRes').val($('#email').val());
+            $('#reservationPage').fadeIn();
+            $('#email').val('');
+          }
+          if(data == 2)
+          {
+            alert("Regestration failed. Please try again later. Thank you.");
+          }
+          if(data == 3)
+          {
+            alert("Email Address has already taken. Please try other email. Thank you.");
+          }
+          if(data == 4)
+          {
+            alert("Username has already taken. Please try other username. Thank you.");
+          }
+        });
+      }
     }
   }
 </script>
