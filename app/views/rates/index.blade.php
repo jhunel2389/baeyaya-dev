@@ -2,10 +2,10 @@
 
 @section('head')
 @parent
-<title>reservation</title>
+<title>rates</title>
 @stop
 @section('addHead')
-  <style type="text/css">
+<style type="text/css">
   /*-------------Rates --------------------*/
   #rate form {
   float: center;
@@ -78,6 +78,8 @@
   @section('content')
     <div class="contents">
       <div class="banner10"></div>
+      <div class="clearfix"> </div>
+      <div class="clearfix"> </div>
       <br>
       <br>
       <br>
