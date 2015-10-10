@@ -26,6 +26,10 @@ Route::group(array('prefix' => 'gallery'), function()
 {
 	Route::get('/',array('uses' =>'GalleryController@index', 'as' => 'getGallery'));
 });
+Route::group(array('prefix' => 'Rates'), function() 
+{
+	Route::get('/',array('uses' =>'RatesController@getRates', 'as' => 'getRates'));
+});
 
 Route::group(array('prefix' => 'news'), function() 
 {
