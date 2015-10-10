@@ -32,7 +32,7 @@
 									<img src="images/one-two.jpg" src="">
 								</div>
 								<div class="col-md-7 abt-right">
-									<h5>Located at Bacoor, Cavity City an hour away from the busy streets of Metro Manila, Kalugdan Garden  Resort is the best place to have a relaxation and to spend more bonding time with your family and friends.Kalugdan Garden Resort has three(3) swimming pools, Kiddie Pool, Main Pool, and the Olympic Pool and 27 cottages and 2 rooms.</p>
+									<h5>Located at Bacoor, Cavite City an hour away from the busy streets of Metro Manila, Kalugdan Garden  Resort is the best place to have a relaxation and to spend more bonding time with your family and friends.Kalugdan Garden Resort has three(3) swimming pools, Kiddie Pool, Main Pool, and the Olympic Pool and 27 cottages and 2 rooms.</p>
 								</div>
 								<div class="clearfix"></div>
 						</div>

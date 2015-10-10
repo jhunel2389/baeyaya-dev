@@ -41,7 +41,8 @@
 ?>
 <div class="container">
   <div class="row">
-    
+    <br>
+    <br>
    <p>
           Payment Policy<br>
  

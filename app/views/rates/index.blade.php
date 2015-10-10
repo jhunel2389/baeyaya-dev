@@ -77,7 +77,8 @@
   @stop
   @section('content')
     <div class="contents">
-      <div class="banner10"></div>
+      <br>
+      <br>
       <div class="clearfix"> </div>
       <div class="clearfix"> </div>
       <br>

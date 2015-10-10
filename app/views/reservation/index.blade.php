@@ -273,6 +273,19 @@
         event.preventDefault(); 
         alert('please enter number of guest adult.')
       }
+      if($check == 0)
+      {
+        var status = confirm("Are you sure, you want to continue this reservation?");
+        if(status == true)
+        {
+          //alert("submit");
+          $("#eventPart1" ).submit();
+        }
+      }
+      else
+      {
+        event.preventDefault();
+      }
     }
     else if($('#rType').val() == 2)
     {
@@ -299,19 +312,21 @@
         event.preventDefault(); 
         alert('please choose a Room Package.')
       }
-    }
-    if($check == 0)
-    {
-      var status = confirm("Are you sure, you want to continue this reservation?");
-      if(status == true)
+      if($check == 0)
       {
-        $("#eventPart1" ).submit();
+        var status = confirm("Are you sure, you want to continue this reservation?");
+        if(status == true)
+        {
+          //alert("submit");
+          $("#eventPart1" ).submit();
+        }
+      }
+      else
+      {
+        event.preventDefault();
       }
     }
-    else
-    {
-      event.preventDefault();
-    }
+
      
   });
   $(document).ready(function() {
@@ -594,6 +609,44 @@ $(document).on("click","#compute",function(){
 
 });
 
+function autoCompute()
+{
+  var seasoncode = $('#seasoncode').val();
+  var day = $('#chosenDay').val();
+  var ctype =$("#cType").val();
+  var kid = $('#kid').val();
+  var adult = $('#adult').val();
+  var check = $("#checkCottage").val();
+  $_token = "{{ csrf_token() }}";
+  $.post('{{URL::Route('compute')}}',{_token:$_token, kid:kid,adult:adult,check:check,ctype:ctype,day:day,seasoncode:seasoncode},function(data){
+    console.log(data);
+    $("#aTotal").empty();
+    $("#kTotal").empty();
+    $("#cTotal").empty();
+    $("#total").empty();
+    $("#aTotal").html(data.adultprice);
+    $("#kTotal").html(data.kidprice);
+    $("#cTotal").html(data.cottageprice);
+    $("#total").html(data.total);
+  });
+
+  var roomPackage = $('#roomPackage').val();
+  var addPerson =$("#addPerson").val();
+  var addBed = $('#addBed').val();
+  var addLinen = $('#addLinen').val();
+  var addTowel = $("#addTowel").val();
+   var addPillow = $("#addPillow").val();
+  $_token = "{{ csrf_token() }}";
+  $.post('{{URL::Route('computeRoom')}}',{_token:$_token, roomPackage:roomPackage,addPerson:addPerson,addBed:addBed,addLinen:addLinen,addTowel:addTowel,addPillow:addPillow},function(data){
+    console.log(data);
+    $("#rTotal").empty();
+    $("#atotal").empty();
+    $("#gtotal").empty();
+    $("#rTotal").html(data.roomPrice);
+    $("#atotal").html(data.addCharges);
+    $("#gtotal").html(data.total);
+  });
+}
 $(document).on("click","#computeRoom",function(){
 
   var roomPackage = $('#roomPackage').val();
@@ -616,6 +669,8 @@ $(document).on("click","#computeRoom",function(){
   //alert($adult);
 
 });
+
+window.setInterval(function () {autoCompute()}, 2000);
 </script>
 
     

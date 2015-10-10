@@ -36,7 +36,7 @@
 								@if(Auth::Check())
 									<a href="{{ URL::Route('getReservation') }}">BOOK NOW</a>
 								@else
-									<a class="play-icon popup-with-zoom-anim" href="#small-dialog">LOG-IN NOW</a>
+									<a class="play-icon popup-with-zoom-anim" href="#small-dialog">BOOK N0W</a>
 								@endif
 							</div>
 						</a>
@@ -56,7 +56,7 @@
 							@if(Auth::Check())
 								<a href="{{ URL::Route('getReservation') }}">BOOK NOW</a>
 							@else
-								<a class="play-icon popup-with-zoom-anim" href="#small-dialog">LOG-IN NOW</a>
+								<a class="play-icon popup-with-zoom-anim" href="#small-dialog">BOOK N0W</a>
 							@endif
 						</div>
 						</a>
@@ -76,7 +76,7 @@
 							@if(Auth::Check())
 								<a href="{{ URL::Route('getReservation') }}">BOOK NOW</a>
 							@else
-								<a class="play-icon popup-with-zoom-anim" href="#small-dialog">LOG-IN NOW</a>
+								<a class="play-icon popup-with-zoom-anim" href="#small-dialog">BOOK N0W </a>
 							@endif
                             <br>
                     		<br>
@@ -159,7 +159,7 @@
 							@if(Auth::Check())
 								<a href="{{ URL::Route('getReservation') }}">BOOK NOW</a>
 							@else
-								<a class="play-icon popup-with-zoom-anim" href="#small-dialog">LOG-IN NOW</a>
+								<a class="play-icon popup-with-zoom-anim" href="#small-dialog">BOOK NOW</a>
 							@endif
                         </div>
                     </a>
@@ -180,7 +180,7 @@
 							@if(Auth::Check())
 								<a href="{{ URL::Route('getReservation') }}">BOOK NOW</a>
 							@else
-								<a class="play-icon popup-with-zoom-anim" href="#small-dialog">LOG-IN NOW</a>
+								<a class="play-icon popup-with-zoom-anim" href="#small-dialog">BOOK NOW</a>
 							@endif
                             </div>
                     </a>
@@ -201,7 +201,7 @@
 							@if(Auth::Check())
 								<a href="{{ URL::Route('getReservation') }}">BOOK NOW</a>
 							@else
-								<a class="play-icon popup-with-zoom-anim" href="#small-dialog">LOG-IN NOW</a>
+								<a class="play-icon popup-with-zoom-anim" href="#small-dialog">BOOK NOW</a>
 							@endif
                             </div>
                     </a>

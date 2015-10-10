@@ -29,6 +29,14 @@ font-family: 'Titillium Web', sans-serif !important;
 			
 			<p>Hello {{$username}}</p>
 			<p>Thank you for choosing Kalugdan Garden Resort, we are happy for your reservation. The system automatically created an account for you, so that you can easily manage your reservation in our website. Please see information below for your log-in credentials:</p>
+			<p>Sincerely,</p><br>
+			<p>Kalugdan Garden Resort</p><br>
+			<p>Mode of Payment</p><br>
+		     <p>Please pay to any BDO Branches</p><br>
+		     <p> BDO Account Name: Kalugdan Garden Resort</p><br>
+		     <p> BDO Account Number: 0011-2015-1234</p><br>
+		     <p> Please Contact Us: 09207605857/09065325913</p><br>
+		     <p> Email Address: 14kalugdangardenresort@gmail.com</p><br>
 			<br>
 			<br>
 			<p>Email/username: {{$email}}</p>

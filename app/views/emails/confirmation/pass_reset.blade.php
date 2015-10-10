@@ -28,7 +28,7 @@ font-family: 'Titillium Web', sans-serif !important;
 		<div class="col-md-6 col-md-offset-3">
 			
 			<p>Hello {{$fname}} {{$lname}}</p>
-			<p>Thank you for contactict with us in Kalugdan Garden Resort. You are requesting us to reset your password , you're one step closer to our service. To finish your reset password request please click the link below:</p>
+			<p>Thank you for contacting with us in Kalugdan Garden Resort. You are requesting us to reset your password , you're one step closer to our service. To finish your reset password request please click the link below:</p>
 			<br>
 			<br>
 			<br>

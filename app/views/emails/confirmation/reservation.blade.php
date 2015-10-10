@@ -28,8 +28,21 @@ font-family: 'Titillium Web', sans-serif !important;
 		<div class="col-md-6 col-md-offset-3">
 			
 			<p>Hello {{$fname}} {{$lname}}</p>
-			<p>We confirmed your reservation.</p>
+			<p>We recieved your reservation.</p>
+			<p> Please contact us for the  proof of payment once the payment is done in order to confirm your reservation. Once we confirm your payment you will recieve a confirmation email or textmessage.</p><br>
 			<p>Thank you for choosing Kalugdan Garden Resort, we are happy for your reservation.</p>
+			<br>
+			<br>
+			<p>Sincerely,</p><br>
+			<p>Kalugdan Garden Resort</p><br>
+			<br>
+			<br
+			<p>Mode of Payment</p><br>
+		     <p>Please pay to any BDO Branches</p><br>
+		     <p> BDO Account Name: Kalugdan Garden Resort</p><br>
+		     <p> BDO Account Number: 0011-2015-1234</p><br>
+		     <p> Please Contact Us: 09207605857/09065325913</p><br>
+		     <p> Email Address: 14kalugdangardenresort@gmail.com</p><br>
 			<br>
 			<br>
 			<br>

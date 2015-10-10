@@ -41,7 +41,7 @@
 										
      		<h1 style="color:#0CF">MUTYA NG CAVITE</h1>
        			 <p style="text-align:center">
-					SWIMSUIT COMPETITION WILL BE HELD ON KALUGDAN GARDEN RESORT on OCTOBER 4, 2015
+					SWIMSUIT COMPETITION WILL BE HELD ON KALUGDAN GARDEN RESORT on OCTOBER 12, 2015
 				</p>
     </div>
     <br>
