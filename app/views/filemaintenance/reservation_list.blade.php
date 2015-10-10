@@ -139,21 +139,29 @@
   });
 
   $(document).on("change","#status",function() {
-    $status = $('#status').val();
-    $id = $(this).data("id");
-    $_token   = "{{ csrf_token() }}";
-    $.post('{{URL::Route('updateTransactionStatus')}}',{ id: $id , _token : $_token,status:$status} , function(data){
+    var status = confirm("Are you sure, you want to update reservation status?");
+    if(status == true)
+    {
+      $status = $('#status').val();
+      $id = $(this).data("id");
+      $_token   = "{{ csrf_token() }}";
+      $.post('{{URL::Route('updateTransactionStatus')}}',{ id: $id , _token : $_token,status:$status} , function(data){
 
-            console.log(data);
-            if(data == 0)
-            {
-               alert('success to update transaction status.')
-            }
-            else
-            {
-              alert('failed to update transaction status.')
-            }
-    });
+              console.log(data);
+              if(data == 0)
+              {
+                 alert('success to update transaction status.')
+              }
+              else
+              {
+                alert('failed to update transaction status.')
+              }
+      });
+    }
+    else
+    {
+      
+    }
   });
 </script>
 @stop

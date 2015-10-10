@@ -225,7 +225,6 @@ class FileMaintenanceController extends BaseController {
 		{
 			return Redirect::Route('home');
 		}
-		
 	}
 
 	public function getFMNews()
