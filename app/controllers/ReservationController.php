@@ -148,7 +148,7 @@ class ReservationController extends BaseController {
 		$month = date('m',strtotime(Input::get('date')));
 		
 		
-		$reserves = CottageReservation::where('reservation_date','=',$date)->get();
+		$reserves = CottageReservation::where('reservation_date','=', $date )->get();
 		$id = array();
 		if(!empty($reserves))
 		{
@@ -166,8 +166,9 @@ class ReservationController extends BaseController {
 				}
 			}
 			$weekDay = date('w', strtotime($date));
-			$holidayCheck = Holidays::where('holidays','=',$date)->first();
-			if($month == 3 || $month == 4 || $month == 5)
+			$holidayCheck = Holidays::where('date','=',$date)->first();
+			//return count($holidayCheck);
+			if($month == 03 || $month == 04 || $month == 05)
 			{
 				$details = "Summer Season";
 				$season = 3;
