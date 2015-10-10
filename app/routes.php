@@ -130,6 +130,7 @@ Route::group(array('prefix' => 'admin'), function()
 
 		Route::post('/getCottageList',array('uses' =>'ReservationController@getCottageList', 'as' => 'getCottageList'));
 		Route::post('/updateTransactionStatus',array('uses' =>'FileMaintenanceController@updateTransactionStatus', 'as' => 'updateTransactionStatus'));
+		Route::post('/filterTransaction',array('uses' =>'FileMaintenanceController@filterTransaction', 'as' => 'filterTransaction'));
 	});
 });
 

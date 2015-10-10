@@ -161,6 +161,39 @@ class FileMaintenanceController extends BaseController {
 		return 0;
 	}
 
+	public function filterTransaction()
+	{
+		$rType = Input::get('rType');
+		$sType = Input::get('sType');
+		$response = array();
+		if(empty($sType) && !empty($rType))
+		{
+			$transactions = CottageReservation::where('reservation_type','=',$rType)->get();
+		}
+		elseif(!empty($sType) && !empty($rType))
+		{
+			$transactions = CottageReservation::where('reservation_type','=',$rType)->where('status','=',$sType)->get();
+		}
+		else
+		{
+			$transactions = CottageReservation::where('status','=',$sType)->get();
+		}
+		
+		foreach ($transactions as $transaction) {
+			$userInfo = UserInfo::where('user_id','=',$transaction['user_id'])->first();
+            $reservation_type= ReservationType::find($transaction['reservation_type'])->first();
+            $response[] = array(
+            	"id"		=> $transaction['id'],
+            	"fname"		=> $userInfo['firstname'],
+            	"lname"		=> $userInfo['lastname'],
+            	"rtpe" 		=> $reservation_type['name'],
+            	"rdate"		=> $transaction['reservation_date'],
+            	"status" 	=> $transaction['status'],
+            	);
+		}
+		return $response;
+	}
+
 	public function getBanners()
 	{
 		if(Auth::User()->isAdmin())
