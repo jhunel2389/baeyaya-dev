@@ -23,7 +23,15 @@
 			$user = new User();
 			$user -> email = Input::get('email');
 			$user -> username = Input::get('uname');
-			$user -> password = Hash::make(Input::get('pass'));
+			if(!empty(Input::get('pass')))
+			{
+				$user -> password = Hash::make(Input::get('pass'));
+			}
+			else
+			{
+				$tempPass = str_random(6);
+				$user -> password = Hash::make($tempPass);
+			}
 			$user -> vCode = $vCode;
 
 			if ($user -> save())
@@ -39,19 +47,36 @@
 				$userInfo -> availability = Input::get('uname');
 				if ($userInfo -> save())
 				{
-					$emailcontent = array (
-						'username' => $user -> username,
-					    'link' => URL::route('confirmation', [$vCode , $user -> id])
-				    );
-	   				Mail::send('emails.confirmation.index', $emailcontent, function($message)
-	    			{ 
-					    $message->to(Input::get('email'),'Kalugdan Garden Resort')->subject('Kalugdan Garden Resort Confirmation Email');
-					    
-	     			});
+					if(!empty(Input::get('pass')))
+					{
+						$emailcontent = array (
+							'username' => $user -> username,
+						    'link' => URL::route('confirmation', [$vCode , $user -> id])
+					    );
+		   				Mail::send('emails.confirmation.index', $emailcontent, function($message)
+		    			{ 
+						    $message->to(Input::get('email'),'Kalugdan Garden Resort')->subject('Kalugdan Garden Resort Confirmation Email');
+						    
+		     			});
 
-					//return View::make('index')->with('mt', "HOME")->with('alert', 'success')->with('msg', 'Your regestered successfully. You can now log in.');
-					//return Redirect::Route('home')->with('success','Your regestered successfully. You can now log in.');
-					return 1;
+						return 1;
+					}
+					else
+					{
+						$emailcontent = array (
+							'tempPass' => $tempPass,
+							'email' => Input::get('email'),
+							'username' => $user -> username,
+						    'link' => URL::route('confirmation', [$vCode , $user -> id])
+					    );
+		   				Mail::send('emails.confirmation.walk-in', $emailcontent, function($message)
+		    			{ 
+						    $message->to(Input::get('email'),'Kalugdan Garden Resort')->subject('Kalugdan Garden Resort Confirmation Email');
+						    
+		     			});
+		     			
+						return 1;
+					}
 				}
 			}
 			else
