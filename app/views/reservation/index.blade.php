@@ -215,27 +215,104 @@
             <a target="_blank" href="{{URL::Route('getTerm')}}" >view here</a>
           </div>
         </div>
-        <button type="submit" id="next_submit" class="btn_green" disabled>Reserve</button>
+           <button type="submit" id="next_submit" class="btn_green" disabled>Reserve</button>
         {{Form::token()}}
       </form>
+     
     </div>
   </div>
 </div>
 <script type="text/javascript">
 
   $(document).on("click","#next_submit",function(event) {
-    if ($.trim($('#date').val()) == "")
+    $check = 0;
+    if ($('#date').val()== "" && $check == 0)
     {
+      $check == 1;
       event.preventDefault(); 
       alert('please fill date.')
-       
+     
     }
-    if ($.trim($('#rType').val()) == "")
+    if ($('#rType').val() == null && $check == 0)
     {
-       event.preventDefault(); 
-      alert('please choose reserve type.')
+      $check == 1;
+      event.preventDefault(); 
+      alert('please choose Reservation type.')
       
     }
+
+    if($('#rType').val() == 1 && $check == 0)
+    {
+      //cottage
+      event.preventDefault(); 
+      $('#cType').val()
+      $('#checkCottage').val()
+      $('#kid').val()
+      $('#adult').val()
+      if ($('#cType').val() == null && $check == 0)
+      {
+        $check = 1;
+        event.preventDefault(); 
+        alert('please choose Category type.')
+      }
+      if (($('#checkCottage').val() == "" || $('#checkCottage').val() == ",") && $check == 0)
+      {
+        $check = 1;
+        event.preventDefault(); 
+        alert('please select atlist one cottage or no available cottage.')
+      }
+       if($('#adult').val() < $('#kid').val() && ($('#adult').val() == "" || $('#adult').val() == 0) && $check == 0)
+      {
+        $check = 1;
+        event.preventDefault(); 
+        alert('Please enter at list 1 adult, to accompany the childrens guest.')
+      }
+      if ($('#adult').val() == "" && $check == 0)
+      {
+        $check = 1;
+        event.preventDefault(); 
+        alert('please enter number of guest adult.')
+      }
+    }
+    else if($('#rType').val() == 2)
+    {
+      //room
+      event.preventDefault();
+      $('#time').val()
+      $('#room').val()
+      $('#roomPackage').val()
+      if ($('#time').val() == "" && $check == 0)
+      {
+        $check = 1;
+        event.preventDefault(); 
+        alert('please select time.')
+      }
+      if ($('#room').val() == null && $check == 0)
+      {
+        $check = 1;
+        event.preventDefault(); 
+        alert('please choose a room.')
+      }
+      if ($('#roomPackage').val() == null && $check == 0)
+      {
+        $check = 1;
+        event.preventDefault(); 
+        alert('please choose a Room Package.')
+      }
+    }
+    if($check == 0)
+    {
+      var status = confirm("Are you sure, you want to continue this reservation?");
+      if(status == true)
+      {
+        $("#eventPart1" ).submit();
+      }
+    }
+    else
+    {
+      event.preventDefault();
+    }
+     
   });
   $(document).ready(function() {
     $('#forRoom').hide();

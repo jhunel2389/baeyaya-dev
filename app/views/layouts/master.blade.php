@@ -117,6 +117,7 @@
 				{{Form::token()}}
 			</form>
 				<li><a class="play-icon popup-with-zoom-anim" href="#small-dialog2"><span> </span>Forgot Password</a></li>
+				<li><a class="play-icon popup-with-zoom-anim" href="#small-dialog1"><span> </span>Sign up</a></li>
 		</div>
 	</div>
 	<div id="small-dialog1" class="mfp-hide">
