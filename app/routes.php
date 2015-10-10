@@ -67,8 +67,9 @@ Route::group(array('prefix' => 'reservation'), function()
 		Route::post('/getCottagelist',array('uses' =>'ReservationController@getCottagelist', 'as' => 'getCottagelist'));
 		Route::post('/compute',array('uses' =>'ReservationController@compute', 'as' => 'compute'));
 		Route::post('/computeRoom',array('uses' =>'ReservationController@computeRoom', 'as' => 'computeRoom'));
-		Route::post('/postReservation',array('uses' =>'ReservationController@postReservation', 'as' => 'postReservation'));
+		Route::post('/postReservation',array('uses' =>'ReservationController@pFileMaintenanceControllerostReservation', 'as' => 'postReservation'));
 		Route::post('/getRoom',array('uses' =>'ReservationController@getRoom', 'as' => 'getRoom'));
+		
 	});
 });
 
@@ -142,6 +143,7 @@ Route::group(array('prefix' => 'admin'), function()
 		Route::post('/getCottageList',array('uses' =>'ReservationController@getCottageList', 'as' => 'getCottageList'));
 		Route::post('/updateTransactionStatus',array('uses' =>'FileMaintenanceController@updateTransactionStatus', 'as' => 'updateTransactionStatus'));
 		Route::post('/filterTransaction',array('uses' =>'FileMaintenanceController@filterTransaction', 'as' => 'filterTransaction'));
+		Route::post('/updateReservationDate',array('uses' =>'FileMaintenanceController@updateReservationDate', 'as' => 'updateReservationDate'));
 	});
 });
 

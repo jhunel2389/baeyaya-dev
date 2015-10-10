@@ -77,8 +77,24 @@
                 <td>{{$userInfo['lastname']}}</td>
                 <td>{{$reservation_type['name']}}</td>
                 <td><div class="form-group">
-                      <input type="text" class="form-control input-sm" data-id="{{$transaction['id']}}"value="{{$transaction['reservation_date']}}"id="date{{$transaction['id']}}"name="date" style="font-size:9pt;" placeholder="{{$transaction['reservation_date']}}">
+                      <input type="text" class="form-control input-sm" data-type="{{$transaction['reservation_type']}}"data-id="{{$transaction['id']}}"value="{{$transaction['reservation_date']}}"id="date{{$transaction['id']}}"name="date" style="font-size:9pt;" placeholder="{{$transaction['reservation_date']}}">
                     </div></td>
+                    <script type="text/javascript">
+                      $(document).on("change","#date{{$transaction['id']}}",function() {
+                     
+                        $id = $(this).data("id");
+                        $type = $(this).data("type");
+                        $_token   = "{{ csrf_token() }}";
+                        $date = $('#date'+{{$transaction['id']}}).val();
+                        var status = confirm("Are you sure, you want to update reservation date?");
+                        if(status == true)
+                        {
+                          $.post('{{URL::Route('updateReservationDate')}}',{ type:$type,date:$date,id: $id , _token : $_token} , function(data){
+                            console.log(data);
+                          });
+                        }
+                      });
+                    </script>
                 <td> 
                   <i class="fa fa-2x fa-caret-down" style="position:absolute;right:10px;bottom:2px;color:#000;pointer-events:none;"></i>
                   <select class="form-control input-sm" id="status" name="status" data-id="{{$transaction['id']}}"style="padding-top:0px;padding-left:5px;line-height:20pt;" >
@@ -121,7 +137,9 @@
                 <td>'+data[$i].fname+'</td>\
                 <td>'+data[$i].lname+'</td>\
                 <td>'+data[$i].rtpe+'</td>\
-                <td>'+data[$i].rdate+'</td>\
+                <td><div class="form-group">\
+                      <input type="text" class="form-control input-sm" data-type="'+data[$i].rtpe+'"data-id="'+data[$i].id+'"value="'+data[$i].rdate+'"id="date'+data[$i].id+'"name="date" style="font-size:9pt;" placeholder="">\
+                    </div></td>\
                 <td>\
                   <i class="fa fa-2x fa-caret-down" style="position:absolute;right:10px;bottom:2px;color:#000;pointer-events:none;"></i>\
                   <select class="form-control input-sm" id="status" name="status" data-id="'+data[$i].id+'"style="padding-top:0px;padding-left:5px;line-height:20pt;" >\
@@ -133,7 +151,29 @@
                   </select>\
                 </td>\
               </tr>');
+
+              $( '#date'+data[$i].id).datepicker({
+              'formatDate': 'Y-m-d H:i:s'
+
+                });
+
+              $(document).on("change","#date"+data[$i].status,function() {
+                     
+                        $id = $(this).data("id");
+                        $type = $(this).data("type");
+                        $_token   = "{{ csrf_token() }}";
+                        $date = $('#date'+{{$transaction['id']}}).val();
+                        var status = confirm("Are you sure, you want to update reservation date?");
+                        if(status == true)
+                        {
+                          $.post('{{URL::Route('updateReservationDate')}}',{ type:$type,date:$date,id: $id , _token : $_token} , function(data){
+                            console.log(data);
+                          });
+                        }
+                      });
+             
         }
+        
       }
       else
       {

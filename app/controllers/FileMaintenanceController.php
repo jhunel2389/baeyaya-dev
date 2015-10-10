@@ -148,6 +148,30 @@ class FileMaintenanceController extends BaseController {
 			return Redirect::Route('home');
 		}
 	}
+
+	public function updateReservationDate()
+	{
+		$id = Input::get('id');
+		$type = Input::get('type');
+		$date = date('Y-m-d',strtotime(Input::get('date')));
+		$transaction = CottageReservation::where('reservation_date','=',$date)
+						->where('reservation_type','=',$type)->first();
+		if(!empty($transaction))
+		{
+			return 1;
+		}
+		else
+		{
+			$transaction = CottageReservation::find($id);
+			$transaction['reservation_date'] = $date;
+			if(!$transaction->save())
+			{
+				return 2;
+			}
+			return 0;
+		}
+		return $transaction;
+	}
 	public function updateTransactionStatus()
 	{
 		$id = Input::get('id');
