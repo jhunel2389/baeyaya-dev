@@ -156,6 +156,25 @@ class FileMaintenanceController extends BaseController {
 		$getTransaction['status'] = $status;
 		if(!$getTransaction->save())
 		{
+			if($status == "Reserved")
+			{
+				$userInfo = UserInfo::where('user_id','=',$getTransaction['user_id'])
+				$emailcontent = array (
+				'fname' => $userInfo['firstname'],
+				'lname' => $userInfo['lastname'],
+			    'link' => URL::route('getReservation_step2', $getReservation['id'])
+			    );
+				Mail::send('emails.confirmation.reservation', $emailcontent, function($message)
+				{ 
+					$email = Input::get('email');
+					if(empty($email))
+					{
+						$email = Input::get('emailRes');
+					}
+				    $message->to($email,'Kalugdan Garden Resort')->subject('Kalugdan Garden Resort Confirmation Email');
+				    
+	 			});
+			}
 			return 1;
 		}
 		return 0;

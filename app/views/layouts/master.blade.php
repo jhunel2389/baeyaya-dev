@@ -127,10 +127,11 @@
 				<input type="text" placeholder="Middle Name" name="mname" id="mname" />
 				<input type="text" placeholder="Last Name" name="lname" id="lname" />
 				<input type="text" placeholder="Address" name="address" id="address"/>
-				<input type="text" placeholder="Enter Contact" class="email" name="contact" id="contact"/>
+				<input type="text" placeholder="Enter Contact" class="email" name="contact" id="contact" maxlength="11"/>
 				<input type="text" placeholder="Enter Email" class="text" name="email" id="email"/>
 				<input type="text" placeholder="Username" name="uname" id="uname"/>
-				<input type="password" placeholder="Password" name="pass" id="pass"/>
+				<input type="password" placeholder="Password" name="pass" id="pass" maxlength="20"/>
+				<input type="password" placeholder="Re-type Password" name="pass1" id="pass1" maxlength="20"/>
 				<input type="submit" name="subreg" value="SignUp" onclick="createUser();" />
 		</div>
 	</div>	
@@ -156,8 +157,34 @@
 			midClick: true,
 			removalDelay: 300,
 			mainClass: 'my-mfp-zoom-in'
-		});								
+		});			
+
+		$("#contact").keydown(function (e) {
+        // Allow: backspace, delete, tab, escape, enter and .
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+             // Allow: Ctrl+A
+            (e.keyCode == 65 && e.ctrlKey === true) ||
+             // Allow: Ctrl+C
+            (e.keyCode == 67 && e.ctrlKey === true) ||
+             // Allow: Ctrl+X
+            (e.keyCode == 88 && e.ctrlKey === true) ||
+             // Allow: home, end, left, right
+            (e.keyCode >= 35 && e.keyCode <= 39)) {
+                 // let it happen, don't do anything
+                 return;
+        }
+        // Ensure that it is a number and stop the keypress
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
+    });			
 	});
+
+
+	function validateEmail(email) {
+	    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+	    return re.test(email);
+	}
 
 	function forgotPassword()
 	{
@@ -203,8 +230,9 @@
 		$email = $('#email').val();
 		$uname = $('#uname').val();
 		$pass = $('#pass').val();
+		$pass1 = $('#pass1').val();
 		$checkValdation = false;
-
+		$check = 0;
 		//data-container="body" data-toggle="popover" data-placement="right" data-trigger="focus" data-content="Username already taken." data-original-title="" title=""
 
 		if($fname.length == 0)
@@ -239,32 +267,56 @@
 		{
 			$checkValdation = true;
 		}
-		if($checkValdation)
+
+		if($email.length != 0 && $check == 0 && !validateEmail($email))
 		{
-			alert("Please input all information.");
+			$checkValdation = true;
+			alert("Email address is invalid.Please try again.");
+			$check = 1;
 		}
-		else
+
+		if($pass == $pass1 && $check == 0 && ($pass.length <= 5 || $pass.length >= 21))
 		{
-			$.post('{{URL::Route('postCreate')}}',{ _token: $_token , fname: $fname , mname : $mname , lname: $lname , address : $address , contact: $contact , email : $email , uname: $uname , pass : $pass} , function(data)
+			$checkValdation = true;
+			alert("Password must be minimum of 6 maximum 20.Thank you.");
+			$check = 1;
+		}
+		if($pass != $pass1 && $check == 0 )
+		{
+			$checkValdation = true;
+			alert("Password does not mutch, please try again.");
+			$check = 1;
+		}
+		if($check == 0)
+		{
+			if($checkValdation)
 			{
-				if(data == 1)
+				alert("Please input all information.");
+			}
+			else
+			{
+				alert("You regestered successfully. Please check your email and verify your account. Thank you.");
+				/*$.post('{{URL::Route('postCreate')}}',{ _token: $_token , fname: $fname , mname : $mname , lname: $lname , address : $address , contact: $contact , email : $email , uname: $uname , pass : $pass} , function(data)
 				{
-					alert("You regestered successfully. Please check your email and verify your account. Thank you.");
-					window.location="{{URL::route('home')}}";
-				}
-				if(data == 2)
-				{
-					alert("Regestration failed. Please try again later. Thank you.");
-				}
-				if(data == 3)
-				{
-					alert("Email Address has already taken. Please try other email. Thank you.");
-				}
-				if(data == 4)
-				{
-					alert("Username has already taken. Please try other username. Thank you.");
-				}
-			});
+					if(data == 1)
+					{
+						alert("You regestered successfully. Please check your email and verify your account. Thank you.");
+						window.location="{{URL::route('home')}}";
+					}
+					if(data == 2)
+					{
+						alert("Regestration failed. Please try again later. Thank you.");
+					}
+					if(data == 3)
+					{
+						alert("Email Address has already taken. Please try other email. Thank you.");
+					}
+					if(data == 4)
+					{
+						alert("Username has already taken. Please try other username. Thank you.");
+					}
+				});*/
+			}
 		}
 	}
 	</script>					
