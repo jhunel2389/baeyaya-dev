@@ -20,7 +20,7 @@
             <span class="input-group-addon" id="basic-addon1">Content</span>
             <input type="text" class="form-control" id= "content" name= "content" placeholder="content" aria-describedby="basic-addon1">
           </div>
- 			<div class="input-group">
+ 			  <div class="input-group">
           		<input type ="file" name="images" id="images" >
            </div>
           <button type="submit" id="saveInfo" class="btn btn-info">Save Information</button>

@@ -24,7 +24,7 @@
 					<li class="{{ ($mt == 'ABOUT') ? 'active' : ''}}"><a href="{{ URL::Route('getAbout') }}"  class="active">ABOUT</a></li>
 					<li class="{{ ($mt == 'SERVICES') ? 'active' : ''}}"><a href="{{ URL::Route('getServices') }}">SERVICES</a></li>
 					<li class="{{ ($mt == 'GALLERY') ? 'active' : ''}}"><a href="{{ URL::Route('getGallery') }}">GALLERY</a></li>
-					<li class="{{ ($mt == 'NEWS') ? 'active' : ''}}"><a href="{{ URL::Route('getNews') }}">NEWS</a></li>
+					<!--<li class="{{ ($mt == 'NEWS') ? 'active' : ''}}"><a href="{{ URL::Route('getNews') }}">NEWS</a></li>-->
 					<li class="{{ ($mt == 'TESTIMONIALS') ? 'active' : ''}}"><a href="{{ URL::Route('getTestimonials') }}">TESTIMONIALS</a></li>
 					<li class="{{ ($mt == 'CONTACT') ? 'active' : ''}}"><a href="{{ URL::Route('getContact') }}">CONTACT US</a></li>
 					<li class="{{ ($mt == 'RESERV') ? 'active' : ''}}"><a href="{{ URL::Route('getReservation') }}">RESERVATIONS</a></li>

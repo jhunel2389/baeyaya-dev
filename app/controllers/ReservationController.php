@@ -423,6 +423,22 @@ class ReservationController extends BaseController {
 				}
 			}
 			
+			$emailcontent = array (
+				'fname' => $userInfo['firstname'],
+				'lname' => $userInfo['lastname'],
+			    'link' => URL::route('getReservation_step2', $getReservation['id'])
+		    );
+			Mail::send('emails.confirmation.reservation', $emailcontent, function($message)
+			{ 
+				$email = Input::get('email');
+				if(empty($email))
+				{
+					$email = Input::get('emailRes');
+				}
+			    $message->to($email,'Kalugdan Garden Resort')->subject('Kalugdan Garden Resort Confirmation Email');
+			    
+ 			});
+
 			return Redirect::route('getReservation_step2',$getReservation['id'])->with('id',$getReservation['id'])->with('mt', "HOME")->with('id',$getReservation['id'])->with('alert', 'success')->with('msg', 'You have successfully reserve.');
 			//return View::make('reservation.reservation_step2')->with('mt', "HOME")->with('id',$getReservation['id'])->with('alert', 'success')->with('msg', 'You have successfully reserve.');
 		}
