@@ -42,7 +42,7 @@
   $getcountcheck = (count(explode(",", $reservation['cottagelist_id']))-1);
   $countRoom = (empty($reservation['room_id'])) ? 0 : 1;
   $userInfo = UserInfo::where('user_id','=',Auth::User()['id'])->first();
-  $package = RoomPackage::where('packid','=',$reservation['package_id']);
+  $package = RoomPackage::where('packid','=',$reservation['package_id'])->first();
   $cottageType = CottageType::where('Cottage_ID','=',$reservation['cottage_type'])->first();
   $price = (int)$cottageType['price'];
   $day = $reservation['day_type'];
@@ -85,11 +85,21 @@
     $cottageprice = $getcountcheck * $price;
     $kidprice = $reservation['num_kid'] * (int)$priceKid['price'];
     $adultprice = $reservation['num_adult'] * (int)$priceAdult['price'];
-
-    $charge = Charges::where('transaction_id','=',$reservation['id'])
+    $addtotal = 0;
+    $charges = Charges::where('transaction_id','=',$reservation['id'])
                   ->where('reservation_type','=',$reservation['reservation_type'])
-                    ->where('product_type','=',"Additional_room")->first();
+                    ->where('product_type','=',"Additional_room")->get();
+      if(!empty($charges))
+      {
+         foreach ($charges as $charge) 
+        {
+          $AdditionalPrice = AdditionalPrice::where('aid','=',$charge['product_id'])->first();
+          $addtotal = $addtotal + ($AdditionalPrice['price'] * $charge['qty']);
+        } 
+      }
     
+
+
 ?>
 <div class="container">
   <div class="row">
@@ -119,35 +129,35 @@
             <td><a href="#">above 4 ft</a></td>
             <td class="text-right">{{$reservation['num_adult']}}</td>
              <td class="text-right">150.00 - 170.00</td>
-              <td class="text-right">PHP {{$adultprice}}</td>
+              <td class="text-right">PHP {{$adultprice}}.00</td>
           </tr>
           <tr>
             <td>Kids</td>
             <td><a href="#">below 4 ft</a></td>
             <td class="text-right">{{$reservation['num_kid']}}</td>
              <td class="text-right">120.00 - 140.00</td>
-              <td class="text-right">PHP {{$kidprice}}</td>
+              <td class="text-right">PHP {{$kidprice}}.00</td>
           </tr>
           <tr>
             <td>Cottages</td>
             <td><a href="#">-</a></td>
             <td class="text-right">{{$getcountcheck}}</td>
              <td class="text-right">600.00-4,800.00</td>
-              <td class="text-right">PHP {{$cottageprice}}</td>
+              <td class="text-right">PHP {{$cottageprice}}.00</td>
           </tr>
            <tr>
             <td>Rooms</td>
             <td><a href="#">-</a></td>
             <td class="text-right">{{$countRoom}}</td>
              <td class="text-right">1,800.00 - 4,800</td>
-              <td class="text-right">PHP {{$room['price']}}</td>
+              <td class="text-right">PHP {{$room['Price']}}.00</td>
           </tr>
            <tr>
             <td>Additional</td>
             <td><a href="#">-</a></td>
             <td class="text-right">-</td>
              <td class="text-right">-</td>
-              <td class="text-right">PHP 250.00</td>
+              <td class="text-right">PHP {{$addtotal}}.00</td>
           </tr>
         </tbody>
       </table>
@@ -157,7 +167,6 @@
     <p>
       <strong>
         Sub Total : <br>
-        TAX : <br>
         Total : <br>
       </strong>
     </p>
@@ -165,7 +174,6 @@
   <div class="col-xs-2">
     <strong>
       PHP {{$reservation['total_amount']}}.00<br>
-      N/A <br>
       PHP {{$reservation['total_amount']}}.00 <br>
     </strong>
   </div>
