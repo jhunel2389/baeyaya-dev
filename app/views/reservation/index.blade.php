@@ -226,51 +226,7 @@
 </div>
 <script type="text/javascript">
   $(document).on("change","#roomPackage",function() {
-    $rmPackage = $('#roomPackage').val();
-    $time =$('#time').val();
-    var a = addTimeToString($time, 12);
-    alert(a);
-    function addTimeToString(timeString, addHours, addMinutes) {
-      // The third argument is optional.
-      if (addMinutes === undefined) {
-        addMinutes = 0;
-      }
-      // Parse the time string. Extract hours, minutes, and am/pm.
-      var match = /(\d+):(\d+)\s+(\w+)/.exec(timeString),
-          hours = parseInt(match[1], 10),
-          minutes = parseInt(match[2], 10),
-          modifier = match[3].toLowerCase();
-      // Convert the given time into minutes. Add the desired amount.
-      if (modifier[0] == 'p') {
-        hours += 12;
-      }
-      var newMinutes = (hours + addHours) * 60 + minutes + addMinutes,
-          newHours = Math.floor(newMinutes / 60) % 24;
-      // Now figure out the components of the new date string.
-      newMinutes %= 60;
-      var newModifier = (newHours < 12 ? 'am' : 'pm'),
-          hours12 = (newHours < 12 ? newHours : newHours % 12);
-      if (hours12 == 0) {
-        hours12 = 12;
-      }
-      // Glue it all together.
-      var minuteString = (newMinutes >= 10 ? '' : '0') + newMinutes;
-      return hours12 + ':' + minuteString + ' ' + newModifier;
-    }
-    /*
-     var time = $("#time").val();
-    var hours = Number(time.match(/^(\d+)/)[1]);
-    var minutes = Number(time.match(/:(\d+)/)[1]);
-    var AMPM = time.match(/\s(.*)$/)[1];
-    if (AMPM == "pm" && hours < 12) hours = hours + 12;
-    if (AMPM == "am" && hours == 12) hours = hours - 12;
-    var sHours = hours.toString();
-    var sMinutes = minutes.toString();
-    if (hours < 10) sHours = "0" + sHours;
-    if (minutes < 10) sMinutes = "0" + sMinutes;
-    var time_in = (sHours + ":" + sMinutes);
     
-    }*/
   });
   $(document).ready(function() {
     $('#forRoom').hide();
