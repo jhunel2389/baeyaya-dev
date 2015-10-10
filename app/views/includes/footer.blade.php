@@ -31,7 +31,12 @@
 					@if(!Auth::Check())
 						<li><a class="play-icon popup-with-zoom-anim" href="#small-dialog">Login</a></li>
 						<li><a class="play-icon popup-with-zoom-anim" href="#small-dialog1">Signup</a></li>
+					@else
+						@if(Auth::User()->isAdmin())
+	           				<li><a href="{{ URL::Route('getFM') }}">ADMIN</a></li>
+	           			@endif
 					@endif
+
 				</ul>
 			</div>
 			<div class="clearfix"> </div>
