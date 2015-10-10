@@ -122,10 +122,6 @@
                         @endforeach
                       </select>
                     </div>
-                    <div class="form-group">
-                      <label class="control-label">Check Out Date and Time</label>
-                      <input type="text" class="form-control input-sm" id="checkout" name="checkout"placeholder="" value="" disabled>
-                    </div>
                     <div class="form-group"  >
                       <input type="checkbox" id="add" name="" >
                       <span >Add addtional</span>
@@ -307,8 +303,9 @@ $(document).on("click","#rType",function() {
   $_token = "{{ csrf_token() }}";
   if($rtype_id == "2")
   {
-     $('#forTime').show();
-     $('#time').val('');
+
+    $('#forTime').show();
+    $('#time').val('');
     $("#add").prop('checked', false);
     $('#forAddtional').show();
     $('#forCottage').hide();

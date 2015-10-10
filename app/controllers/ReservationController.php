@@ -261,6 +261,20 @@ class ReservationController extends BaseController {
 		$chosenDay		= Input::get('chosenDay');
 		$package		= Input::get('roomPackage');
 		$room 			= Input::get('room');
+		if($rType == 1)
+		{
+			if(empty($cType) || empty($checkCottage) || empty($adult))
+			{
+				return View::make('index')->with('mt', "HOME")->with('alert', 'fail')->with('msg', 'failed to reserve cottage please fill all the required fields. Please choose cottage type, cottage and atleast 1 adult.');
+			}
+		}
+		if($rType == 2)
+		{
+			if(empty($room) || empty($package) || empty($time))
+			{
+				return View::make('index')->with('mt', "HOME")->with('alert', 'fail')->with('msg', 'failed to reserve room fill all the required fields. Please choose time, room and room package ');
+			}
+		}
 		if(empty($email))
 		{
 
