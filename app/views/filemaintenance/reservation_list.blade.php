@@ -91,6 +91,18 @@
                         {
                           $.post('{{URL::Route('updateReservationDate')}}',{ type:$type,date:$date,id: $id , _token : $_token} , function(data){
                             console.log(data);
+                            if(data == 0)
+                            {
+                              alert('Successfully update transaction date.');
+                            }
+                            else if(data == 1)
+                            {
+                              alert('This day is already book. Please choose another day.');
+                            }
+                            else
+                            {
+                              alert('failed to update date.');
+                            }
                           });
                         }
                       });
@@ -168,6 +180,18 @@
                         {
                           $.post('{{URL::Route('updateReservationDate')}}',{ type:$type,date:$date,id: $id , _token : $_token} , function(data){
                             console.log(data);
+                            if(data == 0)
+                            {
+                              alert('Successfully update transaction date.');
+                            }
+                            else if(data == 1)
+                            {
+                              alert('Date already book or reserved. Please choose another date.');
+                            }
+                            else
+                            {
+                              alert('failed to update date.');
+                            }
                           });
                         }
                       });
