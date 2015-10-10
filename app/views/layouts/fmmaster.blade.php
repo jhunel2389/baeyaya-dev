@@ -73,6 +73,7 @@
           <li><a href="{{ URL::Route('getBanners') }}">Banners</a></li>
           <li><a href="{{ URL::Route('getFMNews') }}">News</a></li>
           <li><a href="{{ URL::Route('getFMGallery') }}">Gallery</a></li>
+          <li><a href="{{ URL::Route('getFMWalkin') }}">Walk-in</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

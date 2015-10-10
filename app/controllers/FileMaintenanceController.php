@@ -418,4 +418,17 @@ class FileMaintenanceController extends BaseController {
 		}
 		
 	}
+
+	public function getFMWalkin()
+	{
+		if(Auth::User()->isAdmin())
+		{
+			return View::make('reservation.fm_walkin');
+		}
+		else
+		{
+			return Redirect::Route('home');
+		}
+		
+	}
 }
