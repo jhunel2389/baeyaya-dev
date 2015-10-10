@@ -19,7 +19,7 @@
 		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 		<link href="{{app('customURL')}}css/bootstrap.css" rel='stylesheet' type='text/css' />
 		<!--<link href="{{app('customURL')}}css/bootstrap.min.css" rel='stylesheet' type='text/css' />-->
-		<link href="{{app('customURL')}}css/style.css" rel='stylesheet' type='text/css' />
+		<link href="{{app('customURL')}}css/style2.css" rel='stylesheet' type='text/css' />
 		<!--<script src="{{app('customURL')}}js/jquery-1.11.0.min.js"></script>-->
 		<link href='http://fonts.googleapis.com/css?family=Exo:100,200,300,400,500,600,700,800,900,100italic,200italic,300italic,400italic,500italic,600italic,700italic,800italic,900italic' rel='stylesheet' type='text/css'>  
 		<!---- start-smoth-scrolling---->

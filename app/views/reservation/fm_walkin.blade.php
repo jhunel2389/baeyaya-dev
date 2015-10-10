@@ -256,6 +256,112 @@
     });     
   });
 
+   $(document).on("click","#next_submit",function(event) {
+    $check = 0;
+    if ($('#date').val()== "" && $check == 0)
+    {
+      $check == 1;
+      event.preventDefault(); 
+      alert('please fill date.')
+     
+    }
+    if ($('#rType').val() == null && $check == 0)
+    {
+      $check == 1;
+      event.preventDefault(); 
+      alert('please choose Reservation type.')
+      
+    }
+
+    if($('#rType').val() == 1 && $check == 0)
+    {
+      //cottage
+      event.preventDefault(); 
+      $('#cType').val()
+      $('#checkCottage').val()
+      $('#kid').val()
+      $('#adult').val()
+      if ($('#cType').val() == null && $check == 0)
+      {
+        $check = 1;
+        event.preventDefault(); 
+        alert('please choose Category type.')
+      }
+      if (($('#checkCottage').val() == "" || $('#checkCottage').val() == ",") && $check == 0)
+      {
+        $check = 1;
+        event.preventDefault(); 
+        alert('please select atlist one cottage or no available cottage.')
+      }
+       if($('#adult').val() < $('#kid').val() && ($('#adult').val() == "" || $('#adult').val() == 0) && $check == 0)
+      {
+        $check = 1;
+        event.preventDefault(); 
+        alert('Please enter at list 1 adult, to accompany the childrens guest.')
+      }
+      if ($('#adult').val() == "" && $check == 0)
+      {
+        $check = 1;
+        event.preventDefault(); 
+        alert('please enter number of guest adult.')
+      }
+      if($check == 0)
+      {
+        var status = confirm("Are you sure, you want to continue this reservation?");
+        if(status == true)
+        {
+          //alert("submit");
+          $("#eventPart1" ).submit();
+        }
+      }
+      else
+      {
+        event.preventDefault();
+      }
+    }
+    else if($('#rType').val() == 2)
+    {
+      //room
+      event.preventDefault();
+      $('#time').val()
+      $('#room').val()
+      $('#roomPackage').val()
+      if ($('#time').val() == "" && $check == 0)
+      {
+        $check = 1;
+        event.preventDefault(); 
+        alert('please select time.')
+      }
+      if ($('#room').val() == null && $check == 0)
+      {
+        $check = 1;
+        event.preventDefault(); 
+        alert('please choose a room.')
+      }
+      if ($('#roomPackage').val() == null && $check == 0)
+      {
+        $check = 1;
+        event.preventDefault(); 
+        alert('please choose a Room Package.')
+      }
+      if($check == 0)
+      {
+        var status = confirm("Are you sure, you want to continue this reservation?");
+        if(status == true)
+        {
+          //alert("submit");
+          $("#eventPart1" ).submit();
+        }
+      }
+      else
+      {
+        event.preventDefault();
+      }
+    }
+
+     
+  });
+
   function validateEmail(email) {
       var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
       return re.test(email);
@@ -643,9 +749,46 @@ $(document).on("click","#computeRoom",function(){
     $("#atotal").html(data.addCharges);
     $("#gtotal").html(data.total);
   });
-
   //alert($adult);
-
 });
+ function autoCompute()
+{
+  var seasoncode = $('#seasoncode').val();
+  var day = $('#chosenDay').val();
+  var ctype =$("#cType").val();
+  var kid = $('#kid').val();
+  var adult = $('#adult').val();
+  var check = $("#checkCottage").val();
+  $_token = "{{ csrf_token() }}";
+  $.post('{{URL::Route('compute')}}',{_token:$_token, kid:kid,adult:adult,check:check,ctype:ctype,day:day,seasoncode:seasoncode},function(data){
+    console.log(data);
+    $("#aTotal").empty();
+    $("#kTotal").empty();
+    $("#cTotal").empty();
+    $("#total").empty();
+    $("#aTotal").html(data.adultprice);
+    $("#kTotal").html(data.kidprice);
+    $("#cTotal").html(data.cottageprice);
+    $("#total").html(data.total);
+  });
+
+  var roomPackage = $('#roomPackage').val();
+  var addPerson =$("#addPerson").val();
+  var addBed = $('#addBed').val();
+  var addLinen = $('#addLinen').val();
+  var addTowel = $("#addTowel").val();
+   var addPillow = $("#addPillow").val();
+  $_token = "{{ csrf_token() }}";
+  $.post('{{URL::Route('computeRoom')}}',{_token:$_token, roomPackage:roomPackage,addPerson:addPerson,addBed:addBed,addLinen:addLinen,addTowel:addTowel,addPillow:addPillow},function(data){
+    console.log(data);
+    $("#rTotal").empty();
+    $("#atotal").empty();
+    $("#gtotal").empty();
+    $("#rTotal").html(data.roomPrice);
+    $("#atotal").html(data.addCharges);
+    $("#gtotal").html(data.total);
+  });
+}
+window.setInterval(function () {autoCompute()}, 2000);
 </script>
 @stop
