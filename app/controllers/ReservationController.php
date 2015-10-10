@@ -224,7 +224,15 @@ class ReservationController extends BaseController {
 		$chosenDay		= Input::get('chosenDay');
 		$package		= Input::get('roomPackage');
 		$room 			= Input::get('room');
-		$userInfo		= UserInfo::where('user_id','=',Auth::User()['id'])->first();
+		if(empty($email))
+		{
+			$email = Input::get('emailRes');
+			$userInfo	= UserInfo::where('email','=',str_replace(' ','',$email))->first();
+		}
+		else
+		{
+			$userInfo	= UserInfo::where('user_id','=',Auth::User()['id'])->first();
+		}
 		$season= 1;// 1: regular 2:week and holidays 3: summer (mar,apr,may)
 
 		$addPerson = Input::get('addPerson');
