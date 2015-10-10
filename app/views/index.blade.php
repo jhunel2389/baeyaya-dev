@@ -37,7 +37,7 @@
 				<ul>
 					<li><a class="play-icon popup-with-zoom-anim" href="#small-dialog"><span> </span>Login</a></li>
 					<li><a class="play-icon popup-with-zoom-anim" href="#small-dialog1">Signup</a></li>
-					<li><a class="play-icon popup-with-zoom-anim" href="#small-dialog2"><span> </span>Forgot Log-in</a></li>
+					<!--<li><a class="play-icon popup-with-zoom-anim" href="#small-dialog2"><span> </span>Forgot Log-in</a></li>-->
 				</ul>
 			</div>
 		@else

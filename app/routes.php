@@ -60,6 +60,7 @@ Route::group(array('prefix' => 'reservation'), function()
 		Route::post('/getCottageType',array('uses' =>'ReservationController@getCottageType', 'as' => 'getCottageType'));
 		Route::post('/getCottagelist',array('uses' =>'ReservationController@getCottagelist', 'as' => 'getCottagelist'));
 		Route::post('/compute',array('uses' =>'ReservationController@compute', 'as' => 'compute'));
+		Route::post('/computeRoom',array('uses' =>'ReservationController@computeRoom', 'as' => 'computeRoom'));
 		Route::post('/postReservation',array('uses' =>'ReservationController@postReservation', 'as' => 'postReservation'));
 		Route::post('/getRoom',array('uses' =>'ReservationController@getRoom', 'as' => 'getRoom'));
 	});
@@ -105,6 +106,7 @@ Route::group(array('prefix' => 'admin'), function()
 	Route::get('/gallery',array('uses' =>'FileMaintenanceController@getFMGallery', 'as' => 'getFMGallery'));
 	Route::get('/galleryImgs',array('uses' =>'FileMaintenanceController@galleryImgs', 'as' => 'galleryImgs'));
 	Route::get('/news',array('uses' =>'FileMaintenanceController@getFMNews', 'as' => 'getFMNews'));
+	Route::get('/walk-in-reservation',array('uses' =>'FileMaintenanceController@getFMWalkin', 'as' => 'getFMWalkin'));
 	Route::get('/banners',array('uses' =>'FileMaintenanceController@getBanners', 'as' => 'getBanners'));
 	Route::get('/reservation-info/{id}',array('uses' =>'FileMaintenanceController@getReserve', 'as' => 'getReserve'));
 	Route::get('/reservation-list',array('uses' =>'FileMaintenanceController@getFMReservation', 'as' => 'getFMReservation'));

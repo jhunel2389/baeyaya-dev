@@ -50,6 +50,43 @@ class ReservationController extends BaseController {
 		}
 		
 	}
+
+	public function computeRoom()
+	{
+		$roomPackage = Input::get('roomPackage');
+		$addPerson = Input::get('addPerson');
+		$addBed = Input::get('addBed');
+		$addLinen = Input::get('addLinen');
+		$addTowel = Input::get('addTowel');
+		$addPillow = Input::get('addPillow');
+		$totalAdd = 0;
+		if(!empty($addPerson))
+		{
+			$totalAdd = $totalAdd + ($addPerson * (int)AdditionalPrice::where('additional','=','AdditionalPerson')->first()['price']);
+		}
+		if(!empty($addBed))
+		{
+			$totalAdd = $totalAdd + ($addBed * (int)AdditionalPrice::where('additional','=','ExtraBed')->first()['price']);
+		}
+		if(!empty($addLinen))
+		{
+			$totalAdd = $totalAdd + ($addLinen * (int)AdditionalPrice::where('additional','=','ExtraLinen')->first()['price']);
+		}
+		if(!empty($addTowel))
+		{
+			$totalAdd = $totalAdd + ($addTowel * (int)AdditionalPrice::where('additional','=','ExtraTowel')->first()['price']);
+		}
+		if(!empty($addPillow))
+		{
+			$totalAdd = $totalAdd + ($addPillow * (int)AdditionalPrice::where('additional','=','ExtraPillow')->first()['price']);
+		}
+		return $response = array(			
+				"roomPrice" => RoomPackage::where('packid','=',$roomPackage)->first()['Price'],
+				"addCharges" => $totalAdd,
+				"total"=> $total = RoomPackage::where('packid','=',$roomPackage)->first()['Price'] + $totalAdd,
+				);
+	}
+
 	public function compute()
 	{
 		$day = Input::get('day');
@@ -190,17 +227,37 @@ class ReservationController extends BaseController {
 		$userInfo		= UserInfo::where('user_id','=',Auth::User()['id'])->first();
 		$season= 1;// 1: regular 2:week and holidays 3: summer (mar,apr,may)
 
-		//for addtional
-		$addPerson 			= Input::get('addPerson');
-		$addBed 			= Input::get('addBed');
-		$addLinen 			= Input::get('addLinen');
-		$addTowel 			= Input::get('addTowel');
-		$addPillow 			= Input::get('addPillow');
+		$addPerson = Input::get('addPerson');
+		$addBed = Input::get('addBed');
+		$addLinen = Input::get('addLinen');
+		$addTowel = Input::get('addTowel');
+		$addPillow = Input::get('addPillow');
+		$totalAdd = 0;
+		if(!empty($addPerson))
+		{
+			$totalAdd = $totalAdd + ($addPerson * (int)AdditionalPrice::where('additional','=','AdditionalPerson')->first()['price']);
+		}
+		if(!empty($addBed))
+		{
+			$totalAdd = $totalAdd + ($addBed * (int)AdditionalPrice::where('additional','=','ExtraBed')->first()['price']);
+		}
+		if(!empty($addLinen))
+		{
+			$totalAdd = $totalAdd + ($addLinen * (int)AdditionalPrice::where('additional','=','ExtraLinen')->first()['price']);
+		}
+		if(!empty($addTowel))
+		{
+			$totalAdd = $totalAdd + ($addTowel * (int)AdditionalPrice::where('additional','=','ExtraTowel')->first()['price']);
+		}
+		if(!empty($addPillow))
+		{
+			$totalAdd = $totalAdd + ($addPillow * (int)AdditionalPrice::where('additional','=','ExtraPillow')->first()['price']);
+		}
 		
-
+		
 		$getcountcheck = (count(explode(",", $checkCottage))-1);
 		$cottageType = CottageType::where('Cottage_ID','=',$cType)->first();
-			$price = (int)$cottageType['price'];
+		$price = (int)$cottageType['price'];
 		if($chosenDay == "1")
 		{
 			if($season == "1")
@@ -243,6 +300,11 @@ class ReservationController extends BaseController {
 			$adultprice = $adult * (int)$priceKid['price'];
 			$total = $cottageprice + $kidprice +$adultprice;
 		}
+
+		if(!empty($package))
+		{
+			$total = (int)RoomPackage::where('packid','=',$package)->first()['Price'] + $totalAdd;
+		}
 		$getReservation = new CottageReservation();
 		$getReservation['user_id'] 			= $userInfo['user_id'];
 		$getReservation['reservation_type'] 	= $rType;
@@ -256,41 +318,89 @@ class ReservationController extends BaseController {
 		$getReservation['check_out_datetime'] ="";
 		$getReservation['num_adult'] 		= $adult;
 		$getReservation['num_kid'] 			= $kid;
-		$getReservation['status'] 			= "1";
+		$getReservation['status'] 			= "Pending";
 		$getReservation['total_amount']		=$total;
 		if(!$getReservation->save())
 		{
 			return Redirect::route('home');
 		}
-		return Redirect::route('getReservation_step2',$getReservation['id'])->with('id',$getReservation['id'])->with('mt', "HOME")->with('id',$getReservation['id'])->with('alert', 'success')->with('msg', 'You have successfully reserve.');
-		//return View::make('reservation.reservation_step2')->with('mt', "HOME")->with('id',$getReservation['id'])->with('alert', 'success')->with('msg', 'You have successfully reserve.');
+		else
+		{
+			if($rType == 1)
+			{
+				if(!empty($priceAdult))
+				{
+					$this->postCharges($getReservation['id'], $rType , "Swimming_Entrance" , $priceAdult['idp'] , $adult);
+				}
+				if(!empty($priceKid))
+				{
+					$this->postCharges($getReservation['id'], $rType , "Swimming_Entrance" , $priceKid['idp'] , $kid);
+				}
+				if(!empty($checkCottage))
+				{
+					$this->postCharges($getReservation['id'], $rType , "Cottages" , $checkCottage , count($chosenCottages)-1);
+				}
+			}
+			else
+			{
+				if(!empty($addPerson))
+				{
+					//$totalAdd = $totalAdd + ($addPerson * (int)AdditionalPrice::where('additional','=','AdditionalPerson')->first()['price']);
+					$this->postCharges($getReservation['id'], $rType , "Additional_room" , AdditionalPrice::where('additional','=','AdditionalPerson')->first()['aid'] , $addPerson);
+				}
+				if(!empty($addBed))
+				{
+					//$totalAdd = $totalAdd + ($addBed * (int)AdditionalPrice::where('additional','=','ExtraBed')->first()['price']);
+					$this->postCharges($getReservation['id'], $rType , "Additional_room" , AdditionalPrice::where('additional','=','ExtraBed')->first()['aid'] , $addBed);
+				}
+				if(!empty($addLinen))
+				{
+					//$totalAdd = $totalAdd + ($addLinen * (int)AdditionalPrice::where('additional','=','ExtraLinen')->first()['price']);
+					$this->postCharges($getReservation['id'], $rType , "Additional_room" , AdditionalPrice::where('additional','=','ExtraLinen')->first()['aid'] , $addLinen);
+				}
+				if(!empty($addTowel))
+				{
+					//$totalAdd = $totalAdd + ($addTowel * (int)AdditionalPrice::where('additional','=','ExtraTowel')->first()['price']);
+					$this->postCharges($getReservation['id'], $rType , "Additional_room" , AdditionalPrice::where('additional','=','ExtraTowel')->first()['aid'] , $addTowel);
+				}
+				if(!empty($addPillow))
+				{
+					//$totalAdd = $totalAdd + ($addPillow * (int)AdditionalPrice::where('additional','=','ExtraPillow')->first()['price']);
+					$this->postCharges($getReservation['id'], $rType , "Additional_room" , AdditionalPrice::where('additional','=','ExtraPillow')->first()['aid'] , $addPillow);
+				}
+
+				if(!empty($package))
+				{
+					//$totalAdd = $totalAdd + ($addPillow * (int)AdditionalPrice::where('additional','=','ExtraPillow')->first()['price']);
+					$this->postCharges($getReservation['id'], $rType , "Package_room" , (int)RoomPackage::where('packid','=',$package)->first()['packid'] , 1);
+				}
+			}
+			
+			return Redirect::route('getReservation_step2',$getReservation['id'])->with('id',$getReservation['id'])->with('mt', "HOME")->with('id',$getReservation['id'])->with('alert', 'success')->with('msg', 'You have successfully reserve.');
+			//return View::make('reservation.reservation_step2')->with('mt', "HOME")->with('id',$getReservation['id'])->with('alert', 'success')->with('msg', 'You have successfully reserve.');
+		}
 	}
+
+
 	public function getReservation_step2($reserve_id)
 	{
 		return View::make('reservation.reservation_step2')->with('mt', "RESERV")->with('reserve_id', $reserve_id);
 	}
 
-	public function postCharges()
+	public function postCharges($trans_id, $reservation_type , $prod_type , $prodId , $qty)
 	{
-		$trans_id = Input::get('transId');
+		/*$trans_id = Input::get('transId');
 		$reservation_type = Input::get('resId');
 		$prod_type = Input::get('prodType');
 		$prodId = Input::get('prodId');
-		$qty = Input::get('qty');
+		$qty = Input::get('qty');*/
 
 		$addCharges = new Charges();
 		$addCharges['transaction_id'] = $trans_id;
-		$addCharges['reservation_type	'] = $reservation_type;
+		$addCharges['reservation_type'] = $reservation_type;
 		$addCharges['product_type'] = $prod_type;
 		$addCharges['product_id'] = $prodId;
 		$addCharges['qty'] = $qty;
-		if($addCharges->save())
-		{
-			return 1;
-		}
-		else
-		{
-			return 2;
-		}
+		$addCharges->save();
 	}
 }

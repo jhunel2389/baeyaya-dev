@@ -1,5 +1,5 @@
 /* Styles for dialog window */
-#small-dialog,#small-dialog1{
+#small-dialog,#small-dialog1,#small-dialog2{
 	background: #FDFDFE;
 	padding:20px;
 	text-align: left;
@@ -264,11 +264,11 @@ button::-moz-focus-inner {
   padding-right: 6px;
   width: 100%; 
 }
-.login h3,.signup h3{
+.login h3,.signup h3, .forgotpassword{
 	margin:1em 0;
 	color: #00A2C1;
 }
-.login input[type="text"], .login input[type="password"],.signup input[type="text"],.signup input.email[type="text"],.signup input[type="password"]{
+.login input[type="text"], .login input[type="password"],.signup input[type="text"],.signup input.email[type="text"],.signup input[type="password"],.forgotpassword input[type="text"],.forgotpassword input.email[type="text"],.forgotpassword input[type="password"]{
 	border-radius: 0.3em;
 	-webkit-border-radius: 0.3em;
 	-moz-border-radius: 0.3em;
@@ -296,6 +296,14 @@ button::-moz-focus-inner {
 	outline: none;
 	color: #cacaca;
 }
+.forgotpassword input[type="text"]{
+	width:44.5%;
+	padding:5px;
+	margin:10px 0;x
+	outline: none !important;
+	outline: none;
+	color: #cacaca;
+}
 .signup input.email[type="text"],.signup input[type="password"]{
 	width:90%;
 	padding:5px;
@@ -304,7 +312,15 @@ button::-moz-focus-inner {
 	outline: none;
 	color: #cacaca;
 }
-.login input[type="submit"],.signup input[type="submit"]{
+.forgotpassword input.email[type="text"],.signup input[type="password"]{
+	width:90%;
+	padding:5px;
+	margin:10px 0;x
+	outline: none !important;
+	outline: none;
+	color: #cacaca;
+}
+.login input[type="submit"],.signup input[type="submit"], .forgotpassword input[type="submit"],{ 
 	background:#00A2C1;
 	border:0px;
 	padding:5px 10px;
@@ -324,7 +340,7 @@ button::-moz-focus-inner {
 	-ms-border-radius: 0.3em;
 	-o-border-radius: 0.3em;
 }
-.login input[type="submit"]:hover,.signup input[type="submit"]:hover{
+.login input[type="submit"]:hover,.signup input[type="submit"]:hover, .forgotpassword input[type="submit"]:hover{
 	background:#b3825a;
 	-webkit-transition: all 0.5s ease-in-out;
 	-moz-transition: all 0.5s ease-in-out;
