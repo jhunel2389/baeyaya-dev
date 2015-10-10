@@ -59,9 +59,9 @@
                 <li class="{{ ($mt == 'RATES') ? 'active' : ''}}"><a href="{{ URL::Route('getRates') }}">RATES</a></li>
                 <!--<li class="{{ ($mt == 'NEWS') ? 'active' : ''}}"><a href="{{ URL::Route('getNews') }}">NEWS</a></li>-->
                 <li class="{{ ($mt == 'TESTIMONIALS') ? 'active' : ''}}"><a href="{{ URL::Route('getTestimonials') }}">TESTIMONIALS</a></li>
-                <li class="{{ ($mt == 'CONTACT') ? 'active' : ''}}"><a href="{{ URL::Route('getContact') }}">CONTACT US</a></li>
                 @if(Auth::Check())
-					<li class="{{ ($mt == 'RESERV') ? 'active' : ''}}"><a href="{{ URL::Route('getReservation') }}">RESERVATIONS</a></li>
+                	<li class="{{ ($mt == 'CONTACT') ? 'active' : ''}}"><a href="{{ URL::Route('getContact') }}">CONTACT US</a></li>
+                	<li class="{{ ($mt == 'RESERV') ? 'active' : ''}}"><a href="{{ URL::Route('getReservation') }}">RESERVATIONS</a></li>
 				@else
 					<li class="{{ ($mt == 'RESERV') ? 'active' : ''}}"><a class="play-icon popup-with-zoom-anim" href="#small-dialog">RESERVATIONS</a></li>
 				@endif
