@@ -41,32 +41,15 @@
 ?>
 <div class="container">
   <div class="row">
-    
-    <div class="col-md-12">
-      <h3 class="text-uppercase sectionheading wt">Reservation</h3>
-      <div class="step_tabs text-uppercase">
-        <div class="step">Step 1</div>
-        <div class="step active">Step 2</div>
-        <div class="step">Step 3</div>
-        <div style="clear:both;"></div>
-      </div>
-      <div class="create_event">
-        <form method="post" action="" enctype="multipart/form-data">
-          <div class="col-md-4">
-            <div class="form-group">
-              <label class="control-label">Enter Verification Code here</label>
-              <input type="text" class="form-control input-sm" id="code" name="code"placeholder="" required>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label class="control-label"></label>
-            <button type="submit" id="next_submit" class="btn_green">submit</button>
-            </div>
-          </div>
-        {{Form::token()}}
-      </form>
-    </div>
+    <div class="list-group">
+  <a href="#" class="list-group-item active">
+    Cras justo odio
+  </a>
+  <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+  <a href="#" class="list-group-item">Morbi leo risus</a>
+  <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+  <a href="#" class="list-group-item">Vestibulum at eros</a>
+</div>
   </div>
 </div>
 <script type="text/javascript">
