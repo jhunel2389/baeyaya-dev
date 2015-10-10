@@ -77,7 +77,6 @@
                 <td>{{$userInfo['lastname']}}</td>
                 <td>{{$reservation_type['name']}}</td>
                 <td><div class="form-group">
-                      <label class="control-label" for="inputDefault">Date</label>
                       <input type="text" class="form-control input-sm" data-id="{{$transaction['id']}}"value="{{$transaction['reservation_date']}}"id="date{{$transaction['id']}}"name="date" style="font-size:9pt;" placeholder="{{$transaction['reservation_date']}}">
                     </div></td>
                 <td> 
