@@ -65,7 +65,7 @@
 				@else
 					<li class="{{ ($mt == 'RESERV') ? 'active' : ''}}"><a class="play-icon popup-with-zoom-anim" href="#small-dialog">RESERVATIONS</a></li>
 				@endif
-               	
+               	<li class="{{ ($mt == 'VIRTUAL') ? 'active' : ''}}"><a href="{{ URL::Route('virtualTour') }}">TOUR</a></li>
                	@if(Auth::Check())
                		<li><a href="{{ URL::Route('getLogout') }}">LOG-OUT</a></li>
            			@if(Auth::User()->isAdmin())

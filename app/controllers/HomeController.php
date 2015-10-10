@@ -18,4 +18,9 @@ class HomeController extends BaseController {
 	{
 		return View::make('index')->with('mt', "HOME");
 	}
+
+	public function virtualTour()
+	{
+		return View::make('virtualtour.index')->with('mt', "VIRTUAL");
+	}
 }

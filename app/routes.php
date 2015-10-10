@@ -26,6 +26,7 @@ Route::group(array('prefix' => 'gallery'), function()
 {
 	Route::get('/',array('uses' =>'GalleryController@index', 'as' => 'getGallery'));
 });
+
 Route::group(array('prefix' => 'Rates'), function() 
 {
 	Route::get('/',array('uses' =>'RatesController@getRates', 'as' => 'getRates'));
@@ -68,6 +69,11 @@ Route::group(array('prefix' => 'reservation'), function()
 		Route::post('/postReservation',array('uses' =>'ReservationController@postReservation', 'as' => 'postReservation'));
 		Route::post('/getRoom',array('uses' =>'ReservationController@getRoom', 'as' => 'getRoom'));
 	});
+});
+
+Route::group(array('prefix' => 'virtual-tour'), function() 
+{
+	Route::get('/',array('uses' =>'HomeController@virtualTour', 'as' => 'virtualTour'));
 });
 
 Route::group(array('before' => 'guest'), function() 
