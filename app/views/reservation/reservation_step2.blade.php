@@ -41,7 +41,7 @@
   $reservation = CottageReservation::find($reserve_id);
   $getcountcheck = (count(explode(",", $reservation['cottagelist_id']))-1);
   $countRoom = (empty($reservation['room_id'])) ? 0 : 1;
-  $userInfo = UserInfo::where('user_id','=',Auth::User()['id'])->first();
+  $userInfo = UserInfo::where('user_id','=',$reservation['user_id'])->first();
   $package = RoomPackage::where('packid','=',$reservation['package_id'])->first();
   $cottageType = CottageType::where('Cottage_ID','=',$reservation['cottage_type'])->first();
   $price = (int)$cottageType['price'];
