@@ -76,6 +76,12 @@
                       <input type="hidden" id="seasoncode" name="seasoncode">
                     </div>
                   </div>
+                  <div class="col-md-6" style="padding:0px 5px !important;">
+                  <div class="form-group" id="forTime">
+                    <label class="control-label" for="inputDefault">Time</label>
+                    <input type="text" class="form-control input-sm" id="time" name="time" style="font-size:9pt;" placeholder="time" >
+                  </div>
+                </div>
                 </div>
                 <?php $reservationTypes = ReservationType::all();?>
                   <div id="pT"class="form-group" style="position:relative;">
@@ -309,6 +315,7 @@
     $('#additional').hide();
     $('#forAddtional').hide();
     $('#forComputeRoom').hide();
+    $('#forTime').hide();
   });
   $(document).on("change","#add",function() {
     if($(this).is(":checked"))
@@ -369,6 +376,8 @@ $(document).on("click","#rType",function() {
   $_token = "{{ csrf_token() }}";
   if($rtype_id == "2")
   {
+    $('#forTime').show();
+     $('#time').val('');
     $("#add").prop('checked', false);
     $('#forAddtional').show();
     $('#forCottage').hide();
@@ -402,6 +411,8 @@ $(document).on("click","#rType",function() {
   }
   else
   {
+    $('#forTime').hide();
+     $('#time').val('');
     $('#forComputeRoom').hide();
     $("#add").prop('checked', false);
     $('#addPerson').val('');

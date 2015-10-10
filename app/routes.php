@@ -58,6 +58,7 @@ Route::group(array('prefix' => 'contact-us'), function()
 
 Route::group(array('prefix' => 'reservation'), function() 
 {
+	Route::get('/TermandCondition',array('uses' =>'ReservationController@getTerm', 'as' => 'getTerm'));
 	Route::get('/',array('uses' =>'ReservationController@index', 'as' => 'getReservation'));
 	Route::get('/bill-total/{id}',array('uses' =>'ReservationController@getReservation_step2', 'as' => 'getReservation_step2'));
 	Route::group(array('before' => 'csrf'), function()

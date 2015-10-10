@@ -1,5 +1,9 @@
 <?php
 class ReservationController extends BaseController {
+	public function getTerm()
+	{
+		return View::make('reservation.TermCondition')->with('mt', "Home");
+	}
 	public function index()
 	{
 		return View::make('reservation.index')->with('mt', "RESERV");

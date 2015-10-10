@@ -215,7 +215,8 @@
           </div>
           <div class="form-group">
             <input type="checkbox" id="term" name="" class=""  value="">
-            <span>Term and Condition</span>
+            <span>Accept terms and condition</span>
+            <a target="_blank" href="{{URL::Route('getTerm')}}" >view here</a>
           </div>
         </div>
         <button type="submit" id="next_submit" class="btn_green" disabled>Reserve</button>
@@ -225,6 +226,7 @@
   </div>
 </div>
 <script type="text/javascript">
+
   $(document).on("change","#roomPackage",function() {
     
   });
