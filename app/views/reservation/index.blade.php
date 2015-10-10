@@ -59,6 +59,12 @@
                       <input type="text" class="form-control input-sm" id="date"name="date" style="font-size:9pt;" placeholder=" ">
                     </div>
                   </div>
+                  <div class="col-md-6" style="padding:0px 5px !important;">
+                  <div class="form-group" id="forTime">
+                    <label class="control-label" for="inputDefault">Time</label>
+                    <input type="text" class="form-control input-sm" id="time" name="time" style="font-size:9pt;" placeholder="time" >
+                  </div>
+                </div>
                 </div>
                 <?php $reservationTypes = ReservationType::all();?>
                   <div id="pT"class="form-group" style="position:relative;">
@@ -114,6 +120,10 @@
                           <option value = "{{$package['packid']}}">{{$package['description']}} -   Rate:{{$package['Hours']}} HRS </option>
                         @endforeach
                       </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label">Check Out Date and Time</label>
+                      <input type="text" class="form-control input-sm" id="checkout" name="checkout"placeholder="" value="" disabled>
                     </div>
                     <div class="form-group"  >
                       <input type="checkbox" id="add" name="" >
@@ -209,11 +219,16 @@
   </div>
 </div>
 <script type="text/javascript">
+  $(document).on("change","#roomPackage",function() {
+    $rmPackage = $('#roomPackage').val();
+    alert($rmPackage);
+  });
   $(document).ready(function() {
     $('#forRoom').hide();
     $('#additional').hide();
     $('#forAddtional').hide();
     $('#forComputeRoom').hide();
+    $('#forTime').hide();
   });
   $(document).on("change","#add",function() {
     if($(this).is(":checked"))
@@ -274,6 +289,8 @@ $(document).on("click","#rType",function() {
   $_token = "{{ csrf_token() }}";
   if($rtype_id == "2")
   {
+     $('#forTime').show();
+     $('#time').val('');
     $("#add").prop('checked', false);
     $('#forAddtional').show();
     $('#forCottage').hide();
@@ -307,6 +324,8 @@ $(document).on("click","#rType",function() {
   }
   else
   {
+     $('#forTime').hide();
+     $('#time').val('');
     $('#forComputeRoom').hide();
     $("#add").prop('checked', false);
     $('#addPerson').val('');
