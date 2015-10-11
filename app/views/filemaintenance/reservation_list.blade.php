@@ -109,7 +109,7 @@
                     </script>
                 <td> 
                   <i class="fa fa-2x fa-caret-down" style="position:absolute;right:10px;bottom:2px;color:#000;pointer-events:none;"></i>
-                  <select class="form-control input-sm" id="status" name="status" data-id="{{$transaction['id']}}"style="padding-top:0px;padding-left:5px;line-height:20pt;" >
+                  <select class="form-control input-sm" id="status{{$transaction['id']}}" name="status" data-id="{{$transaction['id']}}"style="padding-top:0px;padding-left:5px;line-height:20pt;" >
                      <option value="" disabled selected style="display:none;">Choose status</option>
                      <?php $status = Status::all();?>
                     @foreach($status as $stat)
@@ -120,6 +120,34 @@
                       @endif                  
                     @endforeach
                   </select>
+                  <script type="text/javascript">
+                   $(document).on("change","#status{{$transaction['id']}}",function() {
+                      var status = confirm("Are you sure, you want to update reservation status?");
+                      if(status == true)
+                      {
+                        $status = $('#status'+{{$transaction['id']}}).val();
+                        $id = $(this).data("id");
+                        $_token   = "{{ csrf_token() }}";
+                        $.post('{{URL::Route('updateTransactionStatus')}}',{ id: $id , _token : $_token,status:$status} , function(data){
+
+                                console.log(data);
+                                if(data == 0)
+                                {
+                                   alert('success to update transaction status.')
+                                }
+                                else
+                                {
+                                  alert('failed to update transaction status.')
+                                }
+                        });
+                      }
+                      else
+                      {
+                        
+                      }
+                    });
+
+                  </script>
                 </td>
               </tr>
             @endforeach
@@ -154,7 +182,7 @@
                     </div></td>\
                 <td>\
                   <i class="fa fa-2x fa-caret-down" style="position:absolute;right:10px;bottom:2px;color:#000;pointer-events:none;"></i>\
-                  <select class="form-control input-sm" id="status" name="status" data-id="'+data[$i].id+'"style="padding-top:0px;padding-left:5px;line-height:20pt;" >\
+                  <select class="form-control input-sm" id="status'+data[$i].id+'" name="status'+data[$i].id+'" data-id="'+data[$i].id+'"style="padding-top:0px;padding-left:5px;line-height:20pt;" >\
                      <?php $status = Status::all();?>\
                      <option  selected value="'+data[$i].status+'">'+data[$i].status+'</option>\
                     @foreach($status as $stat)\
@@ -168,6 +196,31 @@
               'formatDate': 'Y-m-d H:i:s'
 
                 });
+               $(document).on("change","#status"+data[$i].status,function() {
+                      var status = confirm("Are you sure, you want to update reservation status?");
+                      if(status == true)
+                      {
+                        $status = $('#status'+{{$transaction['id']}}).val();
+                        $id = $(this).data("id");
+                        $_token   = "{{ csrf_token() }}";
+                        $.post('{{URL::Route('updateTransactionStatus')}}',{ id: $id , _token : $_token,status:$status} , function(data){
+
+                                console.log(data);
+                                if(data == 0)
+                                {
+                                   alert('success to update transaction status.')
+                                }
+                                else
+                                {
+                                  alert('failed to update transaction status.')
+                                }
+                        });
+                      }
+                      else
+                      {
+                        
+                      }
+                    });
 
               $(document).on("change","#date"+data[$i].status,function() {
                      
@@ -221,30 +274,6 @@
     
   });
 
-  $(document).on("change","#status",function() {
-    var status = confirm("Are you sure, you want to update reservation status?");
-    if(status == true)
-    {
-      $status = $('#status').val();
-      $id = $(this).data("id");
-      $_token   = "{{ csrf_token() }}";
-      $.post('{{URL::Route('updateTransactionStatus')}}',{ id: $id , _token : $_token,status:$status} , function(data){
-
-              console.log(data);
-              if(data == 0)
-              {
-                 alert('success to update transaction status.')
-              }
-              else
-              {
-                alert('failed to update transaction status.')
-              }
-      });
-    }
-    else
-    {
-      
-    }
-  });
+ 
 </script>
 @stop
