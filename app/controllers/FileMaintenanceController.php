@@ -201,6 +201,22 @@ class FileMaintenanceController extends BaseController {
 				    $message->to($userInfo['email'],'Kalugdan Garden Resort')->subject('Kalugdan Garden Resort Confirmation Email');
 	 			});
 			}
+			if($status == "Void")
+			{
+					$userInfo = UserInfo::where('user_id','=',$getTransaction['user_id'])->first();
+				$emailcontent = array (
+					'fname' => $userInfo['firstname'],
+					'lname' => $userInfo['lastname'],
+				    'link' => URL::route('getReservation_step2', Input::get('id'))
+			    );
+				Mail::send('emails.confirmation.void', $emailcontent, function($message)
+				{ 
+					$id = Input::get('id');
+					$getTransaction = CottageReservation::find($id);
+					$userInfo = UserInfo::where('user_id','=',$getTransaction['user_id'])->first();
+				    $message->to($userInfo['email'],'Kalugdan Garden Resort')->subject('Kalugdan Garden Resort Confirmation Email');
+	 			});
+			}
 			return 0;
 		}
 		
