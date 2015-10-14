@@ -130,7 +130,7 @@
 				<input type="text" placeholder="Address" name="address" id="address"/>
 				<input type="text" placeholder="Enter Contact" class="email" name="contact" id="contact" maxlength="11"/>
 				<input type="text" placeholder="Enter Email" class="text" name="email" id="email"/>
-				<input type="text" placeholder="Username" name="uname" id="uname"/>
+				<!--<input type="text" placeholder="Username" name="uname" id="uname"/>-->
 				<input type="password" placeholder="Password" name="pass" id="pass" maxlength="20"/>
 				<input type="password" placeholder="Re-type Password" name="pass1" id="pass1" maxlength="20"/>
 				<input type="submit" name="subreg" value="SignUp" onclick="createUser();" />

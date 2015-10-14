@@ -33,6 +33,11 @@
     });
     });
     </script>
+    <style>
+      a {
+        color: #FF0000;
+     }
+    </style>
 @stop
 @section('content')
 <?php 
@@ -92,11 +97,11 @@
                     </div>
                      <div class="form-group">
                       <label class="control-label">No. of Kids</label>
-                      <input type="text" class="form-control input-sm" id="kid" name="kid"placeholder="" onkeypress="return isNumber(event)">
+                      <input type="text"  maxlength="2"class="form-control input-sm" id="kid" name="kid"placeholder="" onkeypress="return isNumber(event)">
                     </div>
                     <div class="form-group">
                       <label class="control-label">No. of Adults</label>
-                      <input type="text" class="form-control input-sm" id="adult" name="adult"placeholder=" " onkeypress="return isNumber(event)">
+                      <input type="text"  maxlength="2"class="form-control input-sm" id="adult" name="adult"placeholder=" " onkeypress="return isNumber(event)">
                     </div>
                   </div>
                   <div id="forRoom">
@@ -158,7 +163,7 @@
                   No display
                 </ul>
                 <!--new -->
-                <input type="hidden" class="form-control" id="checkCottage" name="checkCottage" placeholder="">
+                <input type="text" class="form-control" id="checkCottage" name="checkCottage" placeholder="">
               </div>
 
                 
@@ -291,6 +296,7 @@
     {
       //room
       event.preventDefault();
+      $('#list').find('input[type=checkbox]:checked').removeAttr('checked');
       $('#time').val()
       $('#room').val()
       $('#roomPackage').val()
@@ -395,7 +401,8 @@ $(document).on("click","#rType",function() {
   $_token = "{{ csrf_token() }}";
   if($rtype_id == "2")
   {
-
+    $('#list').find('input[type=checkbox]:checked').removeAttr('checked');
+    $('#checkCottage').val('');
     $('#forTime').show();
     $('#time').val('');
     $("#add").prop('checked', false);

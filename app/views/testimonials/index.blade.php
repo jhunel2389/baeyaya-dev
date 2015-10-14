@@ -61,7 +61,7 @@
                 Testimonials
             </div>
             <div class="friendrequest_list">
-                <?php $testimonials = Testimonials::all();?>
+                <?php $testimonials = Testimonials::orderBy('id', 'DESC')->get();?>
                 @if(count($testimonials) != 0)
                     @foreach($testimonials as $testimonial)
                     <?php $userInfo = UserInfo::where('user_id','=',$testimonial['user_id'])->first();?>
