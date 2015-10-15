@@ -163,7 +163,7 @@
                   No display
                 </ul>
                 <!--new -->
-                <input type="text" class="form-control" id="checkCottage" name="checkCottage" placeholder="">
+                <input type="hidden" class="form-control" id="checkCottage" name="checkCottage" placeholder="">
               </div>
 
                 
