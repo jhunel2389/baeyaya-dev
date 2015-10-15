@@ -127,9 +127,9 @@
 				<input type="text" placeholder="First Name" name="fname" id="fname"/>
 				<input type="text" placeholder="Middle Name" name="mname" id="mname" />
 				<input type="text" placeholder="Last Name" name="lname" id="lname" />
-				<input type="text" placeholder="Address" name="address" id="address"/>
-				<input type="text" placeholder="Enter Contact" class="email" name="contact" id="contact" maxlength="11"/>
-				<input type="text" placeholder="Enter Email" class="text" name="email" id="email"/>
+				<input type="text" placeholder="Enter Contact" name="contact" id="contact" maxlength="11"/>
+				<input type="text" placeholder="Address" class="email" name="address" id="address"/>
+				<input type="text" placeholder="Enter Email" class="email" name="email" id="email"/>
 				<!--<input type="text" placeholder="Username" name="uname" id="uname"/>-->
 				<input type="password" placeholder="Password" name="pass" id="pass" maxlength="20"/>
 				<input type="password" placeholder="Re-type Password" name="pass1" id="pass1" maxlength="20"/>
@@ -229,7 +229,7 @@
 		$address = $('#address').val();
 		$contact = $('#contact').val();
 		$email = $('#email').val();
-		$uname = $('#uname').val();
+		$uname = null;//$('#uname').val();
 		$pass = $('#pass').val();
 		$pass1 = $('#pass1').val();
 		$checkValdation = false;
@@ -260,10 +260,10 @@
 		{
 			$checkValdation = true;
 		}
-		if($uname.length == 0)
+		/*if($uname.length == 0)
 		{
 			$checkValdation = true;
-		}
+		}*/
 		if($pass.length == 0)
 		{
 			$checkValdation = true;
