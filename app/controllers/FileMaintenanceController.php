@@ -243,17 +243,6 @@ class FileMaintenanceController extends BaseController {
 			$roomname = Room::where('rnid','=',$transaction['room_id'])->first();
 			$userInfo = UserInfo::where('user_id','=',$transaction['user_id'])->first();
             $reservation_type= ReservationType::find($transaction['reservation_type'])->first();
-            //cottage list
-            $cottagelists = explode(",", $transaction['cottagelist_id']);
-            foreach($cottagelists as $list)
-            {
-            	$cottagename = CottageList::where('cottagelist_id','=',$list)->first();
-            	$id = array();
-            	if(!in_array($list, $id))
-				{
-					$id[count($id)] = $cottagename['cottagename'];
-				}
-            }
             if($transaction['reservation_type'] == "1")
             {
             	if($transaction['day_type'] == 1)
@@ -269,7 +258,31 @@ class FileMaintenanceController extends BaseController {
             {
             	$time = date("g:i a", strtotime($transaction['check_in_datetime']));
             }
-                   
+            
+            //cottage list
+            /*
+            $cottagelists = explode(",", $transaction['cottagelist_id']);
+            foreach($cottagelists as $list)
+            {
+            	$cottagename = CottageList::where('cottagelist_id','=',$list)->first();
+            	
+            	
+            	
+            	if(!in_array($cottagename['cottagename'], $cottagelists))
+				{
+					$a[count($cottagelists)] = $cottagename['cottagename'];
+				}
+            }*/
+            $all = CottageList::all();
+
+            foreach ($all as $cottagename) {
+            	$cottagelists = explode(",", $transaction['cottagelist_id']);
+            	if(in_array($cottagename['cottagelist_id'], $cottagelists))
+				{
+					$abbb[count($cottagelists)] = $cottagename['cottagename'];
+				}
+            }
+
             $response[] = array(
 	            	"id"			=> $transaction['id'],
 	            	"fname"			=> $userInfo['firstname'],
@@ -278,7 +291,7 @@ class FileMaintenanceController extends BaseController {
 	            	"rdate"			=> $transaction['reservation_date'],
 	            	"status" 		=> $transaction['status'],
 	            	"room_name"		=> (!empty($roomname)) ? $roomname['roomname'] : "",
-	            	"cottage_name" 	=> $id,
+	            	"cottage_name" 	=> $abbb,
 	            	"ttime" 		=> $time,
             	);
 
