@@ -129,36 +129,36 @@
             <td>Adults</td>
             <td><a href="#">above 4 ft</a></td>
             <td class="text-right">{{$reservation['num_adult']}}</td>
-             <td class="text-right">150.00 - 170.00</td>
-              <td class="text-right">PHP {{$adultprice}}.00</td>
+             <td class="text-right">₱150.00 - ₱170.00</td>
+              <td class="text-right">₱{{$adultprice}}.00</td>
           </tr>
           <tr>
             <td>Kids</td>
             <td><a href="#">below 4 ft</a></td>
             <td class="text-right">{{$reservation['num_kid']}}</td>
-             <td class="text-right">120.00 - 140.00</td>
-              <td class="text-right">PHP {{$kidprice}}.00</td>
+             <td class="text-right">₱120.00 - ₱140.00</td>
+              <td class="text-right">₱{{$kidprice}}.00</td>
           </tr>
           <tr>
             <td>Cottages</td>
             <td><a href="#">-</a></td>
             <td class="text-right">{{$getcountcheck}}</td>
-             <td class="text-right">600.00-4,800.00</td>
-              <td class="text-right">PHP {{$cottageprice}}.00</td>
+             <td class="text-right">₱600.00 - ₱4,800.00</td>
+              <td class="text-right">₱{{$cottageprice}}.00</td>
           </tr>
            <tr>
             <td>Rooms</td>
             <td><a href="#">-</a></td>
             <td class="text-right">{{$countRoom}}</td>
-             <td class="text-right">1,800.00 - 4,800</td>
-              <td class="text-right">PHP {{$room['Price']}}.00</td>
+             <td class="text-right">₱1,800.00 - ₱4,800</td>
+              <td class="text-right">₱{{$room['Price']}}.00</td>
           </tr>
            <tr>
             <td>Additional</td>
             <td><a href="#">-</a></td>
             <td class="text-right">-</td>
              <td class="text-right">-</td>
-              <td class="text-right">PHP {{$addtotal}}.00</td>
+              <td class="text-right">₱{{$addtotal}}.00</td>
           </tr>
         </tbody>
       </table>
@@ -174,8 +174,8 @@
   </div>
   <div class="col-xs-2">
     <strong>
-      PHP {{$reservation['total_amount']}}.00<br>
-      PHP {{$reservation['total_amount']}}.00 <br>
+      ₱{{$reservation['total_amount']}}.00<br>
+      ₱{{$reservation['total_amount']}}.00 <br>
     </strong>
   </div>
 </div>
