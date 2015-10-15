@@ -52,6 +52,8 @@
               <th>#</th>
               <th>Firstname</th>
               <th>Lastname</th>
+              <th>Room</th>
+              <th>Cottage</th>
               <th>Reservation Type</th>
               <th>Date</th>
               <th>status</th>
@@ -75,6 +77,18 @@
                 <td>{{$transaction['id']}}</td>
                 <td>{{$userInfo['firstname']}}</td>
                 <td>{{$userInfo['lastname']}}</td>
+                <td><?php $roomname = Room::where('rnid','=',$transaction['room_id'])->first();?>
+                  {{$roomname['roomname']}}
+                </td>
+                <td>
+                  <?php $cottagelists = explode(",", $transaction['cottagelist_id']);?>
+                  @foreach($cottagelists as $list)
+                  <?php $cottagename = CottageList::where('cottagelist_id','=',$list)->first();?>
+                  @if($cottagename['cottagename'] !="")
+                    {{$cottagename['cottagename']}}<br>
+                  @endif
+                  @endforeach
+                </td>
                 <td>{{$reservation_type['name']}}</td>
                 <td><div class="form-group">
                       <input type="text" class="form-control input-sm" data-type="{{$transaction['reservation_type']}}"data-id="{{$transaction['id']}}"value="{{$transaction['reservation_date']}}"id="date{{$transaction['id']}}"name="date" style="font-size:9pt;" placeholder="{{$transaction['reservation_date']}}">
@@ -176,6 +190,8 @@
                 <td>'+data[$i].id+'</td>\
                 <td>'+data[$i].fname+'</td>\
                 <td>'+data[$i].lname+'</td>\
+                <td>'+data[$i].room_name+'</td>\
+                <td>'+data[$i].cottage_name+'</td>\
                 <td>'+data[$i].rtpe+'</td>\
                 <td><div class="form-group">\
                       <input type="text" class="form-control input-sm" data-type="'+data[$i].rtpe+'"data-id="'+data[$i].id+'"value="'+data[$i].rdate+'"id="date'+data[$i].id+'"name="date" style="font-size:9pt;" placeholder="">\

@@ -239,18 +239,32 @@ class FileMaintenanceController extends BaseController {
 		{
 			$transactions = CottageReservation::where('status','=',$sType)->get();
 		}
-		
 		foreach ($transactions as $transaction) {
+			$roomname = Room::where('rnid','=',$transaction['room_id'])->first();
 			$userInfo = UserInfo::where('user_id','=',$transaction['user_id'])->first();
             $reservation_type= ReservationType::find($transaction['reservation_type'])->first();
+            //cottage list
+            $cottagelists = explode(",", $transaction['cottagelist_id']);
+            foreach($cottagelists as $list)
+            {
+            	$cottagename = CottageList::where('cottagelist_id','=',$list)->first();
+            	$id = array();
+            	if(!in_array($list, $id))
+				{
+					$id[count($id)] = $cottagename['cottagename'];
+				}
+            }
             $response[] = array(
-	            	"id"		=> $transaction['id'],
-	            	"fname"		=> $userInfo['firstname'],
-	            	"lname"		=> $userInfo['lastname'],
-	            	"rtpe" 		=> $reservation_type['name'],
-	            	"rdate"		=> $transaction['reservation_date'],
-	            	"status" 	=> $transaction['status'],
+	            	"id"			=> $transaction['id'],
+	            	"fname"			=> $userInfo['firstname'],
+	            	"lname"			=> $userInfo['lastname'],
+	            	"rtpe" 			=> $reservation_type['name'],
+	            	"rdate"			=> $transaction['reservation_date'],
+	            	"status" 		=> $transaction['status'],
+	            	"room_name"		=> (!empty($roomname)) ? $roomname['roomname'] : "",
+	            	"cottage_name" 	=> $id,
             	);
+
 		}
 		return $response;
 	}
