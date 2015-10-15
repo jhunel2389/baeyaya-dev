@@ -254,6 +254,22 @@ class FileMaintenanceController extends BaseController {
 					$id[count($id)] = $cottagename['cottagename'];
 				}
             }
+            if($transaction['reservation_type'] == "1")
+            {
+            	if($transaction['day_type'] == 1)
+            	{
+            	 	$time = "Morning";
+            	}  
+                else
+                {
+                	$time = "Overnight";
+                }
+            }
+            else
+            {
+            	$time = date("g:i a", strtotime($transaction['check_in_datetime']));
+            }
+                   
             $response[] = array(
 	            	"id"			=> $transaction['id'],
 	            	"fname"			=> $userInfo['firstname'],
@@ -263,6 +279,7 @@ class FileMaintenanceController extends BaseController {
 	            	"status" 		=> $transaction['status'],
 	            	"room_name"		=> (!empty($roomname)) ? $roomname['roomname'] : "",
 	            	"cottage_name" 	=> $id,
+	            	"ttime" 		=> $time,
             	);
 
 		}

@@ -52,6 +52,7 @@
               <th>#</th>
               <th>Firstname</th>
               <th>Lastname</th>
+              <th>CheckIn</th>
               <th>Room</th>
               <th>Cottage</th>
               <th>Reservation Type</th>
@@ -77,6 +78,18 @@
                 <td>{{$transaction['id']}}</td>
                 <td>{{$userInfo['firstname']}}</td>
                 <td>{{$userInfo['lastname']}}</td>
+                <th>
+                  @if($transaction['reservation_type'] == "1")
+                    @if($transaction['day_type'] == 1)
+                      {{"Morning"}}
+                    @else
+                    {{"Overnight"}}
+                    @endif
+                  @else
+                  <?php $time = date("g:i a", strtotime($transaction['check_in_datetime']));?>
+                  {{$time}}
+                  @endif
+                </th>
                 <td><?php $roomname = Room::where('rnid','=',$transaction['room_id'])->first();?>
                   {{$roomname['roomname']}}
                 </td>
@@ -190,6 +203,7 @@
                 <td>'+data[$i].id+'</td>\
                 <td>'+data[$i].fname+'</td>\
                 <td>'+data[$i].lname+'</td>\
+                <td>'+data[$i].ttime+'</td>\
                 <td>'+data[$i].room_name+'</td>\
                 <td>'+data[$i].cottage_name+'</td>\
                 <td>'+data[$i].rtpe+'</td>\

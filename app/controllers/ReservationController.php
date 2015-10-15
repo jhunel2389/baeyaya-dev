@@ -257,7 +257,7 @@ class ReservationController extends BaseController {
 		$adult 			= Input::get('adult');
 		$email 			= Input::get('email');
 		$date 			= date('Y-m-d',strtotime(Input::get('date')));
-		$time 			= Input::get('time');
+		$time 			= date('H:i',strtotime(Input::get('time')));
 		$chosenDay		= Input::get('chosenDay');
 		$package		= Input::get('roomPackage');
 		$room 			= Input::get('room');
