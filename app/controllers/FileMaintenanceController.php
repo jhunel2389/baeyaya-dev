@@ -275,15 +275,16 @@ class FileMaintenanceController extends BaseController {
             }*/
             $all = CottageList::all();
             $cottagelists = explode(",", $transaction['cottagelist_id']);
+            $cottagelists2 = array();
             foreach ($all as $cottagename) {
             	
             	if(in_array($cottagename['cottagelist_id'], $cottagelists))
 				{
-					$cottagelists[count($cottagelists)] = $cottagename['cottagename']."<br>";
+					$cottagelists2[count($cottagelists2)] = $cottagename['cottagename']."<br>";
 					
 				}
             }
-            $a = $cottagelists;
+            $a = $cottagelists2;
             $response[] = array(
 	            	"id"			=> $transaction['id'],
 	            	"fname"			=> $userInfo['firstname'],
