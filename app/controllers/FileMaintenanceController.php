@@ -274,15 +274,16 @@ class FileMaintenanceController extends BaseController {
 				}
             }*/
             $all = CottageList::all();
-
+            $cottagelists = explode(",", $transaction['cottagelist_id']);
             foreach ($all as $cottagename) {
-            	$cottagelists = explode(",", $transaction['cottagelist_id']);
+            	
             	if(in_array($cottagename['cottagelist_id'], $cottagelists))
 				{
-					$abbb[count($cottagelists)] = $cottagename['cottagename'];
+					$cottagelists[count($cottagelists)] = $cottagename['cottagename']."<br>";
+					
 				}
             }
-
+            $a = $cottagelists;
             $response[] = array(
 	            	"id"			=> $transaction['id'],
 	            	"fname"			=> $userInfo['firstname'],
@@ -291,7 +292,7 @@ class FileMaintenanceController extends BaseController {
 	            	"rdate"			=> $transaction['reservation_date'],
 	            	"status" 		=> $transaction['status'],
 	            	"room_name"		=> (!empty($roomname)) ? $roomname['roomname'] : "",
-	            	"cottage_name" 	=> $abbb,
+	            	"cottage_name" 	=> $a,
 	            	"ttime" 		=> $time,
             	);
 
