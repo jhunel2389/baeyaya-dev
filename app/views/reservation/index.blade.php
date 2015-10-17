@@ -95,14 +95,19 @@
                       <label class="control-label">Email</label>
                       <input type="email" class="form-control input-sm" id="email" name="email"placeholder="" value="{{$userInfo['email']}}" >
                     </div>
-                     <div class="form-group">
+                    <div class="row">
+                     <div class="col-md-4 form-group">
                       <label class="control-label">No. of Kids</label>
-                      <input type="text"  maxlength="2"class="form-control input-sm" id="kid" name="kid"placeholder="" onkeypress="return isNumber(event)">
+                      <input  type="text"  maxlength="2"class="form-control input-sm" id="kid" name="kid"placeholder="" onkeypress="return isNumber(event)">
                     </div>
-                    <div class="form-group">
+                    </div>
+                     <div class="row">
+                    <div class="col-md-4 form-group">
                       <label class="control-label">No. of Adults</label>
                       <input type="text"  maxlength="2"class="form-control input-sm" id="adult" name="adult"placeholder=" " onkeypress="return isNumber(event)">
                     </div>
+                  </div>
+
                   </div>
                   <div id="forRoom">
                      <div id="pT"class="form-group" style="position:relative;">

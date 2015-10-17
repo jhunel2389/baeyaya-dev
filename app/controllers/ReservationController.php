@@ -137,10 +137,10 @@ class ReservationController extends BaseController {
 			}
 		}
 		return $response = array(			
-				"cottageprice" => $cottageprice = $getcountcheck * $price,
-				"kidprice" =>$kidprice = $kid * (int)$priceKid['price'],
-				"adultprice" =>$adultprice = $adult * (int)$priceAdult['price'],
-				"total"=> $total = $cottageprice + $kidprice +$adultprice,
+				"cottageprice" => "₱".$cottageprice = $getcountcheck * $price.".00",
+				"kidprice" =>"₱".$kidprice = $kid * (int)$priceKid['price'].".00",
+				"adultprice" =>"₱".$adultprice = $adult * (int)$priceAdult['price'].".00",
+				"total"=> "₱".$total = $cottageprice + $kidprice +$adultprice.".00",
 				);
 	}
 
@@ -191,13 +191,13 @@ class ReservationController extends BaseController {
 			{
 				$details = "Regular Season";
 				$season = 1;
-			}
+			}/*
 			$response[] = array(
 			"cottage_list"=>'',
 			"name"	=>'',
 			"details"=>$details,
 			"season"	=>$season,
-			);
+			);*/
 			$cottagelists = CottageList::where('cottage_id','=',$cottageType)->get();
 			foreach ($cottagelists as $list) {
 
