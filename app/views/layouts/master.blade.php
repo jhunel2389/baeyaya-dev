@@ -300,7 +300,7 @@
 				{
 					if(data == 1)
 					{
-						alert("You regestered successfully. Please check your email and verify your account. Thank you.");
+						alert("You registered successfully. Please check your email and verify your account. Thank you.");
 						window.location="{{URL::route('home')}}";
 					}
 					if(data == 2)

@@ -16,10 +16,10 @@
 			}
 
 			$unameChecker = User::where('username','=',Input::get('uname'))->first();
-			if(!empty($unameChecker))
-			{
-				return 4;
-			}
+			//if(!empty($unameChecker))
+			//{
+				//return 4;
+			//}
 			$user = new User();
 			$user -> email = Input::get('email');
 			$user -> username = Input::get('uname');
